@@ -1,6 +1,6 @@
 package fr.umlv.options;
 
-public class Option {blablabla
+public class Option {
 		
 	
 	
