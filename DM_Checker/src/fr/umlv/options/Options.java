@@ -1,5 +1,7 @@
 package fr.umlv.options;
 
+import java.util.Iterator;
+
 import com.martiansoftware.jsap.JSAP;
 import com.martiansoftware.jsap.JSAPException;
 import com.martiansoftware.jsap.QualifiedSwitch;
@@ -52,6 +54,44 @@ public class Options {
 		jsap.registerParameter(optX);
 		jsap.registerParameter(optI);
 	}
+	/**
+	 * 
+	 * Check the param in a table of String (the argv table of the main)
+	 * 
+	 * @param args
+	 */
+	public static void checkOptions(String[] args){
+		config = jsap.parse(args);
+		if (!config.success()) {
+            
+            System.err.println();
+            //TODO check les erreurs
+            // print out specific error messages describing the problems
+            // with the command line, THEN print usage, THEN print full
+            // help.  This is called "beating the user with a clue stick."
+            for (Iterator errs = config.getErrorMessageIterator();
+                    errs.hasNext();) {
+                System.err.println("Error: " + errs.next());
+            }
+            
+            System.err.println();
+            System.err.println("Usage: java "+ Options.class.getName());
+            System.err.println(" "+ jsap.getUsage());
+            System.err.println();
+            System.err.println(jsap.getHelp());
+            System.exit(1);
+		}	
+		
+		
+		/**
+		 * give the config of the options to test.
+		 */
+		
+		//TODO Heu static c'est de la merde en fait ?
+		public static JSAPResult getConfig(){
+			return this.config;
+		}
+	}
 	
-	private static 
+	
 }
