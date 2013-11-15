@@ -88,9 +88,9 @@ public class Options {
 		 */
 		
 		//TODO Heu static c'est de la merde en fait ?
-		public static JSAPResult getConfig(){
+		/*public static JSAPResult getConfig(){
 			return this.config;
-		}
+		}*/
 	}
 	
 	
