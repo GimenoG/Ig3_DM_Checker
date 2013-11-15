@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.zip.ZipFile;
-
-import fr.umlv.zip.ReadingArchive;
 import fr.umlv.zip.ok;
 
 public class Main {

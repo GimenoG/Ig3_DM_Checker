@@ -3,6 +3,7 @@ package fr.umlv.options;
 import com.martiansoftware.jsap.JSAP;
 import com.martiansoftware.jsap.JSAPException;
 import com.martiansoftware.jsap.QualifiedSwitch;
+import com.martiansoftware.jsap.JSAPResult;
 
 /**
  * This class is able to manage the option which are antry by the user.
@@ -15,6 +16,7 @@ import com.martiansoftware.jsap.QualifiedSwitch;
 
 public class Options {
 	private static JSAP jsap;
+	private static JSAPResult config; 
 	
 	private Options(){}
 	
@@ -50,4 +52,6 @@ public class Options {
 		jsap.registerParameter(optX);
 		jsap.registerParameter(optI);
 	}
+	
+	private static 
 }
