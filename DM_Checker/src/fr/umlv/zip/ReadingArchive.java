@@ -112,7 +112,7 @@ public class ReadingArchive {
 	 * @return true or false
 	 * @throws IOException
 	 */
-	public static boolean checkFile(String file, String existe)
+	public boolean checkFile(String file, String existe)
 			throws IOException {
 		try {
 
