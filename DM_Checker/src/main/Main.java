@@ -16,6 +16,7 @@ public class Main {
 		// /Users/Gui/Documents/Lambda/loginnam12.zip
 		// /Users/Gui/Documents/Lambda/Archive2.zip
 		//ReadingArchive.unzip("/Users/Gui/Documents/Lambda/Archive.zip");
-		System.out.println(ReadingArchive.checkFile("/Users/Gui/Documents/Lambda/Archive.zip","logisdsdfnnam12"));
+		//System.out.println(ReadingArchive.checkFile("/Users/Gui/Documents/Lambda/Archive.zip","logisdsdfnnam12"));
+		System.out.println(ReadingArchive.isValid("/Users/Gui/Documents/Lambda/Archiqsdqdve.zip"));;
 	}
 }

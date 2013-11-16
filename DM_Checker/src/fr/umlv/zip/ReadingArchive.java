@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Enumeration;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 
 import fr.umlv.util.Log;
@@ -141,4 +142,18 @@ public class ReadingArchive {
 		}
 		return false;
 	}
+	
+	
+	public static boolean isValid(final String file) {
+        try(ZipFile zipFile = new ZipFile(file)) {
+            if (zipFile != null) {
+                zipFile.close();
+                return true;
+            } else return false;
+        }   catch (ZipException e) {
+            return false;
+        }   catch (IOException e) {
+            return false;
+        } 
+    }
 }
