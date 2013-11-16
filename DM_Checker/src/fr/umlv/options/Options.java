@@ -2,6 +2,7 @@ package fr.umlv.options;
 
 import java.util.Iterator;
 
+import com.martiansoftware.jsap.FlaggedOption;
 import com.martiansoftware.jsap.JSAP;
 import com.martiansoftware.jsap.JSAPException;
 import com.martiansoftware.jsap.QualifiedSwitch;
@@ -35,6 +36,9 @@ public class Options {
 	public static void createOptions() throws JSAPException{
 		jsap = new JSAP();
 		
+		FlaggedOption opt1 = (FlaggedOption) new FlaggedOption("count").setStringParser(JSAP.INTEGER_PARSER).setDefault("-1").setRequired(true).setLongFlag(JSAP.NO_LONGFLAG).setShortFlag(JSAP.NO_SHORTFLAG).setHelp("Check only one archive.");
+		FlaggedOption opt2 = (FlaggedOption) new FlaggedOption("count").setStringParser(JSAP.INTEGER_PARSER).setDefault("-2").setRequired(true).setLongFlag(JSAP.NO_LONGFLAG).setShortFlag(JSAP.NO_SHORTFLAG).setHelp("Check archives of archive");
+		
 		QualifiedSwitch optD = (QualifiedSwitch) (new QualifiedSwitch("optD").setShortFlag('d').setLongFlag("destination").setList(true).setListSeparator(',').setHelp("Specifies the destination directory : -d <destination folder> or --destination <destination folder>."));
 		//TODO qualifiedSwith ou autre ?
 		QualifiedSwitch optV = (QualifiedSwitch) (new QualifiedSwitch("optV").setShortFlag('v').setLongFlag("verbose").setList(true).setListSeparator(',').setHelp("Print more information about errors on syserr."));
@@ -53,6 +57,8 @@ public class Options {
 		jsap.registerParameter(optB);
 		jsap.registerParameter(optX);
 		jsap.registerParameter(optI);
+		jsap.registerParameter(opt1);
+		jsap.registerParameter(opt2);
 	}
 	/**
 	 * 
@@ -82,16 +88,16 @@ public class Options {
             System.exit(1);
 		}	
 		
-		
+	}	
 		/**
 		 * give the config of the options to test.
 		 */
 		
-		//TODO Heu static c'est de la merde en fait ?
-		/*public static JSAPResult getConfig(){
-			return this.config;
-		}*/
-	}
+	//TODO Heu static c'est de la merde en fait ?
+	/*public static JSAPResult getConfig(){
+		return this.config;
+	}*/
+	
 	
 	
 }
