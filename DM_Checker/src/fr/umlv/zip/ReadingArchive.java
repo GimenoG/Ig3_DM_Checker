@@ -1,6 +1,5 @@
 package fr.umlv.zip;
 
-
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -10,7 +9,13 @@ import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import fr.umlv.util.Log;
+
 public class ReadingArchive {
+	private static String bla;
+	private static Log log = new Log();
+	
+	
 	public static void unzip(String file) {
 
 		try {
@@ -21,11 +26,13 @@ public class ReadingArchive {
 			 * directory where we can extract all the zip entries
 			 */
 			File fSourceZip = new File(file);
-			String zipPath = file.substring(0, file.length() - 4);
-			File temp = new File(zipPath);
-			temp.mkdir();
-			System.out.println(zipPath + " created");
 
+			String zipPath = file.substring(0, file.length() - 4);
+			System.out.println(zipPath);
+			File temp = new File(zipPath);
+			System.out.println(temp);
+			temp.mkdir(); // Creer un dossier avec le nom de l'archive
+			System.out.println(zipPath + " created");
 			/*
 			 * STEP 2 : Extract entries while creating required sub-directories
 			 */
@@ -34,11 +41,12 @@ public class ReadingArchive {
 
 			while (e.hasMoreElements()) {
 				ZipEntry entry = (ZipEntry) e.nextElement();
+				bla = entry.getName();
+
 				File destinationFilePath = new File(zipPath, entry.getName());
 
 				// create directories if required.
 				destinationFilePath.getParentFile().mkdirs();
-
 				// if the entry is directory, leave it. Otherwise extract it.
 				if (entry.isDirectory()) {
 					continue;
@@ -84,8 +92,53 @@ public class ReadingArchive {
 			}
 
 		} catch (IOException ioe) {
+			System.out.println("nom du fichier" + bla);
+
 			System.out.println("IOError :" + ioe);
 		}
 	}
 
+	/*
+	 * méthode pour l'option -x|--existe L'algo :
+	 */
+	public static boolean checkFile(String file, String existe)
+			throws IOException {
+		try {
+
+			File fSourceZip = new File(file);
+
+			String zipPath = file.substring(0, file.length() - 4);
+
+			ZipFile zipFile = new ZipFile(fSourceZip);
+			Enumeration e = zipFile.entries();
+
+			while (e.hasMoreElements()) {
+				ZipEntry entry = (ZipEntry) e.nextElement();
+
+				File destinationFilePath = new File(zipPath, entry.getName());
+
+				if (entry.isDirectory()) {
+					if (entry.getName()
+							.substring(0, entry.getName().length() - 1)
+							.equals(existe))
+						return true;
+					log.writeText("/Users/Gui/Documents/Lambda/Log.txt", "Nom du repertoire " + entry.getName() +"\n");
+					continue;
+				} else {
+					if (entry.getName()
+							.substring(0, entry.getName().length() - 4)
+							.equals(existe))
+						return true;
+					log.writeText("/Users/Gui/Documents/Lambda/Log.txt", "Nom du fichier " + entry.getName() + "\n");
+				}
+				if (entry.getName().endsWith(".zip")) {
+					checkFile(destinationFilePath.getAbsolutePath(), existe);
+				}
+			}
+
+		} catch (IOException ioe) {
+			log.writeText("/Users/Gui/Documents/Lambda/Log.txt", "IOError :" + ioe);
+		}
+		return false;
+	}
 }
