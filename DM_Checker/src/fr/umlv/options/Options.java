@@ -1,5 +1,7 @@
 package fr.umlv.options;
 
+import java.awt.geom.Path2D;
+import java.nio.file.Paths;
 import java.util.Iterator;
 
 import com.martiansoftware.jsap.FlaggedOption;
@@ -7,6 +9,8 @@ import com.martiansoftware.jsap.JSAP;
 import com.martiansoftware.jsap.JSAPException;
 import com.martiansoftware.jsap.QualifiedSwitch;
 import com.martiansoftware.jsap.JSAPResult;
+
+import fr.umlv.zip.ReadingArchive;
 
 /**
  * This class is able to manage the option which are antry by the user.
@@ -71,7 +75,7 @@ public class Options {
 		if (!config.success()) {
             
             System.err.println();
-            //TODO check les erreurs
+            //TODO check les erreurs dans un logger pour le mode verbose ?
             // print out specific error messages describing the problems
             // with the command line, THEN print usage, THEN print full
             // help.  This is called "beating the user with a clue stick."
@@ -88,7 +92,12 @@ public class Options {
             System.exit(1);
 		}	
 		
-	}	
+	}
+	
+	public static void Launch(Paths path){
+		
+		ReadingArchive ra = new ReadingArchive();
+	}
 		/**
 		 * give the config of the options to test.
 		 */
