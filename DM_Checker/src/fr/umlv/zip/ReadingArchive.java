@@ -15,6 +15,9 @@ import fr.umlv.util.Log;
 public class ReadingArchive {
 	private static Log log = new Log();
 	private static String path;
+	private boolean verbose = false;
+	private String idName;
+	private String idKey;
 
 	/**
 	 * Constructor
@@ -23,6 +26,23 @@ public class ReadingArchive {
 	 */
 	public ReadingArchive(String path) {
 		this.path = path;
+	}
+
+	/**
+	 * If you want activate the verbose mode
+	 * 
+	 * @param boolean
+	 */
+	public void setVerbose(boolean b) {
+		this.verbose = b;
+	}
+
+	public void setIdName(String id) {
+		this.idName = id;
+	}
+
+	public void setIdKey(String id) {
+		this.idKey = id;
 	}
 
 	/**
@@ -55,9 +75,17 @@ public class ReadingArchive {
 		try {
 			File fSourceZip = new File(file);
 			String zipPath = file.substring(0, file.length() - 4);
-			File temp = new File(zipPath);
+			
+			if(idName!=null){
+				File temp = new File(idName);
+			}
+			File temp = new File(idKey);
+			
+			//File temp = new File(zipPath);
+			
 			temp.mkdir();
-			System.out.println(zipPath + " created");
+			if (verbose)
+				System.err.println(zipPath + " created");
 
 			ZipFile zipFile = new ZipFile(fSourceZip);
 			Enumeration e = zipFile.entries();
@@ -71,7 +99,8 @@ public class ReadingArchive {
 				if (entry.isDirectory()) {
 					continue;
 				} else {
-					System.out.println("Extracting " + destinationFilePath);
+					if (verbose)
+						System.err.println("Extracting " + destinationFilePath);
 
 					BufferedInputStream bis = new BufferedInputStream(
 							zipFile.getInputStream(entry));
@@ -112,8 +141,7 @@ public class ReadingArchive {
 	 * @return true or false
 	 * @throws IOException
 	 */
-	public boolean checkFile(String file, String existe)
-			throws IOException {
+	public boolean checkFile(String file, String existe) throws IOException {
 		try {
 
 			File fSourceZip = new File(file);
@@ -130,17 +158,20 @@ public class ReadingArchive {
 					if (entry.getName()
 							.substring(0, entry.getName().length() - 1)
 							.equals(existe)) {
-						log.writeText("/Users/Gui/Documents/Lambda/Log.txt",
-								"Nom du repertoire " + entry.getName() + "\n");
+						if (verbose)
+							System.err.println(("Directory name is " + entry
+									.getName()));
 						return true;
 					}
 				} else {
 					if (entry.getName()
 							.substring(0, entry.getName().length() - 4)
-							.equals(existe))
+							.equals(existe)) {
+						if (verbose)
+							System.err.println(("file name is " + entry
+									.getName()));
 						return true;
-					log.writeText("/Users/Gui/Documents/Lambda/Log.txt",
-							"Nom du fichier " + entry.getName() + "\n");
+					}
 				}
 				if (entry.getName().endsWith(".zip")) {
 					checkFile(destinationFilePath.getAbsolutePath(), existe);
@@ -149,8 +180,8 @@ public class ReadingArchive {
 			}
 
 		} catch (IOException ioe) {
-			log.writeText("/Users/Gui/Documents/Lambda/Log.txt", "IOError :"
-					+ ioe);
+			if (verbose)
+				System.err.println(("IOError :" + ioe));
 		}
 		return false;
 	}

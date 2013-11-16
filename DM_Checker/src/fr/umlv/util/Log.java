@@ -19,4 +19,25 @@ public class Log {
 		  }
 		}
 	}
+	
+	
+	public void writeResultTest(String path) throws IOException
+	{
+		String nomdurepertoire = "nomdurepertoire";
+		String nomPrenom = "NOM PRENOMS";
+		String nomTest = "nomcompletdutest";
+		boolean resultTest = true;
+
+		writeText(path, "<dmchecker>");
+		writeText(path, "<soft name=\""+nomdurepertoire+"\" student=\""+nomPrenom+"\">");
+		
+		//UNE BELLE BOUCLE QUI FAIT TOUS LES TESTS
+		writeText(path, "<test name=\""+nomTest+"\" result="+resultTest+">");
+		
+		
+		writeText(path, "</soft>");
+		writeText(path, "</dmchecker>");
+	}
+
+
 }
