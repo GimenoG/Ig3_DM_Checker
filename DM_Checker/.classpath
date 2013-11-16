@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/Users/Gui/git/Ig3_DM_Checker/DM_Checker/JSAP-2.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Users/Gui/git/Ig3_DM_Checker/DM_Checker/JSAP-2.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Meriadoc/git/Ig3_DM_Checker/DM_Checker/JSAP-2.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
