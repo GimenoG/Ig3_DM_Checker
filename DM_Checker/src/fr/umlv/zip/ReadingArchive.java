@@ -117,9 +117,7 @@ public class ReadingArchive {
 		try {
 
 			File fSourceZip = new File(file);
-
 			String zipPath = file.substring(0, file.length() - 4);
-
 			ZipFile zipFile = new ZipFile(fSourceZip);
 			Enumeration e = zipFile.entries();
 
