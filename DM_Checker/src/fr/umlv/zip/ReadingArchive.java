@@ -126,7 +126,9 @@ public class ReadingArchive {
 				destinationFilePath.delete();
 			}
 			zipFile.close();
-		} catch (IOException ioe) {
+		} catch (NullPointerException e) {
+			System.out.println("Error : " + e.toString());
+		}catch (IOException ioe) {
 			System.out.println("IOError :" + ioe);
 		}
 

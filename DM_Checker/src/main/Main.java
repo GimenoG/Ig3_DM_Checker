@@ -16,8 +16,8 @@ public class Main {
 		// /Users/Gui/Documents/Lambda/loginnam12.zip
 		// /Users/Gui/Documents/Lambda/Archive2.zip
 		ReadingArchive ra = new ReadingArchive("/Users/Gui/Documents/Lambda/Arc hive.zip");
-		ra.unzip();
+		//ra.unzip();
 		//System.out.println(ReadingArchive.checkFile("/Users/Gui/Documents/Lambda/Archive.zip","logisdsdfnnam12"));
-		//System.out.println(ra.isValid());
+		System.out.println(ra.isValid());
 	}
 }

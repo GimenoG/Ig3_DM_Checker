@@ -31,6 +31,10 @@ public class Regex {
 	public static void main(String[] args) {
 		String file = "NOM PRENOMS_nomdonneparletudiantasonrendu_00000.zip";
 		System.out.println(idName(file));
-		System.out.println(idKey(file));
+		System.out.println(substitute(idName(file)));
+	}
+	
+	public static String substitute(String s){
+		return s.replaceAll("\\s","_");
 	}
 }
