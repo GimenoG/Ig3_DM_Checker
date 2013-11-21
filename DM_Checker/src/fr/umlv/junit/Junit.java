@@ -14,11 +14,12 @@ public class Junit {
 //	      System.out.println(failure.toString());
 //	    }
 		JUnitCore runner = new JUnitCore();
-		runner.addListener(new TextListener(System.out));
-		Result result = runner.run(ListsTest.class);	
+		runner.addListener(new ExecuteJUnit());
+		Result result = runner.run(ListsTest.class);
 
-		boolean wasSuccessful = result.wasSuccessful();
-		System.out.println("All tests were successful: " + wasSuccessful);}
+		//boolean wasSuccessful = result.wasSuccessful();
+		//System.out.println("All tests were successful: " + wasSuccessful);
+		}
 
 	public static void main(String[] args) {
 		execute();
