@@ -28,11 +28,11 @@ public class Regex {
 		return id[2].substring(0, id[2].length() - 4);
 	}
 	
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		String file = "NOM PRENOMS_nomdonneparletudiantasonrendu_00000.zip";
 		System.out.println(idName(file));
 		System.out.println(substitute(idName(file)));
-	}
+	}*/
 	
 	public static String substitute(String s){
 		return s.replaceAll("\\s","_");

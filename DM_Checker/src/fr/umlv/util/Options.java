@@ -1,13 +1,10 @@
 package fr.umlv.util;
 
-import java.awt.geom.Path2D;
-import java.nio.file.Paths;
 import java.util.Iterator;
 
 import com.martiansoftware.jsap.FlaggedOption;
 import com.martiansoftware.jsap.JSAP;
 import com.martiansoftware.jsap.JSAPException;
-import com.martiansoftware.jsap.QualifiedSwitch;
 import com.martiansoftware.jsap.JSAPResult;
 import com.martiansoftware.jsap.Switch;
 import com.martiansoftware.jsap.UnflaggedOption;

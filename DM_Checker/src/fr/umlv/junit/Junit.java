@@ -19,11 +19,11 @@ public class Junit {
 
 		//boolean wasSuccessful = result.wasSuccessful();
 		//System.out.println("All tests were successful: " + wasSuccessful);
-		}
-
-	public static void main(String[] args) {
-		execute();
 	}
+
+	/*public static void main(String[] args) {
+		execute();
+	}*/
 	 
 
 	 /* public static void main(String[] args) {
