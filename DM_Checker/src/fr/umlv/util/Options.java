@@ -1,4 +1,4 @@
-package fr.umlv.options;
+package fr.umlv.util;
 
 import java.awt.geom.Path2D;
 import java.nio.file.Paths;
