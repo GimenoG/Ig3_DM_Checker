@@ -17,6 +17,7 @@ public class IHM extends JFrame{
 	private JLabel criterionsGraphic;
 	private JLabel titleFonctionComment;
 	private JLabel criterionsFonction;
+	private JLabel othersCriterions;
 	
 	private JButton buttonPrevious;
 	private JButton buttonNext;
@@ -98,6 +99,8 @@ public class IHM extends JFrame{
 		titleFonctionComment.setHorizontalAlignment(JLabel.CENTER);
 		criterionsFonction = new JLabel("Critéres");
 		criterionsFonction.setPreferredSize(new Dimension(585, 60));//TODO extention si plus de critére ?
+		othersCriterions = new JLabel("other");
+		othersCriterions.setPreferredSize(new Dimension(585, 60));
 		
 		//Buttons create zone
 		//TODO mettre une image pour next et previous 
@@ -222,6 +225,9 @@ public class IHM extends JFrame{
 		panel.add(criterionsFonction);
 		//line 11
 		panel.add(fonctionComment);
+		//line 12
+		panel.add(othersCriterions);
+		
 		return panel;
 	}
 	/**
