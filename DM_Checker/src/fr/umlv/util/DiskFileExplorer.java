@@ -47,7 +47,7 @@ public class DiskFileExplorer {
      * Exemple : lister les fichiers dans tous les sous-dossiers
      * @param args
      */
-    public static void main(String[] args) {
+   /* public static void main(String[] args) {
         String pathToExplore = "/Users/Gui/Documents/Lambda/";
         DiskFileExplorer diskFileExplorer = new DiskFileExplorer(pathToExplore, true);
         Long start = System.currentTimeMillis();
@@ -56,5 +56,5 @@ public class DiskFileExplorer {
         System.out.println("Analyse de " + pathToExplore + " en " + (System.currentTimeMillis() - start) + " mses");
         System.out.println(diskFileExplorer.dircount + " dossiers");
         System.out.println(diskFileExplorer.filecount + " fichiers");
-    }
+    }*/
 }
