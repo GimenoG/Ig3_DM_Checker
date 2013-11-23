@@ -16,7 +16,7 @@ public class Lists{
 
 			@Override
 			public Integer get(int index) {
-				if(index >= size()) throw new IndexOutOfBoundsException();
+				//if(index >= size()) throw new IndexOutOfBoundsException();
 				return start + index;
 			}
 

@@ -5,58 +5,63 @@ import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunListener;
 
-public class ExecuteJUnit extends RunListener{
-	
-   /* @Override
-    public void testStarted(Description description) throws Exception {
-       System.out.println(description.getMethodName());
-    }*/
+public class ExecuteJUnit extends RunListener {
+	StringBuilder sb;
+	boolean fail = false;
+	String msgFail = "";
 
 	/**
 	 * Called before any tests have been run.
-	 * */
-	public void testRunStarted(Description description)	throws java.lang.Exception
-	{
-		System.out.println("Number of testcases to execute : " + description.testCount());
+	 */
+	public void testRunStarted(Description description)
+			throws java.lang.Exception {
+		sb = new StringBuilder();
 	}
 
 	/**
-	 *  Called when all tests have finished
+	 * Called when all tests have finished
 	 * */
-	public void testRunFinished(Result result) throws java.lang.Exception
-	{
-		System.out.println("Number of testcases executed : " + result.getRunCount());
+	public void testRunFinished(Result result) throws java.lang.Exception {
+		System.out.println(sb.toString());
 	}
 
 	/**
-	 *  Called when an atomic test is about to be started.
+	 * Called when an atomic test is about to be started.
 	 * */
-	public void testStarted(Description description) throws java.lang.Exception
-	{
-		System.out.println("Starting execution of test case : "+ description.getMethodName());
+	public void testStarted(Description description) throws java.lang.Exception {
+		sb.append("<test name=\"" + description.getMethodName() + "\"");
 	}
 
 	/**
-	 *  Called when an atomic test has finished, whether the test succeeds or fails.
-	 * */
-	public void testFinished(Description description) throws java.lang.Exception
-	{
-		System.out.println("Finished execution of test case : "+ description.getMethodName());
+	 * Called when an atomic test has finished, whether the test succeeds or
+	 * fails.
+	 */
+	public void testFinished(Description description)
+			throws java.lang.Exception {
+		if (!fail)
+			sb.append(" result=True>\n");
+		else {
+			sb.append(" result=False>").append("\n" + msgFail + "\n");
+			fail = false;
+		}
+
 	}
 
 	/**
-	 *  Called when an atomic test fails.
+	 * Called when an atomic test fails.
 	 * */
-	public void testFailure(Failure failure) throws java.lang.Exception
-	{
-		System.out.println("Execution of test case failed : "+ failure.getMessage());
+	public void testFailure(Failure failure) throws java.lang.Exception {
+		fail = true;
+		msgFail = failure.getMessage();
 	}
 
 	/**
-	 *  Called when a test will not be run, generally because a test method is annotated with Ignore.
-	 * */
-	public void testIgnored(Description description) throws java.lang.Exception
-	{
-		System.out.println("Execution of test case ignored : "+ description.getMethodName());
-	}
+	 * Called when a test will not be run, generally because a test method is
+	 * annotated with Ignore.
+	 * 
+	 * public void testIgnored(Description description) throws
+	 * java.lang.Exception {
+	 * System.out.println("Execution of test case ignored : " +
+	 * description.getMethodName()); }
+	 */
 }
