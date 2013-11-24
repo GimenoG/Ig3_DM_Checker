@@ -73,6 +73,10 @@ public class ReadingArchive {
 			while (e.hasMoreElements()) {
 				ZipEntry entry = (ZipEntry) e.nextElement();
 				String entryName = entry.getName();
+				if (verbose)
+					System.out
+							.println("Le système compare entre le fichier contenu dans le zip : "
+									+ entryName + " et le préfixe : " + start);
 				if (entryName.startsWith(start))
 					return false;
 			}
@@ -92,6 +96,10 @@ public class ReadingArchive {
 			while (e.hasMoreElements()) {
 				ZipEntry entry = (ZipEntry) e.nextElement();
 				String entryName = entry.getName();
+				if (verbose)
+					System.out
+							.println("Le système compare entre le fichier contenu dans le zip : "
+									+ entryName + " et le suffixe : " + ends);
 				if (entryName.endsWith(ends))
 					return false;
 			}
@@ -125,10 +133,10 @@ public class ReadingArchive {
 			if (idName != null) {
 				File temp = new File(idName);
 			}
-			//File temp = new File(idKey);
+			// File temp = new File(idKey);
 
 			File temp = new File(zipPath);
-//System.out.println(temp);
+			// System.out.println(temp);
 			temp.mkdir();
 			if (verbose)
 				System.err.println(zipPath + " created");
@@ -172,11 +180,9 @@ public class ReadingArchive {
 				destinationFilePath.delete();
 			}
 			zipFile.close();
-		} 
-		catch (NullPointerException e) {
+		} catch (NullPointerException e) {
 			System.out.println("Error : " + e.toString());
-		} 
-		catch (IOException ioe) {
+		} catch (IOException ioe) {
 			System.out.println("IOError :" + ioe);
 		}
 
