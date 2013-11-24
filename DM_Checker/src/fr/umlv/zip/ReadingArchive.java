@@ -46,13 +46,6 @@ public class ReadingArchive {
 	}
 
 	/**
-	 * This method unzipped the file passed in constructor
-	 */
-	public void unzip() {
-		unzip(path);
-	}
-
-	/**
 	 * Test if path is a zip file
 	 * 
 	 * @return 0 if true, and error if false
@@ -80,8 +73,8 @@ public class ReadingArchive {
 			while (e.hasMoreElements()) {
 				ZipEntry entry = (ZipEntry) e.nextElement();
 				String entryName = entry.getName();
-				if(entryName.startsWith(start))
-				return false;
+				if (entryName.startsWith(start))
+					return false;
 			}
 			fichier_zip.close();
 		} catch (IOException ex) {
@@ -89,6 +82,7 @@ public class ReadingArchive {
 		}
 		return true;
 	}
+
 	public boolean checkFileEnds(String ends) {
 		try {
 
@@ -98,8 +92,8 @@ public class ReadingArchive {
 			while (e.hasMoreElements()) {
 				ZipEntry entry = (ZipEntry) e.nextElement();
 				String entryName = entry.getName();
-				if(entryName.endsWith(ends))
-				return false;
+				if (entryName.endsWith(ends))
+					return false;
 			}
 			fichier_zip.close();
 		} catch (IOException ex) {
@@ -123,7 +117,7 @@ public class ReadingArchive {
 		return false;
 	}
 
-	private void unzip(String file) {
+	public void unzip(String file) {
 		try {
 			File fSourceZip = new File(file);
 			String zipPath = file.substring(0, file.length() - 4);
@@ -131,10 +125,10 @@ public class ReadingArchive {
 			if (idName != null) {
 				File temp = new File(idName);
 			}
-			File temp = new File(idKey);
+			//File temp = new File(idKey);
 
-			// File temp = new File(zipPath);
-
+			File temp = new File(zipPath);
+//System.out.println(temp);
 			temp.mkdir();
 			if (verbose)
 				System.err.println(zipPath + " created");
@@ -158,14 +152,14 @@ public class ReadingArchive {
 							zipFile.getInputStream(entry));
 
 					int b;
-					byte buffer[] = new byte[1024];
+					byte buffer[] = new byte[2018];
 
 					FileOutputStream fos = new FileOutputStream(
 							destinationFilePath);
 					BufferedOutputStream bos = new BufferedOutputStream(fos,
-							1024);
+							2018);
 
-					while ((b = bis.read(buffer, 0, 1024)) != -1) {
+					while ((b = bis.read(buffer, 0, 2018)) != -1) {
 						bos.write(buffer, 0, b);
 					}
 					bos.flush();
@@ -178,9 +172,11 @@ public class ReadingArchive {
 				destinationFilePath.delete();
 			}
 			zipFile.close();
-		} catch (NullPointerException e) {
+		} 
+		catch (NullPointerException e) {
 			System.out.println("Error : " + e.toString());
-		} catch (IOException ioe) {
+		} 
+		catch (IOException ioe) {
 			System.out.println("IOError :" + ioe);
 		}
 
@@ -195,7 +191,8 @@ public class ReadingArchive {
 	 * @return true or false
 	 * @throws IOException
 	 */
-	public boolean checkFileExiste(String file, String existe) throws IOException {
+	public boolean checkFileExiste(String file, String existe)
+			throws IOException {
 		try {
 
 			File fSourceZip = new File(file);
@@ -228,7 +225,8 @@ public class ReadingArchive {
 					}
 				}
 				if (entry.getName().endsWith(".zip")) {
-					checkFileExiste(destinationFilePath.getAbsolutePath(), existe);
+					checkFileExiste(destinationFilePath.getAbsolutePath(),
+							existe);
 				}
 				zipFile.close();
 			}
