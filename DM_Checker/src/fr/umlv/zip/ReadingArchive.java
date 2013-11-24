@@ -71,18 +71,70 @@ public class ReadingArchive {
 		}
 	}
 
+	public boolean checkFileStart(String start) {
+		try {
+
+			ZipFile fichier_zip = new ZipFile(path);
+			Enumeration e = fichier_zip.entries();
+
+			while (e.hasMoreElements()) {
+				ZipEntry entry = (ZipEntry) e.nextElement();
+				String entryName = entry.getName();
+				if(entryName.startsWith(start))
+				return false;
+			}
+			fichier_zip.close();
+		} catch (IOException ex) {
+			System.out.println("Erreur" + ex);
+		}
+		return true;
+	}
+	public boolean checkFileEnds(String ends) {
+		try {
+
+			ZipFile fichier_zip = new ZipFile(path);
+			Enumeration e = fichier_zip.entries();
+
+			while (e.hasMoreElements()) {
+				ZipEntry entry = (ZipEntry) e.nextElement();
+				String entryName = entry.getName();
+				if(entryName.endsWith(ends))
+				return false;
+			}
+			fichier_zip.close();
+		} catch (IOException ex) {
+			System.out.println("Erreur" + ex);
+		}
+		return true;
+	}
+
+	public boolean isFolderAtTop() {
+		try {
+			ZipFile fichier_zip = new ZipFile(path);
+			Enumeration e = fichier_zip.entries();
+			while (e.hasMoreElements()) {
+				ZipEntry entry = (ZipEntry) e.nextElement();
+				return entry.isDirectory();
+			}
+			fichier_zip.close();
+		} catch (IOException ex) {
+			System.out.println("Erreur" + ex);
+		}
+		return false;
+	}
+
 	private void unzip(String file) {
 		try {
 			File fSourceZip = new File(file);
 			String zipPath = file.substring(0, file.length() - 4);
-			
-			if(idName!=null){
+
+			if (idName != null) {
 				File temp = new File(idName);
 			}
 			File temp = new File(idKey);
-			
-			//File temp = new File(zipPath);
-			
+
+			// File temp = new File(zipPath);
+
 			temp.mkdir();
 			if (verbose)
 				System.err.println(zipPath + " created");
@@ -128,7 +180,7 @@ public class ReadingArchive {
 			zipFile.close();
 		} catch (NullPointerException e) {
 			System.out.println("Error : " + e.toString());
-		}catch (IOException ioe) {
+		} catch (IOException ioe) {
 			System.out.println("IOError :" + ioe);
 		}
 
@@ -143,7 +195,7 @@ public class ReadingArchive {
 	 * @return true or false
 	 * @throws IOException
 	 */
-	public boolean checkFile(String file, String existe) throws IOException {
+	public boolean checkFileExiste(String file, String existe) throws IOException {
 		try {
 
 			File fSourceZip = new File(file);
@@ -176,7 +228,7 @@ public class ReadingArchive {
 					}
 				}
 				if (entry.getName().endsWith(".zip")) {
-					checkFile(destinationFilePath.getAbsolutePath(), existe);
+					checkFileExiste(destinationFilePath.getAbsolutePath(), existe);
 				}
 				zipFile.close();
 			}
