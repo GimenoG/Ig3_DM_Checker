@@ -16,7 +16,7 @@ public class Regex {
 		return file.startsWith(start);
 	}
 
-	public String changeURL(String s){
+	public static String changeURL(String s){
 		String result;
 		result = s.replace("/", "//");
 		return result;
