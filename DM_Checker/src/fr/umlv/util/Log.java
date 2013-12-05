@@ -6,7 +6,7 @@ import java.io.IOException;
 public class Log {
 
 	
-	public void writeText(String path,String text) throws IOException{
+	public static void writeText(String path,String text) throws IOException{
 		FileWriter writer = null;
 		try{
 		     writer = new FileWriter(path, true);

@@ -15,12 +15,13 @@ import fr.umlv.zip.ReadingArchive;
 public class Main {
 
 	public static void main(String[] args) throws FileNotFoundException, IOException, JSAPException {
-		Options.createOptions();
-		Options.checkOptions(args);
-		Options.Launch();
+//		Options.createOptions();
+//		Options.checkOptions(args);
+//		Options.Launch();
 		// /Users/Gui/Documents/Lambda/loginnam12.zip
 		// /Users/Gui/Documents/Lambda/Archive2.zip
-		ReadingArchive ra = new ReadingArchive("/Users/Gui/Documents/Lambda/Archive.zip");
+		ReadingArchive ra = new ReadingArchive("/Users/Gui/Documents/Lambda/loginnam12.zip");
+		System.out.println(ra.isValid());
 		//System.out.println(ra.isFolderAtTop());
 		//ra.checkFileStart("toto");
 //		ra.setVerbose(true);
@@ -30,7 +31,7 @@ public class Main {
 		//ra.checkFileStart("toto");
 		//System.out.println("-------------------------");
 //		ra.checkFileEnds("toto");
-		JFrame frame = new IHM();
+		//JFrame frame = new IHM();
 		//JPanel panel = new JPanel();
 		//((IHM) frame).addBouttons(frame, panel);
 		//((IHM) frame).addMenu(frame);
