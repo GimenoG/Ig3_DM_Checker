@@ -24,9 +24,20 @@ import fr.umlv.zip.ReadingArchive;
 public class Options {
 	private static JSAP jsap;
 	private static JSAPResult config;
-	private static int mode;
+	//private int mode;
 	
-	private Options(){}
+	
+	LinkedList<String> param = new LinkedList<>();
+	boolean verbose = false;
+	boolean oneTop = false;
+	String [] endWith;
+	String [] beginWith;
+	String [] forbidden;
+	String [] be;
+	String destination;
+	
+	public Options(){
+	}
 	
 	/**
 	 * Create the software options able to be use in the programme.
@@ -38,7 +49,7 @@ public class Options {
 	 * @throws JSAPException
 	 */
 	
-	private static int getMode(JSAPResult config){
+	private int getMode(JSAPResult config){
 		//check if there is only one flag set
 		if((config.getBoolean("opt1")&&config.getBoolean("opt2"))
 				||(config.getBoolean("opt1")&&config.getBoolean("opt3"))
@@ -60,7 +71,7 @@ public class Options {
 	}
 	
 	
-	public static void createOptions() throws JSAPException{
+	public void createOptions() throws JSAPException{
 		//TODO option forcé ?
 		
 		jsap = new JSAP();
@@ -81,7 +92,8 @@ public class Options {
 		
 		FlaggedOption optD = (FlaggedOption) (new FlaggedOption("optD").setShortFlag('d').setLongFlag("destination").setList(true).setListSeparator(',').setHelp("Specifies the destination directory : -d <destination folder> or --destination <destination folder>."));
 		//TODO help (a verif sens de l'option)
-		FlaggedOption optO = (FlaggedOption) (new FlaggedOption("optO").setShortFlag('o').setLongFlag("onetop").setList(true).setListSeparator(',').setHelp("."));
+		Switch optO = (Switch)(new Switch("optO").setShortFlag('o').setLongFlag("onetop").setHelp("Require only one folder at the top"));
+		//FlaggedOption optO = (FlaggedOption) (new FlaggedOption("optO").setShortFlag('o').setLongFlag("onetop").setList(true).setListSeparator(',').setHelp("."));
 		FlaggedOption optE = (FlaggedOption) (new FlaggedOption("optE").setShortFlag('e').setLongFlag("endswith").setList(true).setListSeparator(',').setHelp("Doesn't work with the files which end with the paramter : -e <end string to bansih> or --endswith <end string to banish>"));
 		FlaggedOption optB = (FlaggedOption) (new FlaggedOption("optB").setShortFlag('b').setLongFlag("beginswith").setList(true).setListSeparator(',').setHelp("Doesn't work with the files which start with the paramter : -b <start string to bansih> or --beginswith <start string to banish>"));
 		//TODO qualifiedSwith ou autre ?
@@ -129,24 +141,28 @@ public class Options {
 		}	
 	}
 	
-	private void scenario1(){
-		
-	}
 	/**
 	 * Launch the software with the rigth option.
 	 * 
 	 */
 	//TODO pattern ? Options porte aussi l'execution du prog :s mais je ne voi pas comment faire autrement
-	public static void Launch(){
+	public void Launch(){
 		ReadingArchive ra = new ReadingArchive(config.getString("path"));//ordre ?
 		//recuperation des paramétres
 		LinkedList<String> param = new LinkedList<>();
-		String [] opte;
+		verbose = config.getBoolean("optV");
+		oneTop = config.getBoolean("optO");
+		endWith = config.getStringArray("optE");
+		beginWith = config.getStringArray("optB");
+		forbidden = config.getStringArray("optI");
+		be = config.getStringArray("optX");
+		destination = config.getString("optD");
+		
+		
 		for (String s : config.getStringArray("param")){
 			param.add(s);
 		}
-		
-		opte = config.getStringArray("optE");
+	
 		
 		
 		switch(getMode(config)){
@@ -157,6 +173,38 @@ public class Options {
 			default : System.err.println("Erreur argurment du mode d'action");
 		}
 		
+	}
+
+	public LinkedList<String> getParam() {
+		return param;
+	}
+
+	public boolean isVerbose() {
+		return verbose;
+	}
+
+	public boolean isOneTop() {
+		return oneTop;
+	}
+
+	public String[] getEndWith() {
+		return endWith;
+	}
+
+	public String[] getBeginWith() {
+		return beginWith;
+	}
+
+	public String[] getForbidden() {
+		return forbidden;
+	}
+
+	public String[] getBe() {
+		return be;
+	}
+
+	public String getDestination() {
+		return destination;
 	}
 	
 	
