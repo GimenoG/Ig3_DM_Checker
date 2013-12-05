@@ -18,6 +18,7 @@ public class ReadingArchive {
 	private boolean verbose = false;
 	private String idName;
 	private String idKey;
+	private String pathDestination;
 
 	/**
 	 * Constructor
@@ -26,6 +27,7 @@ public class ReadingArchive {
 	 */
 	public ReadingArchive(String path) {
 		this.path = path;
+		this.pathDestination=null;
 	}
 
 	/**
@@ -45,6 +47,9 @@ public class ReadingArchive {
 		this.idKey = id;
 	}
 
+	public void setDestination(String path){
+		this.pathDestination=path;
+	}
 	/**
 	 * Test if path is a zip file
 	 * 
