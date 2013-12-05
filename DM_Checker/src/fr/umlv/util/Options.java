@@ -1,6 +1,7 @@
 package fr.umlv.util;
 
 import java.util.Iterator;
+import java.util.LinkedList;
 
 import com.martiansoftware.jsap.FlaggedOption;
 import com.martiansoftware.jsap.JSAP;
@@ -74,7 +75,8 @@ public class Options {
 		jsap.registerParameter(opt3);
 		jsap.registerParameter(opt4);
 		
-		Switch optV = (Switch) new Switch("opt4").setShortFlag('v').setLongFlag("verbose").setHelp("softmode2 the return.");
+		Switch optV = (Switch) new Switch("optV").setShortFlag('v').setLongFlag("verbose").setHelp("softmode2 the return.");
+		jsap.registerParameter(optV);
 		
 		
 		FlaggedOption optD = (FlaggedOption) (new FlaggedOption("optD").setShortFlag('d').setLongFlag("destination").setList(true).setListSeparator(',').setHelp("Specifies the destination directory : -d <destination folder> or --destination <destination folder>."));
@@ -86,7 +88,6 @@ public class Options {
 		FlaggedOption optX = (FlaggedOption) (new FlaggedOption("optX").setShortFlag('x').setLongFlag("existe").setList(true).setListSeparator(',').setHelp("Check if the folder name in parameter already existe in the destination directory. If it's true the folder won't be treaty"));
 		FlaggedOption optI = (FlaggedOption) (new FlaggedOption("optI").setShortFlag('i').setLongFlag("interdit").setList(true).setListSeparator(',').setHelp("Check the lack of the file named <param> in the repository. The head directory isn't concern by is option.\nUse : -I <regex name> or --interdit <regex name>"));
 		
-		jsap.registerParameter(optV);
 		jsap.registerParameter(optD);
 		jsap.registerParameter(optO);
 		jsap.registerParameter(optE);
@@ -127,6 +128,10 @@ public class Options {
             System.exit(1);
 		}	
 	}
+	
+	private void scenario1(){
+		
+	}
 	/**
 	 * Launch the software with the rigth option.
 	 * 
@@ -134,40 +139,22 @@ public class Options {
 	//TODO pattern ? Options porte aussi l'execution du prog :s mais je ne voi pas comment faire autrement
 	public static void Launch(){
 		ReadingArchive ra = new ReadingArchive(config.getString("path"));//ordre ?
+		//recuperation des paramétres
+		LinkedList<String> param = new LinkedList<>();
+		String [] opte;
+		for (String s : config.getStringArray("param")){
+			param.add(s);
+		}
+		
+		opte = config.getStringArray("optE");
 		
 		
 		switch(getMode(config)){
-			case 1 : System.out.println("scenario 1");break;
+			//case 1 : scenario1();break;
 			case 2 : System.out.println("scenario 2");break;
 			case 3 : System.out.println("scenario 3");break;
 			case 4 : System.out.println("scenario 4");break;
 			default : System.err.println("Erreur argurment du mode d'action");
-		}
-		
-		//option commune a tout
-		if(config.getBoolean("optE")){
-			//modif du path (retire a la fin
-		}
-		if(config.getBoolean("optB")){
-			//modif du path (retire au debit
-		}
-		if(config.getBoolean("optV")){
-			//creation du logger ? -> ajout dans le bordel
-			//set bolleen dans readingarchive
-		}
-		//mode d'utilisation
-		if(config.getBoolean("optX")){
-			String [] fileToCheck = config.getStringArray("optX");
-			//parcours du dossier a la recherche du fichier / des fichiers
-			//affiche le resultat
-		}
-		else if(config.getBoolean("optI")){
-			String [] fileToCheck = config.getStringArray("optI");
-			//check la présence du fichier / des fichiers
-			//affiche le résultat
-		}
-		if(config.getBoolean("optO")){
-			//check format de la racine de l'archive
 		}
 		
 	}

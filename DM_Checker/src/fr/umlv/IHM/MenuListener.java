@@ -16,7 +16,11 @@ public class MenuListener extends AbstractAction{
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
+		Object src = arg0.getSource();
+		
+		if (src == ihm.getButtonNext()) {
+			
+		}
 		
 	}
 }
