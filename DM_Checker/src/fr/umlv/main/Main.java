@@ -1,4 +1,6 @@
 package fr.umlv.main;
+import jdk.nashorn.internal.runtime.regexp.joni.Option;
+
 import com.martiansoftware.jsap.JSAPException;
 
 import fr.umlv.util.Options;
@@ -6,9 +8,10 @@ import fr.umlv.util.Options;
 public class Main {
 
 	public static void main(String[] args) throws JSAPException {
-		Options.createOptions();
-		Options.checkOptions(args);
-		Options.Launch();
+		Options opt = new Options();
+		opt.createOptions();
+		opt.checkOptions(args);
+		opt.Launch();
 		// /Users/Gui/Documents/Lambda/loginnam12.zip
 		// /Users/Gui/Documents/Lambda/Archive2.zip
 		// ReadingArchive ra = new

@@ -24,7 +24,7 @@ import fr.umlv.zip.ReadingArchive;
 public class Options {
 	private static JSAP jsap;
 	private static JSAPResult config;
-	//private int mode;
+	private int mode;
 	
 	
 	LinkedList<String> param = new LinkedList<>();
@@ -49,7 +49,7 @@ public class Options {
 	 * @throws JSAPException
 	 */
 	
-	private int getMode(JSAPResult config){
+	private int mode(JSAPResult config){
 		//check if there is only one flag set
 		if((config.getBoolean("opt1")&&config.getBoolean("opt2"))
 				||(config.getBoolean("opt1")&&config.getBoolean("opt3"))
@@ -162,17 +162,7 @@ public class Options {
 		for (String s : config.getStringArray("param")){
 			param.add(s);
 		}
-	
-		
-		
-		switch(getMode(config)){
-			//case 1 : scenario1();break;
-			case 2 : System.out.println("scenario 2");break;
-			case 3 : System.out.println("scenario 3");break;
-			case 4 : System.out.println("scenario 4");break;
-			default : System.err.println("Erreur argurment du mode d'action");
-		}
-		
+		mode = mode(config);
 	}
 
 	public LinkedList<String> getParam() {
@@ -205,6 +195,10 @@ public class Options {
 
 	public String getDestination() {
 		return destination;
+	}
+	
+	public int getMode(){
+		return mode;
 	}
 	
 	
