@@ -64,6 +64,13 @@ public class ReadingArchive {
 		}
 	}
 
+	
+	
+	/**
+	 * StartWith
+	 * @param start
+	 * @return
+	 */
 	public boolean checkFileStart(String start) {
 		try {
 
@@ -87,6 +94,11 @@ public class ReadingArchive {
 		return true;
 	}
 
+	/**
+	 * EndsWith
+	 * @param ends
+	 * @return
+	 */
 	public boolean checkFileEnds(String ends) {
 		try {
 
@@ -110,6 +122,10 @@ public class ReadingArchive {
 		return true;
 	}
 
+	/**
+	 * OneAtTop
+	 * @return
+	 */
 	public boolean isFolderAtTop() {
 		try {
 			ZipFile fichier_zip = new ZipFile(path);
@@ -189,6 +205,7 @@ public class ReadingArchive {
 	}
 
 	/**
+	 * Option -X/--existe
 	 * This method test if there is a file or directory is named "existe" in the
 	 * archive
 	 * 
@@ -197,7 +214,7 @@ public class ReadingArchive {
 	 * @return true or false
 	 * @throws IOException
 	 */
-	public boolean checkFileExiste(String file, String existe)
+	private boolean checkFileExisteLL(String file, String existe)
 			throws IOException {
 		try {
 
@@ -231,7 +248,7 @@ public class ReadingArchive {
 					}
 				}
 				if (entry.getName().endsWith(".zip")) {
-					checkFileExiste(destinationFilePath.getAbsolutePath(),
+					checkFileExisteLL(destinationFilePath.getAbsolutePath(),
 							existe);
 				}
 				zipFile.close();
@@ -242,6 +259,11 @@ public class ReadingArchive {
 				System.err.println(("IOError :" + ioe));
 		}
 		return false;
+	}
+	
+	public boolean checkFileExiste(String existe)
+			throws IOException { 
+		return checkFileExisteLL(path, existe);
 	}
 
 }

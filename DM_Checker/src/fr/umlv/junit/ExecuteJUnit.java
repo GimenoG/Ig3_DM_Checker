@@ -5,6 +5,8 @@ import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunListener;
 
+import fr.umlv.util.Log;
+
 public class ExecuteJUnit extends RunListener {
 	StringBuilder sb;
 	boolean fail = false;
@@ -22,7 +24,7 @@ public class ExecuteJUnit extends RunListener {
 	 * Called when all tests have finished
 	 * */
 	public void testRunFinished(Result result) throws java.lang.Exception {
-		System.out.println(sb.toString());
+		Log.writeText("/Users/Gui/Documents/Lambda/prout.txt", sb.toString());
 	}
 
 	/**

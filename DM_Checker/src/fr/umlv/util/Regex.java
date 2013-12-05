@@ -5,11 +5,12 @@ import java.net.IDN;
 
 public class Regex {
 
-	
+	//A supprimer
 	public static boolean endsWith(String ends,String entryName){
 		return entryName.endsWith(ends);
 	}
 	
+	//A supprimer
 	public boolean startWith(String path,String start){
 		String file = new File("/Users/Gui/Documents/Lambda/Archive2.zip").getName();
 		return file.startsWith(start);
