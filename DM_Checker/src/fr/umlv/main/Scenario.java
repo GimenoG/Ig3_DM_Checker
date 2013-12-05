@@ -49,11 +49,18 @@ public class Scenario {
 		
 	}
 	
+	private boolean scenario2(){
+		//TODO comment on gere les option pour chaque fichier de l'archive d'archive ?
+		
+		ra.unzip(options.getSource());
+		return false;
+	}
+	
 	public void start(){
 		try{
 			switch(options.getMode()){
 				case 1 : scenario1();break;
-				case 2 : System.out.println("todo scenario 2");break;
+				case 2 : scenario2();break;
 				case 3 : System.out.println("todo todo scenario 3");break;
 				case 4 : System.out.println("toso scenario 4");break;
 				default : System.err.println("Erreur : pas de scenario associe");
