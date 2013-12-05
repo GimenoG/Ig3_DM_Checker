@@ -5,6 +5,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
@@ -19,6 +20,7 @@ public class ReadingArchive {
 	private String idName;
 	private String idKey;
 	private String pathDestination;
+	private ArrayList<String> projetEleve;
 
 	/**
 	 * Constructor
@@ -28,6 +30,7 @@ public class ReadingArchive {
 	public ReadingArchive(String path) {
 		this.path = path;
 		this.pathDestination=null;
+		projetEleve = new ArrayList<>();
 	}
 
 	/**
@@ -50,6 +53,11 @@ public class ReadingArchive {
 	public void setDestination(String path){
 		this.pathDestination=path;
 	}
+	
+	public ArrayList<String> getProjet(){
+		return projetEleve;
+	}
+	
 	/**
 	 * Test if path is a zip file
 	 * 
@@ -161,6 +169,7 @@ public class ReadingArchive {
 			temp.mkdir();
 			if (verbose)
 				System.err.println(zipPath + " created");
+			projetEleve.add(zipPath);
 
 			ZipFile zipFile = new ZipFile(fSourceZip);
 			Enumeration e = zipFile.entries();
@@ -176,7 +185,6 @@ public class ReadingArchive {
 				} else {
 					if (verbose)
 						System.err.println("Extracting " + destinationFilePath);
-
 					BufferedInputStream bis = new BufferedInputStream(
 							zipFile.getInputStream(entry));
 
