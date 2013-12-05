@@ -35,6 +35,7 @@ public class Options {
 	String [] forbidden;
 	String [] be;
 	String destination;
+	String source;
 	
 	public Options(){
 	}
@@ -117,7 +118,7 @@ public class Options {
 	 * 
 	 * @param args
 	 */
-	public static void checkOptions(String[] args){
+	public void checkOptions(String[] args){
 		config = jsap.parse(args);
 		//TODO revoire la gestion de l'erreur
 		if (!config.success()) {
@@ -147,7 +148,7 @@ public class Options {
 	 */
 	//TODO pattern ? Options porte aussi l'execution du prog :s mais je ne voi pas comment faire autrement
 	public void Launch(){
-		ReadingArchive ra = new ReadingArchive(config.getString("path"));//ordre ?
+		System.out.println("launch");
 		//recuperation des paramétres
 		LinkedList<String> param = new LinkedList<>();
 		verbose = config.getBoolean("optV");
@@ -159,9 +160,8 @@ public class Options {
 		destination = config.getString("optD");
 		
 		
-		for (String s : config.getStringArray("param")){
-			param.add(s);
-		}
+		source = config.getStringArray("param")[0];
+		System.out.println(source);
 		mode = mode(config);
 	}
 
@@ -199,6 +199,10 @@ public class Options {
 	
 	public int getMode(){
 		return mode;
+	}
+	
+	public String getSource(){
+		return source;
 	}
 	
 	

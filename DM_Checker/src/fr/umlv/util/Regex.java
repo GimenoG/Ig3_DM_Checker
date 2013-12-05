@@ -18,7 +18,7 @@ public class Regex {
 
 	public static String changeURL(String s){
 		String result;
-		result = s.replace("/", "//");
+		result = s.replace("\", "\\");
 		return result;
 	}
 	
