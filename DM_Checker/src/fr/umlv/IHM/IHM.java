@@ -74,7 +74,7 @@ public class IHM extends JFrame{
 			};
 			addWindowListener(wl);
 			setSize(600,800);
-			setLocationRelativeTo(null);//center the window. Note : may have some problème if the user have two monitor.
+			setLocationRelativeTo(null);//center the window. Note : may have some problï¿½me if the user have two monitor.
 			setVisible(true);
 			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//close the soft on the event close
 			setResizable(false);
@@ -89,16 +89,16 @@ public class IHM extends JFrame{
 		//Labels create zone
 		nameLableTop = new JLabel("<html><body>name forname<br>name forname</body></html>");
 		nameLableTop.setPreferredSize(new Dimension(550, 40));
-		titleIHMComment = new JLabel("<html><body>Critére Graphique</body></html>");
+		titleIHMComment = new JLabel("<html><body>Critere Graphique</body></html>");
 		titleIHMComment.setPreferredSize(new Dimension(585, 20));
 		titleIHMComment.setHorizontalAlignment(JLabel.CENTER);
-		criterionsGraphic = new JLabel("Critéres");
-		criterionsGraphic.setPreferredSize(new Dimension(585, 60));//TODO extention si plus de critére ?
-		titleFonctionComment = new JLabel("<html><body>Critére Fonctionnel</body></html>");
+		criterionsGraphic = new JLabel("Criteres");
+		criterionsGraphic.setPreferredSize(new Dimension(585, 60));//TODO extention si plus de critï¿½re ?
+		titleFonctionComment = new JLabel("<html><body>Critere Fonctionnel</body></html>");
 		titleFonctionComment.setPreferredSize(new Dimension(585, 20));
 		titleFonctionComment.setHorizontalAlignment(JLabel.CENTER);
-		criterionsFonction = new JLabel("Critéres");
-		criterionsFonction.setPreferredSize(new Dimension(585, 60));//TODO extention si plus de critére ?
+		criterionsFonction = new JLabel("Criteres");
+		criterionsFonction.setPreferredSize(new Dimension(585, 60));//TODO extention si plus de critï¿½re ?
 		othersCriterions = new JLabel("other");
 		othersCriterions.setPreferredSize(new Dimension(585, 60));
 		
@@ -116,7 +116,7 @@ public class IHM extends JFrame{
 		menu  = new JMenu("Menu");
 		//TODO ajouter icone ImageIcon icon = new ImageIcon(getClass().getResource("exit.png")); / JMenuItem eMenuItem = new JMenuItem("Exit", icon);
 		openRepository = new JMenuItem("Ouvrir repertoire");
-		save = new JMenuItem("Sauveagarder");
+		save = new JMenuItem("Sauvegarder");
 		list = new JMenuItem("Liste des ?");//TODO a clarifier et modif en liste quand on sais de quoi il s'agit
 		exportNote = new JMenuItem("Exporter");//TODO liste de ens a alelr chercher
 		quit = new JMenuItem("Quitter");
