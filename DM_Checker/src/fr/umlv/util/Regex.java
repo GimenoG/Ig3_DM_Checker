@@ -16,6 +16,12 @@ public class Regex {
 		return file.startsWith(start);
 	}
 
+	public String changeURL(String s){
+		String result;
+		result = s.replace("/", "//");
+		return result;
+	}
+	
 	public static String idName(String nameFile){
 		String[] id;
 		id=nameFile.split("_");
