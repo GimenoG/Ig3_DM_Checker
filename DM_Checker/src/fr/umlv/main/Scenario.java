@@ -4,16 +4,16 @@ import java.io.IOException;
 
 import fr.umlv.util.Options;
 import fr.umlv.util.Regex;
-import fr.umlv.zip.ReadingArchive;
+import fr.umlv.zip.ZipFileFormat;
 
 public class Scenario {
 	private final Options options;
-	private final ReadingArchive ra;
+	private final ZipFileFormat ra;
 	
 	
 	public Scenario(Options opt){
 		options=opt;
-		ra = new ReadingArchive(Regex.changeURL(options.getSource()));
+		ra = new ZipFileFormat(Regex.changeURL(options.getSource()));
 	}
 	//TODO add tri Force
 	private void scenario1() throws IOException{
@@ -21,20 +21,20 @@ public class Scenario {
 		ra.setVerbose(options.isVerbose());
 		//check si un fichier existe
 		for(String s : options.getBe()){
-			if (!ra.checkFileExiste(s))
+			if (!ra.existe(s))
 				System.out.println("Le fichier "+s+" n'existe pas");
 			System.out.println(s+" existe");
 		}
 		//endwith
 		for(String s : options.getEndWith()){
-			if (!ra.checkFileEnds(s))
+			if (!ra.endsWith(s))
 				System.out.println("EndsWith "+s+" NOK");
 			System.out.println("EndsWith "+s+" OK");
 		}
 		
 		//startwiths
 		for(String s : options.getEndWith()){
-			if (!ra.checkFileEnds(s))
+			if (!ra.endsWith(s))
 				System.out.println("StartWith "+s+" NOK");
 			System.out.println("StartWith "+s+" OK");
 		}
@@ -45,14 +45,14 @@ public class Scenario {
 			System.out.println("ONE TOP NOK");
 		}
 		//dezip
-		ra.unzip(options.getSource());
+		ra.unzip();
 		
 	}
 	
 	private boolean scenario2(){
 		//TODO comment on gere les option pour chaque fichier de l'archive d'archive ?
 		
-		ra.unzip(options.getSource());
+		ra.unzip();
 		return false;
 	}
 	

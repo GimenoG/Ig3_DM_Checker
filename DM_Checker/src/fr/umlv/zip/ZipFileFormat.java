@@ -11,53 +11,94 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 
-import fr.umlv.util.Log;
-
-public class ReadingArchive {
-	private static Log log = new Log();
-	private static String path;
-	private boolean verbose = false;
-	private String idName;
-	private String idKey;
+public class ZipFileFormat implements Option {
 	private String pathDestination;
 	private ArrayList<String> projetEleve;
+	private boolean verbose = false;
+	private static String path;
 
-	/**
-	 * Constructor
-	 * 
-	 * @param path
-	 */
-	public ReadingArchive(String path) {
+	public ZipFileFormat(String path) {
 		this.path = path;
-		this.pathDestination=null;
+		this.pathDestination = null;
 		projetEleve = new ArrayList<>();
 	}
 
-	/**
-	 * If you want activate the verbose mode
-	 * 
-	 * @param boolean
-	 */
+	@Override
+	public boolean endsWith(String s) {
+		try {
+
+			ZipFile fichier_zip = new ZipFile(path);
+			Enumeration e = fichier_zip.entries();
+
+			while (e.hasMoreElements()) {
+				ZipEntry entry = (ZipEntry) e.nextElement();
+				String entryName = entry.getName();
+				if (verbose)
+					System.out
+							.println("Le système compare entre le fichier contenu dans le zip : "
+									+ entryName + " et le suffixe : " + s);
+				if (entryName.endsWith(s))
+					return false;
+			}
+			fichier_zip.close();
+		} catch (IOException ex) {
+			System.out.println("Erreur" + ex);
+		}
+		return true;
+	}
+
+	@Override
+	public boolean existe(String s) throws IOException {
+		return checkFileExiste(path, s);
+	}
+
+	@Override
+	public boolean interdit(String s) throws IOException {
+		return checkFileExiste(path, s);
+
+	}
+
+	@Override
+	public boolean beginsWith(String s) {
+		try {
+
+			ZipFile fichier_zip = new ZipFile(path);
+			Enumeration e = fichier_zip.entries();
+
+			while (e.hasMoreElements()) {
+				ZipEntry entry = (ZipEntry) e.nextElement();
+				String entryName = entry.getName();
+				if (verbose)
+					System.out
+							.println("Le système compare entre le fichier contenu dans le zip : "
+									+ entryName + " et le préfixe : " + s);
+				if (entryName.startsWith(s))
+					return false;
+			}
+			fichier_zip.close();
+		} catch (IOException ex) {
+			System.out.println("Erreur" + ex);
+		}
+		return true;
+	}
+
+	@Override
 	public void setVerbose(boolean b) {
 		this.verbose = b;
 	}
 
-	public void setIdName(String id) {
-		this.idName = id;
+	public void setDestination(String path) {
+		this.pathDestination = path;
 	}
 
-	public void setIdKey(String id) {
-		this.idKey = id;
-	}
-
-	public void setDestination(String path){
-		this.pathDestination=path;
-	}
-	
-	public ArrayList<String> getProjet(){
+	public ArrayList<String> getProjet() {
 		return projetEleve;
 	}
-	
+
+	public void unzip() {
+		unzip(path);
+	}
+
 	/**
 	 * Test if path is a zip file
 	 * 
@@ -77,66 +118,9 @@ public class ReadingArchive {
 		}
 	}
 
-	
-	
-	/**
-	 * StartWith
-	 * @param start
-	 * @return
-	 */
-	public boolean checkFileStart(String start) {
-		try {
-
-			ZipFile fichier_zip = new ZipFile(path);
-			Enumeration e = fichier_zip.entries();
-
-			while (e.hasMoreElements()) {
-				ZipEntry entry = (ZipEntry) e.nextElement();
-				String entryName = entry.getName();
-				if (verbose)
-					System.out
-							.println("Le système compare entre le fichier contenu dans le zip : "
-									+ entryName + " et le préfixe : " + start);
-				if (entryName.startsWith(start))
-					return false;
-			}
-			fichier_zip.close();
-		} catch (IOException ex) {
-			System.out.println("Erreur" + ex);
-		}
-		return true;
-	}
-
-	/**
-	 * EndsWith
-	 * @param ends
-	 * @return
-	 */
-	public boolean checkFileEnds(String ends) {
-		try {
-
-			ZipFile fichier_zip = new ZipFile(path);
-			Enumeration e = fichier_zip.entries();
-
-			while (e.hasMoreElements()) {
-				ZipEntry entry = (ZipEntry) e.nextElement();
-				String entryName = entry.getName();
-				if (verbose)
-					System.out
-							.println("Le système compare entre le fichier contenu dans le zip : "
-									+ entryName + " et le suffixe : " + ends);
-				if (entryName.endsWith(ends))
-					return false;
-			}
-			fichier_zip.close();
-		} catch (IOException ex) {
-			System.out.println("Erreur" + ex);
-		}
-		return true;
-	}
-
 	/**
 	 * OneAtTop
+	 * 
 	 * @return
 	 */
 	public boolean isFolderAtTop() {
@@ -153,19 +137,12 @@ public class ReadingArchive {
 		}
 		return false;
 	}
-
-	public void unzip(String file) {
+	private void unzip(String file) {
 		try {
 			File fSourceZip = new File(file);
 			String zipPath = file.substring(0, file.length() - 4);
 
-			if (idName != null) {
-				File temp = new File(idName);
-			}
-			// File temp = new File(idKey);
-
 			File temp = new File(zipPath);
-			// System.out.println(temp);
 			temp.mkdir();
 			if (verbose)
 				System.err.println(zipPath + " created");
@@ -205,10 +182,12 @@ public class ReadingArchive {
 				}
 				if (entry.getName().endsWith(".zip")) {
 					unzip(destinationFilePath.getAbsolutePath());
+					destinationFilePath.delete();
 				}
-				destinationFilePath.delete();
+				
 			}
 			zipFile.close();
+			
 		} catch (NullPointerException e) {
 			System.out.println("Error : " + e.toString());
 		} catch (IOException ioe) {
@@ -216,18 +195,7 @@ public class ReadingArchive {
 		}
 
 	}
-
-	/**
-	 * Option -X/--existe
-	 * This method test if there is a file or directory is named "existe" in the
-	 * archive
-	 * 
-	 * @param file
-	 * @param existe
-	 * @return true or false
-	 * @throws IOException
-	 */
-	private boolean checkFileExisteLL(String file, String existe)
+	private boolean checkFileExiste(String file, String existe)
 			throws IOException {
 		try {
 
@@ -244,7 +212,7 @@ public class ReadingArchive {
 				if (entry.isDirectory()) {
 					if (entry.getName()
 							.substring(0, entry.getName().length() - 1)
-							.equals(existe)) {
+							.matches(existe)) {
 						if (verbose)
 							System.err.println(("Directory name is " + entry
 									.getName()));
@@ -253,7 +221,7 @@ public class ReadingArchive {
 				} else {
 					if (entry.getName()
 							.substring(0, entry.getName().length() - 4)
-							.equals(existe)) {
+							.matches(existe)) {
 						if (verbose)
 							System.err.println(("file name is " + entry
 									.getName()));
@@ -261,7 +229,7 @@ public class ReadingArchive {
 					}
 				}
 				if (entry.getName().endsWith(".zip")) {
-					checkFileExisteLL(destinationFilePath.getAbsolutePath(),
+					checkFileExiste(destinationFilePath.getAbsolutePath(),
 							existe);
 				}
 				zipFile.close();
@@ -273,10 +241,4 @@ public class ReadingArchive {
 		}
 		return false;
 	}
-	
-	public boolean checkFileExiste(String existe)
-			throws IOException { 
-		return checkFileExisteLL(path, existe);
-	}
-
 }

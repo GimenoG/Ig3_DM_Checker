@@ -18,7 +18,7 @@ public class Regex {
 
 	public static String changeURL(String s){
 		String result;
-		result = s.replace("\", "\\");
+		result = s.replace("\\" , "\\");
 		return result;
 	}
 	
@@ -34,11 +34,19 @@ public class Regex {
 		return id[2].substring(0, id[2].length() - 4);
 	}
 	
+	public static String nameFolder(String s){
+		String[] id;
+		id=s.split("/");
+		return id[id.length-2];
+	}
+	
 	public static void main(String[] args) {
 //		String file = "NOM PRENOMS_nomdonneparletudiantasonrendu_00000.zip";
 //		System.out.println(idName(file));
 //		System.out.println(substitute(idName(file)));
-		System.out.println(endsWith("cou", "coucou"));
+		//System.out.println(endsWith("cou", "coucou"));
+		String file = "/Users/Gui/Documents/Lambda/lezipdezip/ HANY WUTHEARA_hawu_projet_9093";
+		System.out.println(nameFolder(file));
 	}
 	
 	public static String substitute(String s){

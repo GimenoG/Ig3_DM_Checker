@@ -10,8 +10,6 @@ import com.martiansoftware.jsap.JSAPResult;
 import com.martiansoftware.jsap.Switch;
 import com.martiansoftware.jsap.UnflaggedOption;
 
-import fr.umlv.zip.ReadingArchive;
-
 /**
  * This class is able to manage the option which are antry by the user.
  * Options use the JSAP libray, more information on http://www.martiansoftware.com/jsap/
@@ -42,9 +40,9 @@ public class Options {
 	
 	/**
 	 * Create the software options able to be use in the programme.
-	 * It's a static méthode whiche can be use evrywhere in the code.
+	 * It's a static mï¿½thode whiche can be use evrywhere in the code.
 	 * 
-	 * Only must be use à the initiation of the soft.
+	 * Only must be use ï¿½ the initiation of the soft.
 	 * 
 	 * @see JSAP, QualifiedSwitch, registerParameter
 	 * @throws JSAPException
@@ -73,7 +71,7 @@ public class Options {
 	
 	
 	public void createOptions() throws JSAPException{
-		//TODO option forcé ?
+		//TODO option forcï¿½ ?
 		
 		jsap = new JSAP();
 		
@@ -149,7 +147,7 @@ public class Options {
 	//TODO pattern ? Options porte aussi l'execution du prog :s mais je ne voi pas comment faire autrement
 	public void Launch(){
 		System.out.println("launch");
-		//recuperation des paramétres
+		//recuperation des paramï¿½tres
 		LinkedList<String> param = new LinkedList<>();
 		verbose = config.getBoolean("optV");
 		oneTop = config.getBoolean("optO");

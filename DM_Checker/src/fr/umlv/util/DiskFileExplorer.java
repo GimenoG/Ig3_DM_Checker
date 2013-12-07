@@ -5,7 +5,6 @@ import java.io.File;
 public class DiskFileExplorer {
 
     private String initialpath = "";
-    private Boolean recursivePath = false;
     public int filecount = 0;
     public int dircount = 0;
 
@@ -14,10 +13,9 @@ public class DiskFileExplorer {
  * @param path chemin du répertoire
  * @param subFolder analyse des sous dossiers
  */
-    public DiskFileExplorer(String path, Boolean subFolder) {
+    public DiskFileExplorer(String path) {
         super();
         this.initialpath = path;
-        this.recursivePath = subFolder;
     }
 
     public void list() {
@@ -36,7 +34,7 @@ public class DiskFileExplorer {
                     System.out.println("Fichier" + files[i].getName());
                     this.filecount++;
                 }
-                if (files[i].isDirectory() == true && this.recursivePath == true) {
+                if (files[i].isDirectory() == true ) {
                     this.listDirectory(files[i].getAbsolutePath());
                 }
             }
@@ -47,14 +45,14 @@ public class DiskFileExplorer {
      * Exemple : lister les fichiers dans tous les sous-dossiers
      * @param args
      */
-   /* public static void main(String[] args) {
+    public static void main(String[] args) {
         String pathToExplore = "/Users/Gui/Documents/Lambda/";
-        DiskFileExplorer diskFileExplorer = new DiskFileExplorer(pathToExplore, true);
+        DiskFileExplorer diskFileExplorer = new DiskFileExplorer(pathToExplore);
         Long start = System.currentTimeMillis();
         diskFileExplorer.list();
         System.out.println("----------");
         System.out.println("Analyse de " + pathToExplore + " en " + (System.currentTimeMillis() - start) + " mses");
         System.out.println(diskFileExplorer.dircount + " dossiers");
         System.out.println(diskFileExplorer.filecount + " fichiers");
-    }*/
+    }
 }
