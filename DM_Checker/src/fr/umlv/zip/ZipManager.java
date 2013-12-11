@@ -12,10 +12,11 @@ import java.util.zip.ZipFile;
 
 public class ZipManager extends ArchiveRunner {
 	private ArrayList<String> projetEleve;
-	
+	private File destination = new File("/Users/Gui/Downloads/test_projet");
+
 	public ZipManager(String source, String destination) {
 		super(source, destination);
-		// TODO Auto-generated constructor stub
+		this.projetEleve = new ArrayList<String>();
 	}
 
 	@Override
@@ -27,15 +28,23 @@ public class ZipManager extends ArchiveRunner {
 
 	@Override
 	public void extract(String pathAExtraire) {
+
 		try {
 			File fSourceZip = new File(pathAExtraire);
-			String zipPath = pathAExtraire.substring(0, pathAExtraire.length() - 4);
+			String zipPath = pathAExtraire.substring(0,
+					pathAExtraire.length() - 4);
+			String[] nameFolder;
+			String Folder;
 
-			File temp = new File(zipPath);
+			nameFolder = zipPath.split(File.separator);
+			Folder = destination.getCanonicalPath() + File.separator
+					+ nameFolder[nameFolder.length - 1];
+			System.out.println("Folder : " + Folder);
+			File temp = new File(Folder);
 			temp.mkdir();
-//			if (verbose)
-//				System.err.println(zipPath + " created");
-			projetEleve.add(zipPath);
+			// if (verbose)
+			// System.err.println(Folder + " created");
+			projetEleve.add(Folder);
 
 			ZipFile zipFile = new ZipFile(fSourceZip);
 			Enumeration e = zipFile.entries();
@@ -43,14 +52,14 @@ public class ZipManager extends ArchiveRunner {
 			while (e.hasMoreElements()) {
 				ZipEntry entry = (ZipEntry) e.nextElement();
 
-				File destinationFilePath = new File(zipPath, entry.getName());
+				File destinationFilePath = new File(Folder, entry.getName());
 
 				destinationFilePath.getParentFile().mkdirs();
 				if (entry.isDirectory()) {
 					continue;
 				} else {
-//					if (verbose)
-//						System.err.println("Extracting " + destinationFilePath);
+					// if (verbose)
+					// System.err.println("Extracting " + destinationFilePath);
 					BufferedInputStream bis = new BufferedInputStream(
 							zipFile.getInputStream(entry));
 
@@ -73,31 +82,30 @@ public class ZipManager extends ArchiveRunner {
 					extract(destinationFilePath.getAbsolutePath());
 					destinationFilePath.delete();
 				}
-				
+
 			}
 			zipFile.close();
-			
+
 		} catch (NullPointerException e) {
 			System.out.println("Error : " + e.toString());
 		} catch (IOException ioe) {
 			System.out.println("IOError :" + ioe);
 		}
 
-		
 	}
 
 	@Override
 	public void setPath() {
 		/*
-		 * Elle fait quoi cette méthode ? Elle set quelle path ? Destination ? Fichier à extraire ?
+		 * Elle fait quoi cette méthode ? Elle set quelle path ? Destination ?
+		 * Fichier à extraire ?
 		 */
-		
+
 	}
 
 	@Override
 	public ArrayList<String> getPath() {
 		return projetEleve;
 	}
-	
 
 }
