@@ -22,6 +22,4 @@ public interface ArchiveOptionChecker {
 
 	public String isValid(String src);
 
-	public void isForce(boolean b);
-
 }
