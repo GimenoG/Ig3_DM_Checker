@@ -1,4 +1,4 @@
-package fr.umlv.util;
+	package fr.umlv.util;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -24,17 +24,20 @@ public class Options {
 	private static JSAPResult config;
 	private int mode;
 	
-	
-	LinkedList<String> param = new LinkedList<>();
-	boolean verbose = false;
-	boolean oneTop = false;
-	String [] endWith;
-	String [] beginWith;
-	String [] forbidden;
-	String [] be;
-	String destination;
-	String source;
-	
+	private boolean verbose = false;
+	private boolean oneTop = false;
+	private String [] endWith;
+	private String [] beginWith;
+	private String [] forbidden;
+	private String [] be;
+	private String destination;
+	private String source;
+	private boolean forceOneTop=false;
+	private String [] forceBeginsWith;
+	private String[] forceEndsWith;
+	private String[] forceBe;
+	private String[] forceinterdit;
+
 	public Options(){
 	}
 	
@@ -96,9 +99,23 @@ public class Options {
 		FlaggedOption optE = (FlaggedOption) (new FlaggedOption("optE").setShortFlag('e').setLongFlag("endswith").setList(true).setListSeparator(',').setHelp("Doesn't work with the files which end with the paramter : -e <end string to bansih> or --endswith <end string to banish>"));
 		FlaggedOption optB = (FlaggedOption) (new FlaggedOption("optB").setShortFlag('b').setLongFlag("beginswith").setList(true).setListSeparator(',').setHelp("Doesn't work with the files which start with the paramter : -b <start string to bansih> or --beginswith <start string to banish>"));
 		//TODO qualifiedSwith ou autre ?
-		FlaggedOption optX = (FlaggedOption) (new FlaggedOption("optX").setShortFlag('x').setLongFlag("existe").setList(true).setListSeparator(',').setHelp("Check if the folder name in parameter already existe in the destination directory. If it's true the folder won't be treaty"));
-		FlaggedOption optI = (FlaggedOption) (new FlaggedOption("optI").setShortFlag('i').setLongFlag("interdit").setList(true).setListSeparator(',').setHelp("Check the lack of the file named <param> in the repository. The head directory isn't concern by is option.\nUse : -I <regex name> or --interdit <regex name>"));
+		FlaggedOption optX = (FlaggedOption) (new FlaggedOption("optX").setShortFlag('x').setLongFlag("existe").setAllowMultipleDeclarations(true).setList(true).setListSeparator(',').setHelp("Check if the folder name in parameter already existe in the destination directory. If it's true the folder won't be treaty"));
+		FlaggedOption optI = (FlaggedOption) (new FlaggedOption("optI").setShortFlag('i').setLongFlag("interdit").setAllowMultipleDeclarations(true).setList(true).setListSeparator(',').setHelp("Check the lack of the file named <param> in the repository. The head directory isn't concern by is option.\nUse : -I <regex name> or --interdit <regex name>"));
 		
+		//Option force : pas de long flag !
+		FlaggedOption optForceI = (FlaggedOption) new FlaggedOption("optForceI").setList(true).setShortFlag('I').setListSeparator(',').setAllowMultipleDeclarations(true).setLongFlag(JSAP.NO_LONGFLAG).setHelp("Check if the folder name in parameter already existe in the destination directory. If it's true the folder won't be treaty");
+		FlaggedOption optForceX = (FlaggedOption) new FlaggedOption("optForceX").setList(true).setShortFlag('X').setListSeparator(',').setAllowMultipleDeclarations(true).setLongFlag(JSAP.NO_LONGFLAG).setHelp("Check if the folder name in parameter already existe in the destination directory. If it's true the folder won't be treaty");
+		FlaggedOption optForceB = (FlaggedOption) new FlaggedOption("optForceB").setList(true).setShortFlag('B').setListSeparator(',').setAllowMultipleDeclarations(true).setLongFlag(JSAP.NO_LONGFLAG).setHelp("Check if the folder name in parameter already existe in the destination directory. If it's true the folder won't be treaty");
+		FlaggedOption optForceE = (FlaggedOption) new FlaggedOption("optForceE").setList(true).setShortFlag('E').setListSeparator(',').setAllowMultipleDeclarations(true).setLongFlag(JSAP.NO_LONGFLAG).setHelp("Check if the folder name in parameter already existe in the destination directory. If it's true the folder won't be treaty");
+		Switch optForceO = (Switch)(new Switch("optForceO").setShortFlag('O').setLongFlag(JSAP.NO_LONGFLAG).setHelp("Require only one folder at the top"));
+		
+		
+		
+		jsap.registerParameter(optForceI);
+		jsap.registerParameter(optForceX);
+		jsap.registerParameter(optForceB);
+		jsap.registerParameter(optForceE);
+		jsap.registerParameter(optForceO);
 		jsap.registerParameter(optD);
 		jsap.registerParameter(optO);
 		jsap.registerParameter(optE);
@@ -118,11 +135,10 @@ public class Options {
 	 */
 	public void checkOptions(String[] args){
 		config = jsap.parse(args);
-		//TODO revoire la gestion de l'erreur
+		//verif que les option sont bien récupéré
 		if (!config.success()) {
             
             System.err.println();
-            //TODO check les erreurs dans un logger pour le mode verbose ?
             // print out specific error messages describing the problems
             // with the command line, THEN print usage, THEN print full
             // help.  This is called "beating the user with a clue stick."
@@ -146,25 +162,28 @@ public class Options {
 	 */
 	//TODO pattern ? Options porte aussi l'execution du prog :s mais je ne voi pas comment faire autrement
 	public void Launch(){
-		System.out.println("launch");
+		//System.out.println("launch");
 		//recuperation des paramï¿½tres
-		LinkedList<String> param = new LinkedList<>();
 		verbose = config.getBoolean("optV");
 		oneTop = config.getBoolean("optO");
 		endWith = config.getStringArray("optE");
 		beginWith = config.getStringArray("optB");
 		forbidden = config.getStringArray("optI");
 		be = config.getStringArray("optX");
-		destination = config.getString("optD");
+		forceOneTop = config.getBoolean("optForceO");
+		forceBeginsWith = config.getStringArray("optForceB");
+		forceEndsWith = config.getStringArray("optForceE");
+		forceBe = config.getStringArray("optForceX");
+		forceinterdit = config.getStringArray("optForceI");
 		
+		//si -d set on prend cette destination sinon le second paramétre
+		destination = config.getString("optD");
+		if (destination.compareTo("")==0)
+			destination=config.getStringArray("param")[1];
 		
 		source = config.getStringArray("param")[0];
 		System.out.println(source);
 		mode = mode(config);
-	}
-
-	public LinkedList<String> getParam() {
-		return param;
 	}
 
 	public boolean isVerbose() {
@@ -202,6 +221,24 @@ public class Options {
 	public String getSource(){
 		return source;
 	}
-	
+	public boolean isForceOneTop() {
+		return forceOneTop;
+	}
+
+	public String[] getForceBeginsWith() {
+		return forceBeginsWith;
+	}
+
+	public String[] getForceEndsWith() {
+		return forceEndsWith;
+	}
+
+	public String[] getForceBe() {
+		return forceBe;
+	}
+
+	public String[] getForceinterdit() {
+		return forceinterdit;
+	}
 	
 }
