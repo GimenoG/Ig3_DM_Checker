@@ -20,6 +20,6 @@ public interface ArchiveOptionChecker {
 
 	public ArrayList<String> getPathArchive(String src);
 
-	public String isValid(String src);
+	public boolean isValid(String src) throws IOException;
 
 }
