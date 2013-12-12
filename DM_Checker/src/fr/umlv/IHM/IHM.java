@@ -6,9 +6,12 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
+import fr.umlv.main.Scenario;
+import fr.umlv.util.Regex;
+
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.*;
+import java.util.ArrayList;
 
 public class IHM extends JFrame{
 	
@@ -60,10 +63,41 @@ public class IHM extends JFrame{
 	private JRadioButton fradioButton9;
 	private JRadioButton fradioButton10;
 	
-	public IHM(){
+	private final Scenario sc;
+	private ArrayList<String> paths;
+	private int indice;
+	
+	public IHM(Scenario sc){
 		super("DMChecker");
-		
+		this.sc= sc;
+		indice=0;//TODO recharger a indice svg
+		paths = null;
 		buildWindow();
+		initWindow();
+	}
+	public Scenario getScenario(){
+		return sc;
+	}
+	public int getIndice(){
+		return indice;
+	}
+	public String getCurrentName(){
+		return paths.get(indice);
+	}
+	public void incrementIndice(){
+		if(indice<paths.size()){
+			indice++;
+		}
+	}
+	public void decrementIndice(){
+		if(indice<paths.size()){
+			indice--;
+		}
+	}
+	
+	private void initWindow(){
+		paths=sc.initIHM();
+		editNameLabelTop(Regex.idName(paths.get(indice)));
 	}
 	
 	private void buildWindow(){
@@ -80,8 +114,9 @@ public class IHM extends JFrame{
 			setResizable(false);
 		
 			setContentPane(buildContendPanel());
+			
+			
 	}
-	//TODO charder dynamiquement les nom des item
 	private JPanel buildContendPanel(){
 		JPanel panel = new JPanel();
 		panel.setLayout(new FlowLayout());
@@ -268,16 +303,12 @@ public class IHM extends JFrame{
 	public String getGraphicComment(){
 		return graphicComment.toString();
 	}
-
 	
-	//TODO a mettre dans le main a la fin des tests
-	public static void main(String[] args){
+	public void cleanSheet(){
+		editNameLabelTop(Regex.idName(getCurrentName()));
+		graphicComment.setText("");
+		fonctionComment.setText("");
+		othersCriterions.setText("");
 		
-		SwingUtilities.invokeLater(new Runnable(){
-			public void run(){
-				JFrame fenetre = new IHM();
-				fenetre.setVisible(true);
-			}
-		});
 	}
 }

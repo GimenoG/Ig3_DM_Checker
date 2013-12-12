@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 
+import fr.umlv.util.Regex;
+
 public class ButtonListener extends AbstractAction {
 
 	private IHM ihm;
@@ -20,19 +22,22 @@ public class ButtonListener extends AbstractAction {
 
 		if (src == ihm.getButtonNext()) {
 			// TODO action
-			ihm.editNameLabelTop("next");
+			//TODO svg rapport + etat
+			ihm.incrementIndice();
+			ihm.editNameLabelTop(Regex.idName(ihm.getCurrentName()));
 		} else if (src == ihm.getButtonPrevious()) {
-			// TODO action
-			ihm.editNameLabelTop("previous");
+			//TODO action
+			//TODO svg du rapport +etat
+			ihm.incrementIndice();
+			ihm.editNameLabelTop(Regex.idName(ihm.getCurrentName()));
 		} else if (src == ihm.getButtonRun()) {
-			// set the button lable
+			// set the button label
 			if (ihm.getButtonRun().getText().compareTo("Run") == 0) {
 				ihm.getButtonRun().setText("Stop");
-				ihm.editNameLabelTop("stop");
 			} else {
 				ihm.getButtonRun().setText("Run");
-				ihm.editNameLabelTop("run");
 			}
+			
 		}
 
 	}

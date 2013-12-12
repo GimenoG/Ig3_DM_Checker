@@ -74,7 +74,6 @@ public class Options {
 	
 	
 	public void createOptions() throws JSAPException{
-		//TODO option forc� ?
 		
 		jsap = new JSAP();
 		
@@ -93,20 +92,17 @@ public class Options {
 		
 		
 		FlaggedOption optD = (FlaggedOption) (new FlaggedOption("optD").setShortFlag('d').setLongFlag("destination").setList(true).setListSeparator(',').setHelp("Specifies the destination directory : -d <destination folder> or --destination <destination folder>."));
-		//TODO help (a verif sens de l'option)
 		Switch optO = (Switch)(new Switch("optO").setShortFlag('o').setLongFlag("onetop").setHelp("Require only one folder at the top"));
-		//FlaggedOption optO = (FlaggedOption) (new FlaggedOption("optO").setShortFlag('o').setLongFlag("onetop").setList(true).setListSeparator(',').setHelp("."));
 		FlaggedOption optE = (FlaggedOption) (new FlaggedOption("optE").setShortFlag('e').setLongFlag("endswith").setList(true).setListSeparator(',').setHelp("Doesn't work with the files which end with the paramter : -e <end string to bansih> or --endswith <end string to banish>"));
 		FlaggedOption optB = (FlaggedOption) (new FlaggedOption("optB").setShortFlag('b').setLongFlag("beginswith").setList(true).setListSeparator(',').setHelp("Doesn't work with the files which start with the paramter : -b <start string to bansih> or --beginswith <start string to banish>"));
-		//TODO qualifiedSwith ou autre ?
 		FlaggedOption optX = (FlaggedOption) (new FlaggedOption("optX").setShortFlag('x').setLongFlag("existe").setAllowMultipleDeclarations(true).setList(true).setListSeparator(',').setHelp("Check if the folder name in parameter already existe in the destination directory. If it's true the folder won't be treaty"));
 		FlaggedOption optI = (FlaggedOption) (new FlaggedOption("optI").setShortFlag('i').setLongFlag("interdit").setAllowMultipleDeclarations(true).setList(true).setListSeparator(',').setHelp("Check the lack of the file named <param> in the repository. The head directory isn't concern by is option.\nUse : -I <regex name> or --interdit <regex name>"));
 		
 		//Option force : pas de long flag !
-		FlaggedOption optForceI = (FlaggedOption) new FlaggedOption("optForceI").setList(true).setShortFlag('I').setListSeparator(',').setAllowMultipleDeclarations(true).setLongFlag(JSAP.NO_LONGFLAG).setHelp("Check if the folder name in parameter already existe in the destination directory. If it's true the folder won't be treaty");
+		FlaggedOption optForceI = (FlaggedOption) new FlaggedOption("optForceI").setList(true).setShortFlag('I').setListSeparator(',').setAllowMultipleDeclarations(true).setLongFlag(JSAP.NO_LONGFLAG).setHelp("Check the lack of the file named <param> in the repository. The head directory isn't concern by is option.\nUse : -I <regex name> or --interdit <regex name>");
 		FlaggedOption optForceX = (FlaggedOption) new FlaggedOption("optForceX").setList(true).setShortFlag('X').setListSeparator(',').setAllowMultipleDeclarations(true).setLongFlag(JSAP.NO_LONGFLAG).setHelp("Check if the folder name in parameter already existe in the destination directory. If it's true the folder won't be treaty");
-		FlaggedOption optForceB = (FlaggedOption) new FlaggedOption("optForceB").setList(true).setShortFlag('B').setListSeparator(',').setAllowMultipleDeclarations(true).setLongFlag(JSAP.NO_LONGFLAG).setHelp("Check if the folder name in parameter already existe in the destination directory. If it's true the folder won't be treaty");
-		FlaggedOption optForceE = (FlaggedOption) new FlaggedOption("optForceE").setList(true).setShortFlag('E').setListSeparator(',').setAllowMultipleDeclarations(true).setLongFlag(JSAP.NO_LONGFLAG).setHelp("Check if the folder name in parameter already existe in the destination directory. If it's true the folder won't be treaty");
+		FlaggedOption optForceB = (FlaggedOption) new FlaggedOption("optForceB").setList(true).setShortFlag('B').setListSeparator(',').setAllowMultipleDeclarations(true).setLongFlag(JSAP.NO_LONGFLAG).setHelp("Doesn't work with the files which start with the paramter : -b <start string to bansih> or --beginswith <start string to banish>");
+		FlaggedOption optForceE = (FlaggedOption) new FlaggedOption("optForceE").setList(true).setShortFlag('E').setListSeparator(',').setAllowMultipleDeclarations(true).setLongFlag(JSAP.NO_LONGFLAG).setHelp("Doesn't work with the files which end with the paramter : -e <end string to bansih> or --endswith <end string to banish>");
 		Switch optForceO = (Switch)(new Switch("optForceO").setShortFlag('O').setLongFlag(JSAP.NO_LONGFLAG).setHelp("Require only one folder at the top"));
 		
 		

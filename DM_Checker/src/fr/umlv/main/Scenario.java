@@ -14,17 +14,26 @@ import fr.umlv.junit.Junit;
 import fr.umlv.util.Messages;
 import fr.umlv.util.Options;
 import fr.umlv.util.Reports;
-
+/**
+ * 
+ * 
+ * 
+ * 
+ * @author Meriadoc
+ *
+ */
 public class Scenario {
 	
 	private final Options options;
 	private final Reports reports;
 	private final ArchiveOptionChecker optCheck;
+	private Junit junit;
 	
 	public Scenario(Options opt, Reports reports){
 		options=opt;
 		this.reports=reports;
 		optCheck = new ZipFile();
+		junit = new Junit();
 	}
 	
 	
@@ -117,6 +126,10 @@ public class Scenario {
 		//init : extrait l'archive d'archive
 		ArrayList<String> paths;
 		Objects.requireNonNull(paths = optCheck.getPathArchive(path));
+		if(paths.size()==0){
+			System.err.println("pas d'archive d'archive !");
+			return;
+		}
 		optCheck.extract(path, paths.get(0));
 		paths.remove(0);
 		//lance le traitement
@@ -132,11 +145,25 @@ public class Scenario {
 		}
 	}
 	
+	public void jUnitIHM(String jUnitPath){
+		junit.execute(options.getJUnitPath());
+	}
+	
+	public ArrayList<String> initIHM(){
+		String path=options.getSource();
+		ArrayList<String> p = optCheck.getPathArchive(path);
+		optCheck.extract(path, p.get(0));
+		p.remove(0);
+		return p;
+	}
+	public void exctratIHM(String path){
+		
+	}
+	
 	public void jUnitTesting(String path){
 		//on extrait les fichier valide
 		checkArchiveSerial(path);
 		//on lance les jUnits
-		Junit junit = new Junit();
 		junit.execute(options.getJUnitPath());
 	}
 	
