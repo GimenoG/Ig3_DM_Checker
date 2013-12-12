@@ -1,4 +1,4 @@
-package fr.umlv.zip;
+package ASupprimer;
 
 import java.io.IOException;
 
@@ -13,4 +13,6 @@ public interface Option {
 	public boolean beginsWith(String s);
 	
 	public void setVerbose(boolean b);
+	
+	public boolean oneTop();
 }

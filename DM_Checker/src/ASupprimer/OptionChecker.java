@@ -1,4 +1,4 @@
-package fr.umlv.zip;
+package ASupprimer;
 
 import java.io.IOException;
 import java.util.Enumeration;

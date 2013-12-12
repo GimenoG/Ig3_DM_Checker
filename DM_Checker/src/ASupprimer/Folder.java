@@ -1,4 +1,4 @@
-package fr.umlv.zip;
+package ASupprimer;
 
 import java.io.File;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package fr.umlv.zip;
+package ASupprimer;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;

@@ -6,7 +6,7 @@ import Naze.test.ListsTest;
 
 public class Junit {
 
-	public static void execute(){
+	private static void execute(){
 
 		JUnitCore runner = new JUnitCore();
 		runner.addListener(new ExecuteJUnit());
@@ -14,6 +14,11 @@ public class Junit {
 		Result result = runner.run(ListsTest.class); //nom de la classe où il y a les JUnit
 	}
 
+	
+	public void execute(String pathSrc){
+		
+	}
+	
 	public static void main(String[] args) {
 		execute();
 	}
