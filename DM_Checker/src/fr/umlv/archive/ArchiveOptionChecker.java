@@ -5,19 +5,23 @@ import java.util.ArrayList;
 
 public interface ArchiveOptionChecker {
 
-	public boolean endsWith(String s);
+	public boolean endsWith(String src, String ends);
 
-	public boolean existe(String s) throws IOException;
+	public boolean existe(String src, String existe) throws IOException;
 
-	public boolean interdit(String s) throws IOException;
-
-	public boolean beginsWith(String s);
+	public boolean beginsWith(String src, String begin);
 
 	public void setVerbose(boolean b);
 
-	public boolean oneTop();
+	public boolean oneTop(String src);
 
-	public void extract(String src,String destination); //destination/src !!!! si vide ./src
-	
+	public void extract(String src, String destination); // destination/src !!!!
+															// si vide ./src
+
 	public ArrayList<String> getPathArchive(String src);
+
+	public String isValid(String src);
+
+	public void isForce(boolean b);
+
 }
