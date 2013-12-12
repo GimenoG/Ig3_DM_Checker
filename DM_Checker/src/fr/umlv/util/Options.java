@@ -1,7 +1,6 @@
 	package fr.umlv.util;
 
 import java.util.Iterator;
-import java.util.LinkedList;
 
 import com.martiansoftware.jsap.FlaggedOption;
 import com.martiansoftware.jsap.JSAP;
@@ -37,6 +36,7 @@ public class Options {
 	private String[] forceEndsWith;
 	private String[] forceBe;
 	private String[] forceinterdit;
+	private String junitPath;
 
 	public Options(){
 	}
@@ -69,7 +69,7 @@ public class Options {
 			return 2;
 		if (config.getBoolean("opt3"))
 			return 3;
-		return 0;
+		return 4;
 	}
 	
 	
@@ -124,7 +124,6 @@ public class Options {
 		jsap.registerParameter(optI);
 		
 		UnflaggedOption param = (UnflaggedOption) new UnflaggedOption("param").setStringParser(JSAP.STRING_PARSER).setRequired(true).setGreedy(true);
-		
 		jsap.registerParameter(param);
 	}
 	/**
@@ -178,14 +177,27 @@ public class Options {
 		
 		//si -d set on prend cette destination sinon le second paramétre
 		destination = config.getString("optD");
-		if (destination.compareTo("")==0)
-			destination=config.getStringArray("param")[1];
 		
-		source = config.getStringArray("param")[0];
-		System.out.println(source);
+		//gestion des argument solitaire de la ligne
+		//si c'est le mode -3 c'est fichierjUnit source destination
+		// si c'est un autre c'est source et destination
+		if(getMode()!=3){
+			if (config.getString("destination")==null)
+				destination=config.getStringArray("param")[1];
+			
+			source = config.getStringArray("param")[0];
+		}else{
+			if (config.getString("destination")==null)
+				destination=config.getStringArray("param")[2];
+			
+			source = config.getStringArray("param")[1];
+			junitPath = config.getStringArray("param")[0];
+		}
 		mode = mode(config);
 	}
-
+	public String getJUnitPath(){
+		return junitPath;
+	}
 	public boolean isVerbose() {
 		return verbose;
 	}
