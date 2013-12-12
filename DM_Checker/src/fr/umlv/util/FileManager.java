@@ -1,4 +1,6 @@
 package fr.umlv.util;
+
+
 /**
  * manage the input & output betwen the file and the soft
  * 
@@ -11,6 +13,7 @@ public class FileManager {
 	
 	public FileManager(String pathReport){
 		this.pathReport = pathReport;
+		//http://www.infoq.com/fr/news/2013/05/standard-java-api-for-json
 	}
 	
 	public String readReport(String name){
@@ -27,5 +30,6 @@ public class FileManager {
 	
 	public boolean isReport(String name){
 		//verifie si le rapport d'un binome est ecrit dans le fichier
+		return false;
 	}
 }

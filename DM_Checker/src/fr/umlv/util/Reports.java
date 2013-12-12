@@ -11,8 +11,8 @@ public class Reports {
 	
 	private final FileManager file;
 	
-	public Reports(FileManager file){
-		this.file=file;
+	public Reports(String pathReport){
+		file = new FileManager(pathReport);
 	}
 	
 	public void setReport(String s){
