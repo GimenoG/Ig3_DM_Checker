@@ -9,7 +9,7 @@ import javax.swing.SwingUtilities;
 
 import fr.umlv.IHM.IHM;
 import fr.umlv.archive.ArchiveOptionChecker;
-import fr.umlv.archive.ZipFile;
+import fr.umlv.archive.ZipFileFormat;
 import fr.umlv.junit.Junit;
 import fr.umlv.util.Messages;
 import fr.umlv.util.Options;
@@ -25,14 +25,12 @@ import fr.umlv.util.Reports;
 public class Scenario {
 	
 	private final Options options;
-	private final Reports reports;
 	private final ArchiveOptionChecker optCheck;
 	private Junit junit;
 	
 	public Scenario(Options opt, Reports reports){
 		options=opt;
-		this.reports=reports;
-		optCheck = new ZipFile();
+		optCheck = new ZipFileFormat();
 		junit = new Junit();
 	}
 	
@@ -145,19 +143,20 @@ public class Scenario {
 		}
 	}
 	
-	public void jUnitIHM(String jUnitPath){
-		junit.execute(options.getJUnitPath());
-	}
-	
 	public ArrayList<String> initIHM(){
 		String path=options.getSource();
 		ArrayList<String> p = optCheck.getPathArchive(path);
-		optCheck.extract(path, p.get(0));
-		p.remove(0);
-		return p;
-	}
-	public void exctratIHM(String path){
 		
+		//verif que la liste ne soit pas vide.
+		if (p.size()>0){
+			optCheck.extract(path, p.get(0));
+			p.remove(0);
+			return p;
+		}
+		else{
+			//pas top
+			return null;
+		}
 	}
 	
 	public void jUnitTesting(String path){
@@ -168,14 +167,20 @@ public class Scenario {
 	}
 	
 	
-	private boolean ihmMode(Scenario sc){
+	private boolean ihmMode(){
+		
+		String[] param = options.getParam();
+		//verfie qu'il y a bien 3 paramétres passé en option.
+		if(param.length!=3)
+			return false;
+		//lancement de l'ihm, puissance maximum M. Solo
 		SwingUtilities.invokeLater(new Runnable(){
 			public void run(){
-				JFrame fenetre = new IHM(sc);
+				JFrame fenetre = new IHM(param,optCheck.getPathArchive(options.getSource()));
 				fenetre.setVisible(true);
 			}
 		});
-		return false;
+		return true;
 	}
 	/**
 	 * suprimmer les zip a la fin !!
@@ -192,7 +197,7 @@ public class Scenario {
 			case 1 : checkOptionsArchive(options.getSource());break;
 			case 2 : checkArchiveSerial(options.getSource());break;
 			case 3 : jUnitTesting(options.getSource());break;
-			case 4 : ihmMode(this);break;
+			case 4 : ihmMode();break;
 			default : System.err.println("Erreur : pas de scenario associe");
 		}
 	}

@@ -4,9 +4,6 @@ import javax.swing.*;
 
 import java.awt.event.*;
 
-import javax.swing.*;
-
-import fr.umlv.main.Scenario;
 import fr.umlv.util.Regex;
 
 import java.awt.Dimension;
@@ -63,21 +60,17 @@ public class IHM extends JFrame{
 	private JRadioButton fradioButton9;
 	private JRadioButton fradioButton10;
 	
-	private final Scenario sc;
 	private ArrayList<String> paths;
 	private int indice;
 	
-	public IHM(Scenario sc){
+	public IHM(String [] param, ArrayList<String> paths){
 		super("DMChecker");
-		this.sc= sc;
 		indice=0;//TODO recharger a indice svg
-		paths = null;
+		paths = paths;
 		buildWindow();
 		initWindow();
 	}
-	public Scenario getScenario(){
-		return sc;
-	}
+
 	public int getIndice(){
 		return indice;
 	}
@@ -90,13 +83,12 @@ public class IHM extends JFrame{
 		}
 	}
 	public void decrementIndice(){
-		if(indice<paths.size()){
+		if(indice>0){
 			indice--;
 		}
 	}
 	
 	private void initWindow(){
-		paths=sc.initIHM();
 		editNameLabelTop(Regex.idName(paths.get(indice)));
 	}
 	
@@ -128,12 +120,12 @@ public class IHM extends JFrame{
 		titleIHMComment.setPreferredSize(new Dimension(585, 20));
 		titleIHMComment.setHorizontalAlignment(JLabel.CENTER);
 		criterionsGraphic = new JLabel("Criteres");
-		criterionsGraphic.setPreferredSize(new Dimension(585, 60));//TODO extention si plus de crit�re ?
+		criterionsGraphic.setPreferredSize(new Dimension(585, 60));
 		titleFonctionComment = new JLabel("<html><body>Critere Fonctionnel</body></html>");
 		titleFonctionComment.setPreferredSize(new Dimension(585, 20));
 		titleFonctionComment.setHorizontalAlignment(JLabel.CENTER);
 		criterionsFonction = new JLabel("Criteres");
-		criterionsFonction.setPreferredSize(new Dimension(585, 60));//TODO extention si plus de crit�re ?
+		criterionsFonction.setPreferredSize(new Dimension(585, 60));
 		othersCriterions = new JLabel("other");
 		othersCriterions.setPreferredSize(new Dimension(585, 60));
 		
@@ -153,7 +145,7 @@ public class IHM extends JFrame{
 		openRepository = new JMenuItem("Ouvrir repertoire");
 		save = new JMenuItem("Sauvegarder");
 		list = new JMenuItem("Liste des ?");//TODO a clarifier et modif en liste quand on sais de quoi il s'agit
-		exportNote = new JMenuItem("Exporter");//TODO liste de ens a alelr chercher
+		exportNote = new JMenuItem("Exporter");
 		quit = new JMenuItem("Quitter");
 		former = new JMenuItem("Former");//TODO a clarifier
 		menu.add(openRepository);
@@ -215,7 +207,7 @@ public class IHM extends JFrame{
 		evaluationFonctional.add(fradioButton8);
 		evaluationFonctional.add(fradioButton9);
 		evaluationFonctional.add(fradioButton10);
-		
+		//ligne de l'ihm (en nombre de block)
 		//line1 ?
 		setJMenuBar(menubar);
 		//line2 30
@@ -308,7 +300,5 @@ public class IHM extends JFrame{
 		editNameLabelTop(Regex.idName(getCurrentName()));
 		graphicComment.setText("");
 		fonctionComment.setText("");
-		othersCriterions.setText("");
-		
 	}
 }

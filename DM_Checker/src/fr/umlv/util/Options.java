@@ -1,5 +1,6 @@
 	package fr.umlv.util;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import com.martiansoftware.jsap.FlaggedOption;
@@ -11,7 +12,7 @@ import com.martiansoftware.jsap.UnflaggedOption;
 
 /**
  * This class is able to manage the option which are antry by the user.
- * Options use the JSAP libray, more information on http://www.martiansoftware.com/jsap/
+ * Options use the JSAP librairy, more information on http://www.martiansoftware.com/jsap/
  * 
  * @author Meriadoc
  *
@@ -247,6 +248,10 @@ public class Options {
 
 	public String[] getForceinterdit() {
 		return forceinterdit;
+	}
+	
+	public String[] getParam(){
+		return config.getStringArray("param");
 	}
 	
 }
