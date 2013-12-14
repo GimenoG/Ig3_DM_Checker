@@ -34,8 +34,11 @@ public class ButtonListener extends AbstractAction {
 			// set the button label
 			if (ihm.getButtonRun().getText().compareTo("Run") == 0) {
 				ihm.getButtonRun().setText("Stop");
+				//on arrete l'executable si il tourne
 			} else {
 				ihm.getButtonRun().setText("Run");
+				//on lance l'executable
+				ihm.launchExe();
 			}
 			
 		}

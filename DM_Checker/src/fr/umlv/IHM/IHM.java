@@ -8,6 +8,8 @@ import fr.umlv.util.Regex;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 public class IHM extends JFrame{
@@ -61,12 +63,15 @@ public class IHM extends JFrame{
 	private JRadioButton fradioButton10;
 	
 	private ArrayList<String> paths;
+	private String exec;
 	private int indice;
+	private Process proc;
 	
 	public IHM(String [] param, ArrayList<String> paths){
 		super("DMChecker");
 		indice=0;//TODO recharger a indice svg
 		paths = paths;
+		exec=param[0];
 		buildWindow();
 		initWindow();
 	}
@@ -86,6 +91,26 @@ public class IHM extends JFrame{
 		if(indice>0){
 			indice--;
 		}
+	}
+	/**
+	 * launch the exec which is currently set (must be a jar)
+	 */
+	public void launchExe(){
+		//TODO test /!\ -> lancement d'un jar.
+		try {
+			proc = Runtime.getRuntime().exec("java -jar "+exec+".jar");
+		} catch (IOException e) {
+			System.err.println("Impossible de lancer le programme "+exec+"\n");
+		}
+	}
+	public void stopExe(){
+		//si le processus est en vie on le tue, sinon il etss deja mort
+		if (proc.isAlive()) {
+			proc.destroy();
+		}
+	}
+	public void setExe(String pathExe){
+		exec=pathExe;
 	}
 	
 	private void initWindow(){
