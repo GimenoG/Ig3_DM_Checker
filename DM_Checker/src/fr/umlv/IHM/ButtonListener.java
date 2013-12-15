@@ -25,11 +25,15 @@ public class ButtonListener extends AbstractAction {
 			//TODO svg rapport + etat
 			ihm.incrementIndice();
 			ihm.editNameLabelTop(Regex.idName(ihm.getCurrentName()));
+			//arret du precessus
+			ihm.getButtonRun().setText("Stop");
 		} else if (src == ihm.getButtonPrevious()) {
 			//TODO action
 			//TODO svg du rapport +etat
 			ihm.incrementIndice();
 			ihm.editNameLabelTop(Regex.idName(ihm.getCurrentName()));
+			//arret du processus
+			ihm.getButtonRun().setText("Stop");
 		} else if (src == ihm.getButtonRun()) {
 			// set the button label
 			if (ihm.getButtonRun().getText().compareTo("Run") == 0) {
