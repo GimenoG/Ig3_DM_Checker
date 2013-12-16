@@ -5,11 +5,11 @@ import javax.swing.*;
 import java.awt.event.*;
 
 import fr.umlv.util.Regex;
+import fr.umlv.util.TxtExploreur;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 
 public class IHM extends JFrame{
@@ -66,12 +66,17 @@ public class IHM extends JFrame{
 	private String exec;
 	private int indice;
 	private Process proc;
+	private ArrayList<String> criterion;
+	private final String reportPath;
 	
 	public IHM(String [] param, ArrayList<String> paths){
 		super("DMChecker");
 		indice=0;//TODO recharger a indice svg
 		paths = paths;
 		exec=param[0];
+		//TODO check l'ordre des params
+		reportPath=param[2];
+		criterion=TxtExploreur.getCriterions(param[1]);
 		buildWindow();
 		initWindow();
 	}
@@ -115,6 +120,13 @@ public class IHM extends JFrame{
 	
 	private void initWindow(){
 		editNameLabelTop(Regex.idName(paths.get(indice)));
+		//mise en place des critére
+		criterionsGraphic.setText(criterion.get(0));
+		criterionsFonction.setText(criterion.get(1));
+		if(criterion.size()>2){
+			for(int i=2; i<criterion.size(); i++)
+				othersCriterions.setText(criterion.get(i));
+		}
 	}
 	
 	private void buildWindow(){
@@ -325,5 +337,25 @@ public class IHM extends JFrame{
 		editNameLabelTop(Regex.idName(getCurrentName()));
 		graphicComment.setText("");
 		fonctionComment.setText("");
+	}
+	/**
+	 * save the rapport
+	 */
+	public void saveReport(){
+		String [] report = new String[5];
+		report[0]=nameLableTop.getText();
+		report[1]=Integer.toString(evaluationGraphic.getButtonCount());
+		report[2]=graphicComment.getText();
+		report[3]=Integer.toString(evaluationFonctional.getButtonCount());
+		report[4]=fonctionComment.getText();
+		TxtExploreur.saveReport(reportPath, report);
+	}
+	public void setReport(){
+		String [] r= TxtExploreur.getReport(reportPath, nameLableTop.getText());
+		if (r!=null){
+			//TODO set radiogroup
+			fonctionComment.setText(r[4]);
+			graphicComment.setText(r[2]);
+		}
 	}
 }

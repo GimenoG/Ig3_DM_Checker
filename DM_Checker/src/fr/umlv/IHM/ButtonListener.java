@@ -21,17 +21,20 @@ public class ButtonListener extends AbstractAction {
 		Object src = arg0.getSource();
 
 		if (src == ihm.getButtonNext()) {
-			// TODO action
-			//TODO svg rapport + etat
+			ihm.saveReport();
 			ihm.incrementIndice();
 			ihm.editNameLabelTop(Regex.idName(ihm.getCurrentName()));
+			ihm.cleanSheet();
+			ihm.setReport();
 			//arret du precessus
 			ihm.getButtonRun().setText("Stop");
 		} else if (src == ihm.getButtonPrevious()) {
-			//TODO action
-			//TODO svg du rapport +etat
+			ihm.saveReport();
+			//add le rapport
 			ihm.incrementIndice();
 			ihm.editNameLabelTop(Regex.idName(ihm.getCurrentName()));
+			ihm.cleanSheet();
+			ihm.setReport();
 			//arret du processus
 			ihm.getButtonRun().setText("Stop");
 		} else if (src == ihm.getButtonRun()) {
@@ -41,6 +44,7 @@ public class ButtonListener extends AbstractAction {
 				//on arrete l'executable si il tourne
 			} else {
 				ihm.getButtonRun().setText("Run");
+				ihm.saveReport();
 				//on lance l'executable
 				ihm.launchExe();
 			}

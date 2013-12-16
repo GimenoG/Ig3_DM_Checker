@@ -132,13 +132,9 @@ public class Scenario {
 		paths.remove(0);
 		//lance le traitement
 		for(String p : paths){
-			try {
-				if((checkOptionsArchive(p))&&(optCheck.isValid(p))){
-					//TODO verif les path
-					optCheck.extract(p, options.getDestination());
-				}
-			} catch (IOException e) {
-				System.err.println("Une erreur est survenue lors de la lecture du fichier "+p);
+			if((checkOptionsArchive(p))&&(optCheck.isValid(p))){
+				//TODO verif les path
+				optCheck.extract(p, options.getDestination());
 			}
 		}
 	}
@@ -163,6 +159,7 @@ public class Scenario {
 		//on extrait les fichier valide
 		checkArchiveSerial(path);
 		//on lance les jUnits
+		//TODO parametre ?
 		junit.execute(options.getJUnitPath());
 	}
 	
