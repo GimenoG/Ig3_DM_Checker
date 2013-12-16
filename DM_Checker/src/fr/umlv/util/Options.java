@@ -1,6 +1,5 @@
 	package fr.umlv.util;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 
 import com.martiansoftware.jsap.FlaggedOption;

@@ -171,9 +171,13 @@ public class Scenario {
 		
 		String[] param = options.getParam();
 		//verfie qu'il y a bien 3 paramétres passé en option.
-		if(param.length!=3)
+		System.out.println(param.length);
+		for(String s : param)
+			System.out.println(s);
+		if(param.length!=6)
 			return false;
 		//lancement de l'ihm, puissance maximum M. Solo
+		System.out.println("toto");
 		SwingUtilities.invokeLater(new Runnable(){
 			public void run(){
 				JFrame fenetre = new IHM(param,optCheck.getPathArchive(options.getSource()));
@@ -192,6 +196,7 @@ public class Scenario {
 			System.err.println("Dossier source invalide");
 			return;
 		}
+		System.out.println(options.getMode());
 		//lance un scénation
 		switch(options.getMode()){
 			case 1 : checkOptionsArchive(options.getSource());break;

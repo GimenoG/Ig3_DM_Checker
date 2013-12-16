@@ -156,8 +156,8 @@ public class IHM extends JFrame{
 		
 		//Buttons create zone
 		//TODO mettre une image pour next et previous 
-		buttonPrevious = new JButton(new ButtonListener(this, "Previous"));
-		buttonNext = new JButton(new ButtonListener(this, "Next"));
+		buttonPrevious = new JButton(new ButtonListener(this, "<"));
+		buttonNext = new JButton(new ButtonListener(this, ">"));
 		buttonRun = new JButton(new ButtonListener(this, "Run"));
 		buttonPrevious.setPreferredSize(new Dimension(50, 30));
 		buttonNext.setPreferredSize(new Dimension(50, 30));
