@@ -5,6 +5,8 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.FileNameMap;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.zip.ZipEntry;
@@ -229,14 +231,11 @@ public class ZipFileFormat implements ArchiveOptionChecker {
 	}
 
 	@Override
-	public boolean isValid(String src) throws IOException {
-		try (ZipFile zipFile = new ZipFile(src)) {
-			if (zipFile != null) {
-				zipFile.close();
-				return true;
-			} else
-				return false;
-		}
+	public boolean isValid(String src) {
+		FileNameMap fileNameMap = URLConnection.getFileNameMap();
+		if (fileNameMap.getContentTypeFor(src).equals("application/zip"))
+			return true;
+		return false;
 	}
 
 }

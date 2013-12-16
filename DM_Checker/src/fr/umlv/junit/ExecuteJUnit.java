@@ -11,6 +11,11 @@ public class ExecuteJUnit extends RunListener {
 	StringBuilder sb;
 	boolean fail = false;
 	String msgFail = "";
+	String pathToWrite;
+
+	public ExecuteJUnit(String pathToWrite) {
+		this.pathToWrite = pathToWrite;
+	}
 
 	/**
 	 * Called before any tests have been run.
@@ -24,7 +29,8 @@ public class ExecuteJUnit extends RunListener {
 	 * Called when all tests have finished
 	 * */
 	public void testRunFinished(Result result) throws java.lang.Exception {
-		Log.writeText("/Users/Gui/Documents/Lambda/prout.txt", sb.toString());
+		sb.deleteCharAt(sb.length() - 1);
+		Log.writeText(pathToWrite, sb.toString());
 	}
 
 	/**
@@ -46,6 +52,7 @@ public class ExecuteJUnit extends RunListener {
 			sb.append(" result=False>").append("\n" + msgFail + "\n");
 			fail = false;
 		}
+		sb.append("</test>\n");
 
 	}
 
@@ -57,13 +64,4 @@ public class ExecuteJUnit extends RunListener {
 		msgFail = failure.getMessage();
 	}
 
-	/**
-	 * Called when a test will not be run, generally because a test method is
-	 * annotated with Ignore.
-	 * 
-	 * public void testIgnored(Description description) throws
-	 * java.lang.Exception {
-	 * System.out.println("Execution of test case ignored : " +
-	 * description.getMethodName()); }
-	 */
 }

@@ -1,29 +1,63 @@
 package fr.umlv.junit;
 
+import java.io.File;
+import java.io.IOException;
+
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 
-import Naze.test.ListsTest;
+import fr.umlv.util.Log;
 
 public class Junit {
 
-	private static void execute() {
-
+	private static void executeJunit(Class<?> test, String fichierTxt) {
 		JUnitCore runner = new JUnitCore();
-		runner.addListener(new ExecuteJUnit());
-		@SuppressWarnings("unused")
-		Result result = runner.run(ListsTest.class); // nom de la classe où il y
-														// a les JUnit
+		runner.addListener(new ExecuteJUnit(fichierTxt));
+		Result result = runner.run(test);
 	}
 
-	public void execute(String pathSrc) {
-		/*
-		 * boucle for : pour chaque .java
-		 */
+	public void execute(String pathPackageTest, String pathSrc,
+			String resultat, String name) throws ClassNotFoundException,
+			IOException {
+		Log.writeText(resultat, "<dmchecker>");
+		Log.writeText(
+				resultat,
+				"<soft name=\""
+						+ pathPackageTest.substring(pathSrc.length() + 1)
+						+ "\" student=\"" + name + "\">");
+
+		File file = new File(pathPackageTest);
+		File[] files = file.listFiles();
+		if (files != null) {
+			for (int i = 0; i < files.length; i++) {
+				if (files[i].getPath().endsWith(".java")) {
+					Log.writeText(resultat,
+							"<class name=\"" + files[i].getName() + "\">");
+					String testPath = pathPackageTest;
+
+					String filename = files[i].getName();
+					filename = filename.substring(0, filename.length() - 5);
+
+					testPath = testPath.substring(pathSrc.length() + 1)
+							.replaceAll(File.separator, ".");
+
+					testPath += "." + filename;
+					Class<?> test = Class.forName(testPath);
+					executeJunit(test, resultat);
+					Log.writeText(resultat, "</class name>");
+				}
+			}
+		}
+		Log.writeText(resultat, "</soft>");
+		Log.writeText(resultat, "</dmchecker>");
+
 	}
 
-	public static void main(String[] args) {
-		execute();
+	public static void main(String[] args) throws ClassNotFoundException,
+			IOException {
+		Junit j = new Junit();
+		j.execute("/Users/Gui/Downloads/DM_Checker/src/Naze/test/test",
+				"/Users/Gui/Downloads/DM_Checker/src",
+				"/Users/Gui/Downloads/youpi.txt", "Gimeno Guillaume");
 	}
-
 }
