@@ -141,7 +141,6 @@ public class Scenario {
 		//lance le traitement
 		for(String p : tmp){
 			if((checkOptionsArchive(options.getSource()+File.separator+p))&&(optCheck.isValid(p))){
-				//TODO verif les path
 				optCheck.extract(options.getSource()+File.separator+p, options.getDestination());
 			}
 		}

@@ -51,40 +51,43 @@ public class ZipFileFormat implements ArchiveOptionChecker {
 	@Override
 	public boolean existe(String src, String s) throws IOException {
 		try {
-
 			File fSourceZip = new File(src);
 			String zipPath = src.substring(0, src.length() - 4);
 			ZipFile zipFile = new ZipFile(fSourceZip);
 			Enumeration<? extends ZipEntry> e = zipFile.entries();
 
 			while (e.hasMoreElements()) {
-				ZipEntry entry = (ZipEntry) e.nextElement();
 
+				ZipEntry entry = (ZipEntry) e.nextElement();
 				File destinationFilePath = new File(zipPath, entry.getName());
 
 				if (entry.isDirectory()) {
-					if (entry.getName()
-							.substring(0, entry.getName().length() - 1)
-							.matches(s)) {
+					String tmp = entry.getName().substring(0,
+							entry.getName().length() - 1);
+					String[] tmpName = tmp.split(File.separator);
+					String name = tmpName[tmpName.length - 1];
+					if (name.matches(s)) {
 						if (verbose)
-							System.err.println(("Directory name is " + entry
-									.getName()));
+							System.err
+									.println(("There is a folder that call " + name));
 						return true;
 					}
 				} else {
-					if (entry.getName()
-							.substring(0, entry.getName().length() - 4)
-							.matches(s)) {
+					String tmp = entry.getName().substring(0,
+							entry.getName().length());
+					String[] tmpName = tmp.split(File.separator);
+					String name = tmpName[tmpName.length - 1];
+					System.out.println(name);
+					if (name.matches(s)) {
 						if (verbose)
-							System.err.println(("file name is " + entry
-									.getName()));
+							System.err
+									.println(("There is a file that call " + name));
 						return true;
 					}
 				}
 				if (entry.getName().endsWith(".zip")) {
 					existe(destinationFilePath.getAbsolutePath(), s);
 				}
-				zipFile.close();
 			}
 
 		} catch (IOException ioe) {
@@ -155,6 +158,7 @@ public class ZipFileFormat implements ArchiveOptionChecker {
 				if (verbose)
 					System.err.println(destination + " created");
 				destination += File.separator + Regex.nameZip(src);
+				System.out.println(destination);
 				System.out.println("fichier a extraire dans " + destination);
 			} else {
 				if (destination == null) {
@@ -219,7 +223,7 @@ public class ZipFileFormat implements ArchiveOptionChecker {
 			while (e.hasMoreElements()) {
 				ZipEntry entry = (ZipEntry) e.nextElement();
 
-				if (entry.getName().endsWith(".zip"))
+				if (entry.getName().endsWith(".zip"))	
 					listZip.add(entry.getName());
 			}
 			fichier_zip.close();

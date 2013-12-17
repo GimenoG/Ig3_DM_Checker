@@ -22,9 +22,14 @@ public class Regex {
 	}
 
 	public static String nameZip(String s) {
-		String[] name = s.split(File.separator);
+		System.out.println(s);
+		String fs = File.separator;
+		System.out.println(fs);
+		String[] name = s.split(fs);
+		System.out.println(name.length-1);
+		for(String a : name)
+			System.out.println(a);
 		return name[name.length - 1].substring(0,
 				name[name.length - 1].length() - 4);
 	}
-
 }
