@@ -57,7 +57,7 @@ public class Scenario {
 		System.err.println(path);
 		//test one top
 		if(options.isOneTop()||options.isForceOneTop()){
-			System.out.println("onetop");
+			System.out.println(optCheck.oneTop(path));
 			if (!optCheck.oneTop(path))
 				if (options.isForceOneTop()){
 					return optionForceRefused("onetop", "");
@@ -167,13 +167,11 @@ public class Scenario {
 		}
 	}
 	
-	public void jUnitTesting(String path){
-		//on extrait les fichier valide
-		checkArchiveSerial(path);
+	public void jUnitTesting(){
+		
 		//on lance les jUnits
-		//TODO parametre ?
 		try {
-			junit.execute(options.getJUnitPath(), options.getSource(), /*cf  ?*/ path , true);
+			junit.execute(options.getJUnitPath(), options.getSource(), options.getResultatPath() , true);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -218,7 +216,7 @@ public class Scenario {
 		switch(options.getMode()){
 			case 1 : checkOptionsArchive(options.getSource());break;
 			case 2 : checkArchiveSerial(options.getSource());break;
-			case 3 : jUnitTesting(options.getSource());break;
+			case 3 : jUnitTesting();break;
 			case 4 : ihmMode();break;
 			default : System.err.println("Erreur : pas de scenario associe");
 		}

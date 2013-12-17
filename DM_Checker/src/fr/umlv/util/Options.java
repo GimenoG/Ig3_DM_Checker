@@ -37,6 +37,7 @@ public class Options {
 	private String[] forceBe;
 	private String[] forceinterdit;
 	private String junitPath;
+	private String pathResultat;
 
 	public Options(){
 	}
@@ -192,6 +193,16 @@ public class Options {
 			}
 			source = config.getStringArray("param")[0];
 		}
+		if(getMode()==3){
+			destination=config.getString("destinataion");
+			source = config.getStringArray("param")[1];
+			junitPath=config.getStringArray("param")[0];
+			pathResultat=config.getStringArray("param")[2];
+		}
+		
+	}
+	public String getResultatPath(){
+		return pathResultat;
 	}
 	public String getJUnitPath(){
 		return junitPath;

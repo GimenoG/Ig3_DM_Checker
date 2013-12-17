@@ -2,6 +2,7 @@ package fr.umlv.junit;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
@@ -13,14 +14,17 @@ public class Junit {
 	private static void executeJunit(Class<?> test, String fichierTxt) {
 		JUnitCore runner = new JUnitCore();
 		runner.addListener(new ExecuteJUnit(fichierTxt));
+		@SuppressWarnings("unused")
 		Result result = runner.run(test);
 	}
 
 	public void execute(String pathPackageTest, String pathSrc,
 			String resultat, boolean recursif) throws ClassNotFoundException,
 			IOException {
-		String[] tmpName = pathSrc.split(File.separator);
-		String[] tmpName2 = tmpName[tmpName.length - 2].split("_");
+		//TODO
+		System.out.println(pathPackageTest);
+		String[] tmpName = pathSrc.split(Pattern.quote(File.separator));
+		String[] tmpName2 = tmpName[tmpName.length - 2].split(Pattern.quote("_"));
 		String name = tmpName2[0];
 
 		Log.writeText(resultat, "<dmchecker>");
@@ -43,9 +47,11 @@ public class Junit {
 					filename = filename.substring(0, filename.length() - 5);
 
 					testPath = testPath.substring(pathSrc.length() + 1)
-							.replaceAll(File.separator, ".");
+							.replaceAll(Pattern.quote(File.separator), Pattern.quote("."));
 
 					testPath += "." + filename;
+					//TODO
+					System.out.println(testPath);
 					Class<?> test = Class.forName(testPath);
 					executeJunit(test, resultat);
 					Log.writeText(resultat, "</class name>");
@@ -55,14 +61,5 @@ public class Junit {
 		Log.writeText(resultat, "</soft>");
 		Log.writeText(resultat, "</dmchecker>");
 
-	}
-
-	public static void main(String[] args) throws ClassNotFoundException,
-			IOException {
-		Junit j = new Junit();
-		j.execute(
-				"/Users/Gui/Downloads/NOM PRENOMS_nomdonneparletudiantasonrendu_00000/src/Naze/test/test",
-				"/Users/Gui/Downloads/NOM PRENOMS_nomdonneparletudiantasonrendu_00000/src",
-				"/Users/Gui/Downloads/youpi.txt", false);
 	}
 }

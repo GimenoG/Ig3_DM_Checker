@@ -9,6 +9,7 @@ import java.net.FileNameMap;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -36,8 +37,8 @@ public class ZipFileFormat implements ArchiveOptionChecker {
 				String entryName = entry.getName();
 				if (verbose)
 					System.out
-							.println("Le système compare entre le fichier contenu dans le zip : "
-									+ entryName + " et le suffixe : " + s);
+					.println("Le système compare entre le fichier contenu dans le zip : "
+							+ entryName + " et le suffixe : " + s);
 				if (entryName.endsWith(s))
 					return false;
 			}
@@ -71,24 +72,24 @@ public class ZipFileFormat implements ArchiveOptionChecker {
 				if (entry.isDirectory()) {
 					String tmp = entry.getName().substring(0,
 							entry.getName().length() - 1);
-					String[] tmpName = tmp.split(File.separator);
+					String[] tmpName = tmp.split(Pattern.quote(File.separator));
 					String name = tmpName[tmpName.length - 1];
 					if (name.matches(s)) {
 						if (verbose)
 							System.err
-									.println(("There is a folder that call " + name));
+							.println(("There is a folder that call " + name));
 						return true;
 					}
 				} else {
 					String tmp = entry.getName().substring(0,
 							entry.getName().length());
-					String[] tmpName = tmp.split(File.separator);
+					String[] tmpName = tmp.split(Pattern.quote(File.separator));
 					String name = tmpName[tmpName.length - 1];
 					System.out.println(name);
 					if (name.matches(s)) {
 						if (verbose)
 							System.err
-									.println(("There is a file that call " + name));
+							.println(("There is a file that call " + name));
 						return true;
 					}
 				}
@@ -116,8 +117,8 @@ public class ZipFileFormat implements ArchiveOptionChecker {
 				String entryName = entry.getName();
 				if (verbose)
 					System.out
-							.println("Le système compare entre le fichier contenu dans le zip : "
-									+ entryName + " et le préfixe : " + s);
+					.println("Le système compare entre le fichier contenu dans le zip : "
+							+ entryName + " et le préfixe : " + s);
 				if (entryName.startsWith(s))
 					return false;
 			}
@@ -133,7 +134,7 @@ public class ZipFileFormat implements ArchiveOptionChecker {
 		this.verbose = b;
 	}
 
-	@Override
+	/*@Override
 	public boolean oneTop(String src) {
 		try {
 			ZipFile fichier_zip = new ZipFile(src);
@@ -141,6 +142,25 @@ public class ZipFileFormat implements ArchiveOptionChecker {
 			while (e.hasMoreElements()) {
 				ZipEntry entry = (ZipEntry) e.nextElement();
 				return entry.isDirectory();
+			}
+			fichier_zip.close();
+		} catch (IOException ex) {
+			System.out.println("Erreur" + ex);
+		}
+		return false;
+	}*/
+	@Override
+	public boolean oneTop(String src) {
+		try {
+			ZipFile fichier_zip = new ZipFile(src);
+			Enumeration<? extends ZipEntry> e = fichier_zip.entries();
+			while (e.hasMoreElements()) {
+				ZipEntry entry = (ZipEntry) e.nextElement();
+				File zipName = new File(entry.getName());
+				if (zipName.getParent() == null)
+					return false;
+				else
+					return true;
 			}
 			fichier_zip.close();
 		} catch (IOException ex) {
@@ -168,7 +188,7 @@ public class ZipFileFormat implements ArchiveOptionChecker {
 			} else {
 				if (destination == null) {
 					@SuppressWarnings("null")
-					String[] tmp = destination.split(File.separator);
+					String[] tmp = destination.split(Pattern.quote(File.separator));
 					destination = destination.substring(0, destination.length()
 							- tmp[tmp.length - 1].length());
 				}
