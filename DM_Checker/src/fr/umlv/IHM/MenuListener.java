@@ -18,9 +18,20 @@ public class MenuListener extends AbstractAction{
 	public void actionPerformed(ActionEvent arg0) {
 		Object src = arg0.getSource();
 		
-		if (src == ihm.getButtonNext()) {
-			
+		if (src == ihm.getSave()) {
+			//on sauve le report
+			ihm.saveReport();
 		}
-		
+		if (src == ihm.getQuit()){
+			//this is the end my only friend the end ....
+			ihm.saveReport();
+			System.exit(0);
+		}
+		if(src == ihm.getOpenRepository()){
+			//TODO heu on le fait ?
+		}
+		if (src == ihm.getListItem()){
+			//TODO pop up pour changer l'executable
+		}
 	}
 }

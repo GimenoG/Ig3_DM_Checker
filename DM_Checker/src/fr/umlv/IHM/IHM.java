@@ -81,6 +81,25 @@ public class IHM extends JFrame{
 		initWindow();
 	}
 
+	public JMenu getMenu() {
+		return menu;
+	}
+
+	public JMenuItem getOpenRepository() {
+		return openRepository;
+	}
+
+	public JMenuItem getSave() {
+		return save;
+	}
+	public JMenuItem getListItem() {
+		return list;
+	}
+
+	public JMenuItem getQuit() {
+		return quit;
+	}
+
 	public int getIndice(){
 		return indice;
 	}
@@ -181,16 +200,16 @@ public class IHM extends JFrame{
 		//TODO ajouter icone ImageIcon icon = new ImageIcon(getClass().getResource("exit.png")); / JMenuItem eMenuItem = new JMenuItem("Exit", icon);
 		openRepository = new JMenuItem("Ouvrir repertoire");
 		save = new JMenuItem("Sauvegarder");
-		list = new JMenuItem("Liste des ?");//TODO a clarifier et modif en liste quand on sais de quoi il s'agit
+		list = new JMenuItem("Change executable");//TODO a clarifier et modif en liste quand on sais de quoi il s'agit
 		exportNote = new JMenuItem("Exporter");
 		quit = new JMenuItem("Quitter");
 		former = new JMenuItem("Former");//TODO a clarifier
 		menu.add(openRepository);
 		menu.add(save);
 		menu.add(list);
-		menu.add(exportNote);
+		//menu.add(exportNote);
 		menu.add(quit);
-		menu.add(former);
+		//menu.add(former);
 		menubar.add(menu);
 		
 		//Texte Arean create zone
@@ -320,7 +339,7 @@ public class IHM extends JFrame{
 	public JButton getButtonPrevious() {
 		return buttonPrevious;
 	}
-
+	
 	public JButton getButtonNext() {
 		return buttonNext;
 	}
