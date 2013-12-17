@@ -17,8 +17,12 @@ public class Junit {
 	}
 
 	public void execute(String pathPackageTest, String pathSrc,
-			String resultat, String name) throws ClassNotFoundException,
+			String resultat, boolean recursif) throws ClassNotFoundException,
 			IOException {
+		String[] tmpName = pathSrc.split(File.separator);
+		String[] tmpName2 = tmpName[tmpName.length - 2].split("_");
+		String name = tmpName2[0];
+
 		Log.writeText(resultat, "<dmchecker>");
 		Log.writeText(
 				resultat,
@@ -56,8 +60,9 @@ public class Junit {
 	public static void main(String[] args) throws ClassNotFoundException,
 			IOException {
 		Junit j = new Junit();
-		j.execute("/Users/Gui/Downloads/DM_Checker/src/Naze/test/test",
-				"/Users/Gui/Downloads/DM_Checker/src",
-				"/Users/Gui/Downloads/youpi.txt", "Gimeno Guillaume");
+		j.execute(
+				"/Users/Gui/Downloads/NOM PRENOMS_nomdonneparletudiantasonrendu_00000/src/Naze/test/test",
+				"/Users/Gui/Downloads/NOM PRENOMS_nomdonneparletudiantasonrendu_00000/src",
+				"/Users/Gui/Downloads/youpi.txt", false);
 	}
 }
