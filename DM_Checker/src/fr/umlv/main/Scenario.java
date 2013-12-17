@@ -1,5 +1,6 @@
 package fr.umlv.main;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -91,26 +92,26 @@ public class Scenario {
 		}
 		//endswith
 		for(String s : options.getEndWith()){
-			if (optCheck.endsWith(path, s)){
+			if (!optCheck.endsWith(path, s)){
 				optionRefused("e",s );
 			}
 		}
 		
 		for(String s : options.getForceEndsWith()){
-			if (optCheck.endsWith(path, s)){
+			if (!optCheck.endsWith(path, s)){
 				return optionForceRefused("e",s );
 			}
 		}
 		
 		
 		//startwiths
-		for(String s : options.getEndWith()){
+		for(String s : options.getBeginWith()){
 			if (!optCheck.beginsWith(path, s))
 				optionRefused("b",s );
 		}
 		
 		for(String s : options.getForceBeginsWith()){
-			if (optCheck.endsWith(path, s)){
+			if (!optCheck.beginsWith(path, s)){
 				return optionForceRefused("b",s );
 			}
 		}
@@ -123,18 +124,25 @@ public class Scenario {
 	public void checkArchiveSerial(String path){
 		//init : extrait l'archive d'archive
 		ArrayList<String> paths;
+		ArrayList<String> tmp = new ArrayList<>();
 		Objects.requireNonNull(paths = optCheck.getPathArchive(path));
 		if(paths.size()==0){
 			System.err.println("pas d'archive d'archive !");
 			return;
 		}
-		optCheck.extract(path, paths.get(0));
-		paths.remove(0);
+		for(int i = 0; i<paths.size(); i++){
+			tmp.add(paths.get(i).replace("/", File.separator));
+			if(options.isVerbose()){
+				System.out.println(tmp.get(i));
+			}
+		}
+		optCheck.extract(path, options.getDestination());
+		//paths.remove(0);
 		//lance le traitement
-		for(String p : paths){
-			if((checkOptionsArchive(p))&&(optCheck.isValid(p))){
+		for(String p : tmp){
+			if((checkOptionsArchive(options.getSource()+File.separator+p))&&(optCheck.isValid(p))){
 				//TODO verif les path
-				optCheck.extract(p, options.getDestination());
+				optCheck.extract(options.getSource()+File.separator+p, options.getDestination());
 			}
 		}
 	}
@@ -160,7 +168,15 @@ public class Scenario {
 		checkArchiveSerial(path);
 		//on lance les jUnits
 		//TODO parametre ?
-		junit.execute(options.getJUnitPath());
+		try {
+			junit.execute(options.getJUnitPath(), options.getSource(), /*cf  ?*/ path , true);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	
@@ -171,7 +187,7 @@ public class Scenario {
 		System.out.println(param.length);
 		for(String s : param)
 			System.out.println(s);
-		if(param.length!=6)
+		if(param.length!=3)
 			return false;
 		//lancement de l'ihm, puissance maximum M. Solo
 		System.out.println("toto");
@@ -193,7 +209,7 @@ public class Scenario {
 			System.err.println("Dossier source invalide");
 			return;
 		}
-		System.out.println(options.getMode());
+		//System.out.println(options.getMode());
 		//lance un scénation
 		switch(options.getMode()){
 			case 1 : checkOptionsArchive(options.getSource());break;

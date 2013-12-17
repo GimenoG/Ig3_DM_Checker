@@ -155,7 +155,6 @@ public class Options {
 	 * Launch the software with the rigth option.
 	 * 
 	 */
-	//TODO pattern ? Options porte aussi l'execution du prog :s mais je ne voi pas comment faire autrement
 	public void Launch(){
 		//System.out.println("launch");
 		//recuperation des param�tres
@@ -177,19 +176,22 @@ public class Options {
 		//gestion des argument solitaire de la ligne
 		//si c'est le mode -3 c'est fichierjUnit source destination
 		// si c'est un autre c'est source et destination
-		if(getMode()!=3){
-			if (config.getString("destination")==null)
-				destination=config.getStringArray("param")[1];
-			
-			source = config.getStringArray("param")[0];
-		}else{
-			if (config.getString("destination")==null)
-				destination=config.getStringArray("param")[2];
-			
-			source = config.getStringArray("param")[1];
-			junitPath = config.getStringArray("param")[0];
-		}
 		mode = mode(config);
+		//System.out.println("toto"+getMode());
+		if((getMode()==1)){
+			//System.out.println("mode1"+config.getStringArray("param")[0]);
+			source = config.getStringArray("param")[0];
+			destination="";
+		}
+		if(getMode()==2){
+			if (config.getString("destination")==null){
+				destination=config.getStringArray("param")[1];
+			}
+			else{
+				destination=config.getString("destinataion");
+			}
+			source = config.getStringArray("param")[0];
+		}
 	}
 	public String getJUnitPath(){
 		return junitPath;
