@@ -36,7 +36,7 @@ public class ZipFileFormat implements ArchiveOptionChecker {
 				String entryName = entry.getName();
 				if (verbose)
 					System.out
-							.println("Le systÃ¨me compare entre le fichier contenu dans le zip : "
+							.println("Le système compare entre le fichier contenu dans le zip : "
 									+ entryName + " et le suffixe : " + s);
 				if (entryName.endsWith(s))
 					return false;
@@ -46,6 +46,13 @@ public class ZipFileFormat implements ArchiveOptionChecker {
 			System.out.println("Erreur" + ex);
 		}
 		return true;
+	}
+
+	public static void main(String[] args) throws IOException {
+		ZipFileFormat zff = new ZipFileFormat();
+		zff.verbose = true;
+		zff.existe("/Users/Gui/Downloads/assets.zip", "sol7.png");
+
 	}
 
 	@Override
@@ -109,8 +116,8 @@ public class ZipFileFormat implements ArchiveOptionChecker {
 				String entryName = entry.getName();
 				if (verbose)
 					System.out
-							.println("Le systÃ¨me compare entre le fichier contenu dans le zip : "
-									+ entryName + " et le prÃ©fixe : " + s);
+							.println("Le système compare entre le fichier contenu dans le zip : "
+									+ entryName + " et le préfixe : " + s);
 				if (entryName.startsWith(s))
 					return false;
 			}
@@ -143,10 +150,9 @@ public class ZipFileFormat implements ArchiveOptionChecker {
 	}
 
 	@Override
-	public void extract(String src, String destination) {
+	public String extract(String src, String destination) {
 		if (destination == null) {
 			destination = src.substring(0, src.length() - 4);
-
 		}
 
 		try {
@@ -158,7 +164,6 @@ public class ZipFileFormat implements ArchiveOptionChecker {
 				if (verbose)
 					System.err.println(destination + " created");
 				destination += File.separator + Regex.nameZip(src);
-				System.out.println(destination);
 				System.out.println("fichier a extraire dans " + destination);
 			} else {
 				if (destination == null) {
@@ -211,7 +216,7 @@ public class ZipFileFormat implements ArchiveOptionChecker {
 		} catch (IOException ioe) {
 			System.out.println("IOError :" + ioe);
 		}
-
+		return destination;
 	}
 
 	@Override
@@ -223,7 +228,7 @@ public class ZipFileFormat implements ArchiveOptionChecker {
 			while (e.hasMoreElements()) {
 				ZipEntry entry = (ZipEntry) e.nextElement();
 
-				if (entry.getName().endsWith(".zip"))	
+				if (entry.getName().endsWith(".zip"))
 					listZip.add(entry.getName());
 			}
 			fichier_zip.close();

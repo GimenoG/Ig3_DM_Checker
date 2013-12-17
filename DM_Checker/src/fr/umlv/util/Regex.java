@@ -1,11 +1,12 @@
 package fr.umlv.util;
 
 import java.io.File;
+import java.util.regex.Pattern;
 
 public class Regex {
 
 	public static String idName(String nameFile) {
-		String[] id = nameFile.split("_");
+		String[] id = nameFile.split(Pattern.quote("_"));
 		String[] id2;
 		id2 = id[0].split(File.separator);
 		return id2[id2.length - 1];
@@ -22,13 +23,8 @@ public class Regex {
 	}
 
 	public static String nameZip(String s) {
-		System.out.println(s);
-		String fs = File.separator;
-		System.out.println(fs);
-		String[] name = s.split(fs);
-		System.out.println(name.length-1);
-		for(String a : name)
-			System.out.println(a);
+
+		String[] name = s.split(Pattern.quote(File.separator));
 		return name[name.length - 1].substring(0,
 				name[name.length - 1].length() - 4);
 	}

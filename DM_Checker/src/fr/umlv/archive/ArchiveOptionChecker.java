@@ -15,7 +15,8 @@ public interface ArchiveOptionChecker {
 
 	public boolean oneTop(String src);
 
-	public void extract(String src, String destination); // destination/src !!!!
+	public String extract(String src, String destination); // destination/src
+															// !!!!
 															// si vide ./src
 
 	public ArrayList<String> getPathArchive(String src);

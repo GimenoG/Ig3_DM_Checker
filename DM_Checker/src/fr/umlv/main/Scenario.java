@@ -54,8 +54,10 @@ public class Scenario {
 	 * @param path
 	 */
 	public boolean checkOptionsArchive(String path){
+		System.err.println(path);
 		//test one top
 		if(options.isOneTop()||options.isForceOneTop()){
+			System.out.println("onetop");
 			if (!optCheck.oneTop(path))
 				if (options.isForceOneTop()){
 					return optionForceRefused("onetop", "");
@@ -136,14 +138,17 @@ public class Scenario {
 				System.out.println(tmp.get(i));
 			}
 		}
-		optCheck.extract(path, options.getDestination());
+		String newpathdestination = optCheck.extract(path, options.getDestination());;
 		//paths.remove(0);
 		//lance le traitement
+		//System.out.println("lol"+newpathdestination+File.separator+tmp.get(0));
 		for(String p : tmp){
-			if((checkOptionsArchive(options.getSource()+File.separator+p))&&(optCheck.isValid(p))){
-				optCheck.extract(options.getSource()+File.separator+p, options.getDestination());
+			if((checkOptionsArchive(newpathdestination+File.separator+p))&&(optCheck.isValid(p))){
+				System.out.println(newpathdestination);
+				optCheck.extract(newpathdestination+File.separator+p, options.getDestination());
 			}
 		}
+		//TODO methode suppr newpathdestination
 	}
 	
 	public ArrayList<String> initIHM(){
@@ -209,7 +214,7 @@ public class Scenario {
 			return;
 		}
 		//System.out.println(options.getMode());
-		//lance un scénation
+		//lance un scénario
 		switch(options.getMode()){
 			case 1 : checkOptionsArchive(options.getSource());break;
 			case 2 : checkArchiveSerial(options.getSource());break;
