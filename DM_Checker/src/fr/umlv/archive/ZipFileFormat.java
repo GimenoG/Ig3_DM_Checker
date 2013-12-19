@@ -156,11 +156,7 @@ public class ZipFileFormat implements ArchiveOptionChecker {
 			Enumeration<? extends ZipEntry> e = fichier_zip.entries();
 			while (e.hasMoreElements()) {
 				ZipEntry entry = (ZipEntry) e.nextElement();
-				File zipName = new File(entry.getName());
-				if (zipName.getParent() == null)
-					return false;
-				else
-					return true;
+				return entry.isDirectory();
 			}
 			fichier_zip.close();
 		} catch (IOException ex) {
