@@ -19,28 +19,25 @@ public class TxtExploreur {
 	 * @param pathFile
 	 * @return
 	 */
-	public static List<String> getCriterions(String pathFile){
-		ArrayList<String> criterions= new ArrayList<String>();
+	public static List<String []> getCriterions(String pathFile){
+		ArrayList<String []> criterions= new ArrayList<>();
 		try{
 			InputStream ips=new FileInputStream(pathFile); 
 			InputStreamReader ipsr=new InputStreamReader(ips);
 			BufferedReader br=new BufferedReader(ipsr);
 			String ligne;
 			String [] tmp;
-			String crit="";
 			while ((ligne=br.readLine())!=null){
 				tmp= ligne.split(":");
-				crit = tmp[1]+"\n";
-				for(int i=2; i<tmp.length;i++){
-					crit = crit+" "+tmp[i]+"\n";
+				for(int i = 1; i<tmp.length;i++){
+					tmp[1]=" "+tmp[1]+"\n";
 				}
-				criterions.add(crit);
-				crit ="";
+				criterions.add(tmp);
 			}
 			br.close(); 
 		}
 		catch (Exception e){
-			System.out.println(e.toString());
+			System.err.println("Error on the file "+pathFile+" in the fonction getCriterions");
 		}
 		return criterions;
 	}
@@ -60,7 +57,7 @@ public class TxtExploreur {
 			br.close(); 
 		}
 		catch (Exception e){
-			System.out.println(e.toString());
+			System.err.println("Error on the file "+pathFile+" in the fonction getDataFile");
 		}
 		return data;
 	}
@@ -88,7 +85,7 @@ public class TxtExploreur {
 			br.close(); 
 		}		
 		catch (Exception e){
-			System.out.println(e.toString());
+			System.err.println("Error on the file "+reportPath+" in the fonction getReport");
 		}
 		//TODO c'est moche
 		return null;
@@ -104,8 +101,6 @@ public class TxtExploreur {
 			r=r+s+"|";
 		}
 		r=r.substring(0, r.length()-1);
-		
-			//TODO pas très propre ....
 			try{
 				InputStream ips=new FileInputStream(reportPath); 
 				InputStreamReader ipsr=new InputStreamReader(ips);
@@ -129,7 +124,7 @@ public class TxtExploreur {
 				br.close(); 
 			}		
 			catch (Exception e){
-				System.out.println(e.toString());
+				System.err.println("Error on the file "+reportPath+" in the fonction saveReport");
 			}
 		
 		

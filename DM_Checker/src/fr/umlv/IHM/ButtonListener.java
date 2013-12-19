@@ -4,8 +4,6 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 
-import fr.umlv.util.Regex;
-
 public class ButtonListener extends AbstractAction {
 
 	private IHM ihm;
@@ -27,14 +25,17 @@ public class ButtonListener extends AbstractAction {
 			ihm.cleanSheet();
 			ihm.setReport();
 			//arret du precessus
-			ihm.getButtonRun().setText("Stop");
+			ihm.stopExe();
+			ihm.getButtonRun().setText("Run");
 		} else if (src == ihm.getButtonPrevious()) {
 			ihm.saveReport();
 			//add le rapport
-			ihm.incrementIndice();
+			ihm.decrementIndice();
 			ihm.editNameLabelTop();
 			ihm.cleanSheet();
 			ihm.setReport();
+			ihm.stopExe();
+			ihm.getButtonRun().setText("Run");
 			//arret du processus
 			ihm.getButtonRun().setText("Stop");
 		} else if (src == ihm.getButtonRun()) {
@@ -45,6 +46,7 @@ public class ButtonListener extends AbstractAction {
 				ihm.launchExe();
 			} else {
 				ihm.getButtonRun().setText("Run");
+				ihm.stopExe();
 				ihm.saveReport();
 			}
 			
