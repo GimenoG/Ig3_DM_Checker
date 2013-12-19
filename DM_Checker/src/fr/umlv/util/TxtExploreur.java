@@ -1,9 +1,7 @@
 package fr.umlv.util;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileInputStream;
-import java.io.FileWriter;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -89,44 +87,5 @@ public class TxtExploreur {
 		}
 		//TODO c'est moche
 		return null;
-	}
-	/**
-	 * save the report or rewrite il he existe
-	 * 
-	 * @param report
-	 */
-	public static void saveReport(String reportPath, String[] report){
-		String r="";
-		for (String s : report){
-			r=r+s+"|";
-		}
-		r=r.substring(0, r.length()-1);
-			try{
-				InputStream ips=new FileInputStream(reportPath); 
-				InputStreamReader ipsr=new InputStreamReader(ips);
-				BufferedReader br=new BufferedReader(ipsr);
-				FileWriter fw = new FileWriter (reportPath);
-				BufferedWriter bw = new BufferedWriter (fw);
-				String ligne;
-				while ((ligne=br.readLine())!=null){
-					 
-					if (ligne.split("|")[0].compareTo(report[0])==0){
-						bw.write(r);
-						bw.flush();
-						bw.close();
-					}
-					else{
-						bw.write(ligne);
-						bw.flush();
-						bw.close();
-					}
-				}
-				br.close(); 
-			}		
-			catch (Exception e){
-				System.err.println("Error on the file "+reportPath+" in the fonction saveReport");
-			}
-		
-		
 	}
 }
