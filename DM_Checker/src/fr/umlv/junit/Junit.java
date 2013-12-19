@@ -2,13 +2,18 @@ package fr.umlv.junit;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.regex.Pattern;
 
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 
 import fr.umlv.util.Log;
 
+/**
+ * This class allows you to execute JUnit and save the result in a file
+ * 
+ * @author Gimeno & Bourgain
+ * 
+ */
 public class Junit {
 
 	private static void executeJunit(Class<?> test, String fichierTxt) {
@@ -18,13 +23,25 @@ public class Junit {
 		Result result = runner.run(test);
 	}
 
+	/**
+	 * 
+	 * @param pathPackageTest
+	 *            path to the test files
+	 * @param pathSrc
+	 *            path to the source file
+	 * @param resultat
+	 *            path to the output file
+	 * @param recursif
+	 *            If the function must be recursive or not
+	 * 
+	 * @throws ClassNotFoundException
+	 * @throws IOException
+	 */
 	public void execute(String pathPackageTest, String pathSrc,
 			String resultat, boolean recursif) throws ClassNotFoundException,
 			IOException {
-		//TODO
-		System.out.println(pathPackageTest);
-		String[] tmpName = pathSrc.split(Pattern.quote(File.separator));
-		String[] tmpName2 = tmpName[tmpName.length - 2].split(Pattern.quote("_"));
+		String[] tmpName = pathSrc.split(File.separator);
+		String[] tmpName2 = tmpName[tmpName.length - 2].split("_");
 		String name = tmpName2[0];
 
 		Log.writeText(resultat, "<dmchecker>");
@@ -47,11 +64,9 @@ public class Junit {
 					filename = filename.substring(0, filename.length() - 5);
 
 					testPath = testPath.substring(pathSrc.length() + 1)
-							.replaceAll(Pattern.quote(File.separator), Pattern.quote("."));
+							.replaceAll(File.separator, ".");
 
 					testPath += "." + filename;
-					//TODO
-					System.out.println(testPath);
 					Class<?> test = Class.forName(testPath);
 					executeJunit(test, resultat);
 					Log.writeText(resultat, "</class name>");
@@ -62,4 +77,5 @@ public class Junit {
 		Log.writeText(resultat, "</dmchecker>");
 
 	}
+
 }

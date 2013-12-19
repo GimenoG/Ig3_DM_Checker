@@ -7,6 +7,12 @@ import org.junit.runner.notification.RunListener;
 
 import fr.umlv.util.Log;
 
+/**
+ * This class overrides the class RunListener
+ * 
+ * @author Gimeno & Bourgain
+ * 
+ */
 public class ExecuteJUnit extends RunListener {
 	StringBuilder sb;
 	boolean fail = false;

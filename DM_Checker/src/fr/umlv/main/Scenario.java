@@ -67,7 +67,7 @@ public class Scenario {
 				}
 		}
 		//check opt I et x
-		try {
+		
 			for(String s : options.getForbidden()){
 				if (optCheck.existe(path, s))
 					optionRefused("i", s);
@@ -87,10 +87,7 @@ public class Scenario {
 				if (!optCheck.existe(path,s))
 					return optionForceRefused("i", s);
 			}
-		} catch (IOException e) {
-			System.err.println("arret innatendu du programme");
-			e.printStackTrace();
-		}
+		
 		//endswith
 		for(String s : options.getEndWith()){
 			if (!optCheck.endsWith(path, s)){
@@ -146,7 +143,6 @@ public class Scenario {
 				optCheck.extract(newpathdestination+File.separator+p, options.getDestination());
 			}
 		}
-		//TODO methode suppr newpathdestination
 	}
 	
 	public ArrayList<String> initIHM(){
