@@ -14,7 +14,6 @@ import fr.umlv.archive.ZipFileFormat;
 import fr.umlv.junit.Junit;
 import fr.umlv.util.Messages;
 import fr.umlv.util.Options;
-import fr.umlv.util.Reports;
 /**
  * 
  * 
@@ -29,7 +28,7 @@ public class Scenario {
 	private final ArchiveOptionChecker optCheck;
 	private Junit junit;
 	
-	public Scenario(Options opt, Reports reports){
+	public Scenario(Options opt){
 		options=opt;
 		optCheck = new ZipFileFormat();
 		junit = new Junit();
