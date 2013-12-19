@@ -8,7 +8,7 @@ public class Regex {
 	public static String idName(String nameFile) {
 		String[] id = nameFile.split(Pattern.quote("_"));
 		String[] id2;
-		id2 = id[0].split(File.separator);
+		id2 = id[0].split(Pattern.quote(File.separator));
 		return id2[id2.length - 1];
 	}
 

@@ -144,7 +144,6 @@ public class Scenario {
 		//System.out.println("lol"+newpathdestination+File.separator+tmp.get(0));
 		for(String p : tmp){
 			if((checkOptionsArchive(newpathdestination+File.separator+p))&&(optCheck.isValid(p))){
-				System.out.println(newpathdestination);
 				optCheck.extract(newpathdestination+File.separator+p, options.getDestination());
 			}
 		}
@@ -188,9 +187,9 @@ public class Scenario {
 		//verfie qu'il y a bien 3 paramétres passé en option.
 		/*for(String s : param)
 			System.out.println(s);*/
-		if(options.getParam().length!=3){
+		if(options.getParam().length!=4){
 			if(options.isVerbose()){
-				System.err.println("nombre de paramétre invalide");
+				System.err.println("nombre de paramétres invalide");
 			}
 			return false;
 		}
@@ -203,7 +202,7 @@ public class Scenario {
 		//lancement de l'ihm, puissance maximum M. Solo
 		SwingUtilities.invokeLater(new Runnable(){
 			public void run(){
-				JFrame fenetre = new IHM(options.getParam(),optCheck.getPathArchive(options.getSource()));
+				JFrame fenetre = new IHM(options.getParam());
 				fenetre.setVisible(true);
 			}
 		});

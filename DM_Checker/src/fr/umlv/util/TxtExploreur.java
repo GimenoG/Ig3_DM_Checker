@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 
 //TODO test unitaire
 
@@ -18,24 +19,23 @@ public class TxtExploreur {
 	 * @param pathFile
 	 * @return
 	 */
-	public static ArrayList<String> getCriterions(String pathFile){
+	public static List<String> getCriterions(String pathFile){
 		ArrayList<String> criterions= new ArrayList<String>();
 		try{
 			InputStream ips=new FileInputStream(pathFile); 
 			InputStreamReader ipsr=new InputStreamReader(ips);
 			BufferedReader br=new BufferedReader(ipsr);
 			String ligne;
-			String criterion="";
 			String [] tmp;
+			String crit="";
 			while ((ligne=br.readLine())!=null){
 				tmp= ligne.split(":");
-				//mise en forme du critére
-				for(int i=1 ; i<tmp.length; i++){
-					criterion = criterion+tmp[i]+"\n";
+				crit = tmp[1]+"\n";
+				for(int i=2; i<tmp.length;i++){
+					crit = crit+" "+tmp[i]+"\n";
 				}
-				//ajout dans la map
-				criterions.add(criterion);
-				criterion ="";
+				criterions.add(crit);
+				crit ="";
 			}
 			br.close(); 
 		}
@@ -43,6 +43,26 @@ public class TxtExploreur {
 			System.out.println(e.toString());
 		}
 		return criterions;
+	}
+	
+	public static List<String []> getDataFile(String pathFile){
+		ArrayList<String []> data = new ArrayList<>();
+		try{
+			InputStream ips=new FileInputStream(pathFile); 
+			InputStreamReader ipsr=new InputStreamReader(ips);
+			BufferedReader br=new BufferedReader(ipsr);
+			String ligne;
+			String [] tmp;
+			while ((ligne=br.readLine())!=null){
+				tmp= ligne.split(":");
+				data.add(tmp);
+			}
+			br.close(); 
+		}
+		catch (Exception e){
+			System.out.println(e.toString());
+		}
+		return data;
 	}
 	/**
 	 * check if a report of a binome exist. A empty string mean that there is no report

@@ -23,7 +23,7 @@ public class ButtonListener extends AbstractAction {
 		if (src == ihm.getButtonNext()) {
 			ihm.saveReport();
 			ihm.incrementIndice();
-			ihm.editNameLabelTop(Regex.idName(ihm.getCurrentName()));
+			ihm.editNameLabelTop();
 			ihm.cleanSheet();
 			ihm.setReport();
 			//arret du precessus
@@ -32,7 +32,7 @@ public class ButtonListener extends AbstractAction {
 			ihm.saveReport();
 			//add le rapport
 			ihm.incrementIndice();
-			ihm.editNameLabelTop(Regex.idName(ihm.getCurrentName()));
+			ihm.editNameLabelTop();
 			ihm.cleanSheet();
 			ihm.setReport();
 			//arret du processus
@@ -41,12 +41,11 @@ public class ButtonListener extends AbstractAction {
 			// set the button label
 			if (ihm.getButtonRun().getText().compareTo("Run") == 0) {
 				ihm.getButtonRun().setText("Stop");
-				//on arrete l'executable si il tourne
+				//on lance l'executable
+				ihm.launchExe();
 			} else {
 				ihm.getButtonRun().setText("Run");
 				ihm.saveReport();
-				//on lance l'executable
-				ihm.launchExe();
 			}
 			
 		}

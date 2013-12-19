@@ -9,6 +9,7 @@ import fr.umlv.util.TxtExploreur;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -62,21 +63,21 @@ public class IHM extends JFrame{
 	private JRadioButton fradioButton9;
 	private JRadioButton fradioButton10;
 	
-	private ArrayList<String> paths;
 	private String exec;
 	private int indice;
 	private Process proc;
 	private ArrayList<String> criterion;
 	private final String reportPath;
+	private final ArrayList<String []> data;
 	
-	public IHM(String [] param, ArrayList<String> paths){
+	public IHM(String [] param){
 		super("DMChecker");
-		indice=0;//TODO recharger a indice svg
-		paths = paths;
+		indice=0;
 		exec=param[0];
-		//TODO check l'ordre des params
-		reportPath=param[2];
-		criterion=TxtExploreur.getCriterions(param[1]);
+		reportPath=param[1];
+		data=(ArrayList<String[]>) TxtExploreur.getDataFile(reportPath+File.separator+param[2]);
+		criterion=(ArrayList<String>) TxtExploreur.getCriterions(reportPath+File.separator+param[3]);
+		File report = new File("tonfichier");
 		buildWindow();
 		initWindow();
 	}
@@ -104,10 +105,10 @@ public class IHM extends JFrame{
 		return indice;
 	}
 	public String getCurrentName(){
-		return paths.get(indice);
+		return data.get(indice)[2];
 	}
 	public void incrementIndice(){
-		if(indice<paths.size()){
+		if(indice<data.size()){
 			indice++;
 		}
 	}
@@ -122,7 +123,7 @@ public class IHM extends JFrame{
 	public void launchExe(){
 		//TODO test /!\ -> lancement d'un jar.
 		try {
-			proc = Runtime.getRuntime().exec("java -jar "+exec+".jar");
+			proc = Runtime.getRuntime().exec("java -jar "+"C:\\javatest\\"+exec+".jar");
 		} catch (IOException e) {
 			System.err.println("Impossible de lancer le programme "+exec+"\n");
 		}
@@ -138,8 +139,9 @@ public class IHM extends JFrame{
 	}
 	
 	private void initWindow(){
-		editNameLabelTop(Regex.idName(paths.get(indice)));
+		editNameLabelTop(Regex.idName(data.get(indice)[2]));
 		//mise en place des critére
+		
 		criterionsGraphic.setText(criterion.get(0));
 		criterionsFonction.setText(criterion.get(1));
 		if(criterion.size()>2){
@@ -186,7 +188,6 @@ public class IHM extends JFrame{
 		othersCriterions.setPreferredSize(new Dimension(585, 60));
 		
 		//Buttons create zone
-		//TODO mettre une image pour next et previous 
 		buttonPrevious = new JButton(new ButtonListener(this, "<"));
 		buttonNext = new JButton(new ButtonListener(this, ">"));
 		buttonRun = new JButton(new ButtonListener(this, "Run"));
@@ -197,13 +198,12 @@ public class IHM extends JFrame{
 		//Menu creation
 		menubar = new JMenuBar();
 		menu  = new JMenu("Menu");
-		//TODO ajouter icone ImageIcon icon = new ImageIcon(getClass().getResource("exit.png")); / JMenuItem eMenuItem = new JMenuItem("Exit", icon);
 		openRepository = new JMenuItem("Ouvrir repertoire");
 		save = new JMenuItem("Sauvegarder");
-		list = new JMenuItem("Change executable");//TODO a clarifier et modif en liste quand on sais de quoi il s'agit
+		list = new JMenuItem("Change executable");
 		exportNote = new JMenuItem("Exporter");
 		quit = new JMenuItem("Quitter");
-		former = new JMenuItem("Former");//TODO a clarifier
+		former = new JMenuItem("Former");
 		menu.add(openRepository);
 		menu.add(save);
 		menu.add(list);
@@ -319,16 +319,8 @@ public class IHM extends JFrame{
 	 * 
 	 * @param texte
 	 */
-	public void editNameLabelTop(String[] texte){
-		StringBuilder sb = new StringBuilder();
-		sb.append("<html><body>");
-		for(String param : texte){
-			sb.append(param+"</br>");
-		}
-		//TODO : retirer le dernier </br>
-		sb.substring(-4);
-		sb.append("</body></html>");
-		nameLableTop.setText(sb.toString());
+	public void editNameLabelTop(){
+		nameLableTop.setText(data.get(indice)[2]);
 	}
 	public void editNameLabelTop(String texte){
 		String message = "<html><body>"+texte+"</body></html>";
@@ -356,6 +348,7 @@ public class IHM extends JFrame{
 		editNameLabelTop(Regex.idName(getCurrentName()));
 		graphicComment.setText("");
 		fonctionComment.setText("");
+		System.out.println("done");
 	}
 	/**
 	 * save the rapport
