@@ -184,18 +184,26 @@ public class Scenario {
 	
 	private boolean ihmMode(){
 		
-		String[] param = options.getParam();
+		//String[] param = options.getParam();
 		//verfie qu'il y a bien 3 paramétres passé en option.
-		System.out.println(param.length);
-		for(String s : param)
-			System.out.println(s);
-		if(param.length!=3)
+		/*for(String s : param)
+			System.out.println(s);*/
+		if(options.getParam().length!=3){
+			if(options.isVerbose()){
+				System.err.println("nombre de paramétre invalide");
+			}
 			return false;
+		}
+		if(options.isVerbose()){
+			System.out.println("Lancement IHM");
+		}
+		for (String s : optCheck.getPathArchive(options.getSource())){
+			System.out.println(s);
+		}
 		//lancement de l'ihm, puissance maximum M. Solo
-		System.out.println("toto");
 		SwingUtilities.invokeLater(new Runnable(){
 			public void run(){
-				JFrame fenetre = new IHM(param,optCheck.getPathArchive(options.getSource()));
+				JFrame fenetre = new IHM(options.getParam(),optCheck.getPathArchive(options.getSource()));
 				fenetre.setVisible(true);
 			}
 		});
