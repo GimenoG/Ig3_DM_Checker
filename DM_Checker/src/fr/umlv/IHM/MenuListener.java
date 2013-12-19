@@ -19,7 +19,7 @@ public class MenuListener extends AbstractAction{
 		Object src = arg0.getSource();
 		
 		if (src == ihm.getSave()) {
-			//on sauve le report
+			System.out.println("ici");
 			ihm.saveReport();
 		}
 		if (src == ihm.getQuit()){

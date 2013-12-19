@@ -19,25 +19,23 @@ public class ButtonListener extends AbstractAction {
 		Object src = arg0.getSource();
 
 		if (src == ihm.getButtonNext()) {
-			ihm.saveReport();
 			ihm.incrementIndice();
 			ihm.editNameLabelTop();
 			ihm.cleanSheet();
-			ihm.setReport();
+			//ihm.setReport();
 			//arret du precessus
 			ihm.stopExe();
 			ihm.getButtonRun().setText("Run");
+			ihm.setExe();
 		} else if (src == ihm.getButtonPrevious()) {
-			ihm.saveReport();
 			//add le rapport
 			ihm.decrementIndice();
 			ihm.editNameLabelTop();
 			ihm.cleanSheet();
-			ihm.setReport();
+			//ihm.setReport();
 			ihm.stopExe();
-			ihm.getButtonRun().setText("Run");
 			//arret du processus
-			ihm.getButtonRun().setText("Stop");
+			ihm.setExe();
 		} else if (src == ihm.getButtonRun()) {
 			// set the button label
 			if (ihm.getButtonRun().getText().compareTo("Run") == 0) {
@@ -47,7 +45,6 @@ public class ButtonListener extends AbstractAction {
 			} else {
 				ihm.getButtonRun().setText("Run");
 				ihm.stopExe();
-				ihm.saveReport();
 			}
 			
 		}

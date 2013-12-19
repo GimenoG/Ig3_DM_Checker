@@ -1,5 +1,7 @@
 package fr.umlv.IHM;
 
+import javafx.scene.shape.Path;
+
 import javax.swing.*;
 
 import java.awt.event.*;
@@ -17,7 +19,6 @@ import java.util.ArrayList;
 public class IHM extends JFrame{
 	
 	private JLabel nameLableTop;
-	private JLabel titleIHMComment;
 	
 	private JButton buttonPrevious;
 	private JButton buttonNext;
@@ -40,34 +41,39 @@ public class IHM extends JFrame{
 	private final String reportPath;
 	private final ArrayList<String []> data;
 	private boolean execlaunch=false;
+	private String exename;
 	private ArrayList<IHMCreator> cr;
 	
 	public IHM(String [] param){
 		super("DMChecker");
+		//pour savoir ou en est l'utilisateur
 		indice=0;
-		exec=param[0];
+		//executable
+		exename=param[0];
+		//paths du projet
 		reportPath=param[1];
+		//cration du panel pour swing
 		panel = new JPanel();
 		panel.setLayout(new FlowLayout());
+		//recup les donnée eleves
 		data=(ArrayList<String[]>) TxtExploreur.getDataFile(reportPath+File.separator+param[2]);
+		//recupére les critére
+		//TODO bug !
 		criterion=(ArrayList<String[]>) TxtExploreur.getCriterions(reportPath+File.separator+param[3]);
+		//Creation du receptable a block d'evaluation
 		cr = new ArrayList<>();
 		try {
+			//creation du fichier de nots
 			Log.writeText(reportPath+File.separator+"nots.txt", "");
 		} catch (IOException e) {
 			System.err.println("impossible de creer le fichier "+reportPath+File.separator+"nots.txt");
 		}
+		//construction de la fenetre
 		buildWindow();
-		initWindow();
-	}
-
-	
-	
-	
-	private void initWindow(){
+		//edition du lable au top avec les etudiant actuelle
 		editNameLabelTop(Regex.idName(data.get(indice)[2]));
+		setExe();
 	}
-	
 	private void buildWindow(){
 			WindowListener wl = new WindowAdapter() {
 				public void windowClosing(WindowEvent e){
@@ -101,10 +107,8 @@ public class IHM extends JFrame{
 		//Menu creation
 		menubar = new JMenuBar();
 		menu  = new JMenu("Menu");
-		openRepository = new JMenuItem("Ouvrir repertoire");
-		save = new JMenuItem("Sauvegarder");
-		list = new JMenuItem("Change executable");
-		quit = new JMenuItem("Quitter");
+		save = new JMenuItem(new MenuListener(this,"Sauvegarder"));
+		quit = new JMenuItem(new MenuListener(this,"Quitter"));
 		menu.add(openRepository);
 		menu.add(save);
 		menu.add(list);
@@ -158,10 +162,17 @@ public class IHM extends JFrame{
 	 * save the rapport
 	 */
 	public void saveReport(){
-		String [] report = new String[5];
-		report[0]=nameLableTop.getText();
-
-		TxtExploreur.saveReport(reportPath, report);
+		StringBuilder sb = new StringBuilder();
+		sb.append(data.get(indice)[0]+":");
+		sb.append(data.get(indice)[2]+":");
+		for(IHMCreator c : cr){
+			sb.append(c.getNote()+":"+c.getComment()+":");
+		}
+		try {
+			Log.writeText(reportPath+File.separator+"nots.txt",  sb.toString());
+		} catch (IOException e) {
+			System.err.println("Ecriture impossible dans "+reportPath+File.separator+"nots.txt");
+		}
 	}
 	public void setReport(){
 		String [] r= TxtExploreur.getReport(reportPath, nameLableTop.getText());
@@ -224,7 +235,7 @@ public class IHM extends JFrame{
 		execlaunch=true;
 		try {
 			//proc = Runtime.getRuntime().exec("cmd.exe", "/C", "dir C:\\ >fichier.txt" );
-			proc = Runtime.getRuntime().exec(new String("java -jar "+reportPath+File.separator+exec+".jar"));
+			proc = Runtime.getRuntime().exec(new String("java -jar "+exec));
 		} catch (IOException e) {
 			System.err.println("Impossible de lancer le programme "+exec+"\n");
 		}
@@ -235,7 +246,8 @@ public class IHM extends JFrame{
 			execlaunch=false;
 		}
 	}
-	public void setExe(String pathExe){
-			exec=pathExe;
+	public void setExe(){
+		System.out.println(exec=reportPath+File.separator+data.get(indice)[1]+File.separator+exename+".jar");
+		exec=reportPath+File.separator+data.get(indice)[1]+File.separator+exename+".jar";
 	}
 }
