@@ -88,7 +88,7 @@ public class Options {
 		jsap.registerParameter(opt3);
 		jsap.registerParameter(opt4);
 		
-		Switch optV = (Switch) new Switch("optV").setShortFlag('v').setLongFlag("verbose").setHelp("softmode2 the return.");
+		Switch optV = (Switch) new Switch("optV").setShortFlag('v').setLongFlag("verbose").setHelp("");
 		jsap.registerParameter(optV);
 		
 		
@@ -198,6 +198,10 @@ public class Options {
 			source = config.getStringArray("param")[1];
 			junitPath=config.getStringArray("param")[0];
 			pathResultat=config.getStringArray("param")[2];
+		}
+		if(getMode()==4){
+			destination="";
+			source=config.getStringArray("param")[1];
 		}
 		
 	}
