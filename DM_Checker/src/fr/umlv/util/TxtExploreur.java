@@ -1,7 +1,9 @@
 package fr.umlv.util;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -87,5 +89,49 @@ public class TxtExploreur {
 		}
 		//TODO c'est moche
 		return null;
+	}
+	/**
+	 * return all the student number which are stored in the output path in parameter
+	 */
+	public static List<String> getReportStored(String reportPath){
+		ArrayList<String> numberStudents= new ArrayList<>();
+		try{
+			InputStream ips=new FileInputStream(reportPath); 
+			InputStreamReader ipsr=new InputStreamReader(ips);
+			BufferedReader br=new BufferedReader(ipsr);
+			String [] ligne;
+			int i=0;
+			while ((ligne=br.readLine().split(":"))!=null){
+				 numberStudents.add(ligne[0]);
+				 i++;
+				
+			}
+			br.close(); 
+		}		
+		catch (Exception e){
+			System.err.println("Error on the file "+reportPath+" in the fonction getReportStored");
+		}
+		return numberStudents;
+	}
+	
+	public void saveReport(String path, String msg, String id){
+		
+		try {
+			InputStream ips=new FileInputStream(path); 
+			InputStreamReader ipsr=new InputStreamReader(ips);
+			BufferedReader br=new BufferedReader(ipsr);
+			String [] ligne;
+			int i=0;
+			while ((ligne=br.readLine().split(":"))!=null){
+				if(ligne[0].compareTo(id)==0)
+					Log.writeText(path	,  msg);
+				//else
+					//Log.writeText(path, line.t);
+				
+			}
+			br.close(); 
+		} catch (IOException e) {
+			System.err.println("Ecriture impossible dans "+path+File.separator+"nots.txt");
+		}
 	}
 }

@@ -1,6 +1,7 @@
 package fr.umlv.util;
 
 import java.io.File;
+import java.util.regex.Pattern;
 
 /**
  * This class is used to process strings
@@ -13,7 +14,7 @@ public class Regex {
 	public static String idName(String nameFile) {
 		String[] id = nameFile.split("_");
 		String[] id2;
-		id2 = id[0].split(File.separator);
+		id2 = id[0].split(Pattern.quote(File.separator));
 		return id2[id2.length - 1];
 	}
 
@@ -23,12 +24,12 @@ public class Regex {
 	}
 
 	public static String nameFolder(String s) {
-		String[] id = s.split(File.separator);
+		String[] id = s.split(Pattern.quote(File.separator));
 		return id[id.length - 2];
 	}
 
 	public static String nameZip(String s) {
-		String[] name = s.split(File.separator);
+		String[] name = s.split(Pattern.quote(File.separator));
 		return name[name.length - 1].substring(0,
 				name[name.length - 1].length() - 4);
 	}

@@ -1,7 +1,5 @@
 package fr.umlv.IHM;
 
-import javafx.scene.shape.Path;
-
 import javax.swing.*;
 
 import java.awt.event.*;
@@ -43,6 +41,7 @@ public class IHM extends JFrame{
 	private boolean execlaunch=false;
 	private String exename;
 	private ArrayList<IHMCreator> cr;
+	private ArrayList<String> existingReport;
 	
 	public IHM(String [] param){
 		super("DMChecker");
@@ -62,11 +61,13 @@ public class IHM extends JFrame{
 		criterion=(ArrayList<String[]>) TxtExploreur.getCriterions(reportPath+File.separator+param[3]);
 		//Creation du receptable a block d'evaluation
 		cr = new ArrayList<>();
-		try {
-			//creation du fichier de nots
-			Log.writeText(reportPath+File.separator+"nots.txt", "");
-		} catch (IOException e) {
-			System.err.println("impossible de creer le fichier "+reportPath+File.separator+"nots.txt");
+		if((existingReport=(ArrayList<String>) TxtExploreur.getReportStored(reportPath+File.separator+"nots.txt")).isEmpty()){
+			try {
+				//creation du fichier de nots
+				Log.writeText(reportPath+File.separator+"nots.txt", "");
+			} catch (IOException e) {
+				System.err.println("impossible de creer le fichier "+reportPath+File.separator+"nots.txt");
+			}
 		}
 		//construction de la fenetre
 		buildWindow();
@@ -109,9 +110,13 @@ public class IHM extends JFrame{
 		menu  = new JMenu("Menu");
 		save = new JMenuItem(new MenuListener(this,"Sauvegarder"));
 		quit = new JMenuItem(new MenuListener(this,"Quitter"));
-		menu.add(openRepository);
 		menu.add(save);
-		menu.add(list);
+		ArrayList<String> name = new ArrayList<>();
+		for (int i =0; i<data.size();i++){
+			name.add(data.get(i)[2]);
+		}
+		menu.add(IHMCreator.setMenuName(name, this));
+		//menu.add(list);
 		//menu.add(exportNote);
 		menu.add(quit);
 		//menu.add(former);
@@ -169,7 +174,7 @@ public class IHM extends JFrame{
 			sb.append(c.getNote()+":"+c.getComment()+":");
 		}
 		try {
-			Log.writeText(reportPath+File.separator+"nots.txt",  sb.toString());
+			Log.writeText(reportPath+File.separator+"nots.txt"	,  sb.toString().substring(0,sb.toString().length()-2));
 		} catch (IOException e) {
 			System.err.println("Ecriture impossible dans "+reportPath+File.separator+"nots.txt");
 		}
@@ -231,10 +236,8 @@ public class IHM extends JFrame{
 	 * launch the exec which is currently set (must be a jar)
 	 */
 	public void launchExe(){
-		//TODO test /!\ -> lancement d'un jar.
 		execlaunch=true;
 		try {
-			//proc = Runtime.getRuntime().exec("cmd.exe", "/C", "dir C:\\ >fichier.txt" );
 			proc = Runtime.getRuntime().exec(new String("java -jar "+exec));
 		} catch (IOException e) {
 			System.err.println("Impossible de lancer le programme "+exec+"\n");
@@ -247,7 +250,7 @@ public class IHM extends JFrame{
 		}
 	}
 	public void setExe(){
-		System.out.println(exec=reportPath+File.separator+data.get(indice)[1]+File.separator+exename+".jar");
+		//System.out.println(exec=reportPath+File.separator+data.get(indice)[1]+File.separator+exename+".jar");
 		exec=reportPath+File.separator+data.get(indice)[1]+File.separator+exename+".jar";
 	}
 }
