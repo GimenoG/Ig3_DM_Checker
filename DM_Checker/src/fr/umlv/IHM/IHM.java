@@ -13,6 +13,7 @@ import java.awt.FlowLayout;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class IHM extends JFrame{
 	
@@ -51,16 +52,17 @@ public class IHM extends JFrame{
 		exename=param[0];
 		//paths du projet
 		reportPath=param[1];
-		//cration du panel pour swing
+		//ceration du panel pour swing
 		panel = new JPanel();
 		panel.setLayout(new FlowLayout());
 		//recup les donnée eleves
 		data=(ArrayList<String[]>) TxtExploreur.getDataFile(reportPath+File.separator+param[2]);
 		//recupére les critére
-		//TODO bug !
+		//TODO bug : recupere que le premier
 		criterion=(ArrayList<String[]>) TxtExploreur.getCriterions(reportPath+File.separator+param[3]);
 		//Creation du receptable a block d'evaluation
 		cr = new ArrayList<>();
+		//TODO bug mauvaise recupération des argument existant dans TxtExploreur.getReportStored
 		if((existingReport=(ArrayList<String>) TxtExploreur.getReportStored(reportPath+File.separator+"nots.txt")).isEmpty()){
 			try {
 				//creation du fichier de nots
@@ -69,10 +71,14 @@ public class IHM extends JFrame{
 				System.err.println("impossible de creer le fichier "+reportPath+File.separator+"nots.txt");
 			}
 		}
+		/*for(String s : existingReport){
+			System.out.println(s);
+		}*/
 		//construction de la fenetre
 		buildWindow();
 		//edition du lable au top avec les etudiant actuelle
 		editNameLabelTop(Regex.idName(data.get(indice)[2]));
+		//Mise en place de l'exuctatble dans le dossier de l'etudiant actuelle
 		setExe();
 	}
 	private void buildWindow(){
@@ -121,23 +127,15 @@ public class IHM extends JFrame{
 		menu.add(quit);
 		//menu.add(former);
 		menubar.add(menu);
-	
 
-
-		//ligne de l'ihm (en nombre de block)
-		//line1 ?
 		setJMenuBar(menubar);
-		//line2 30
 		panel.add(buttonPrevious);
 		panel.add(buttonRun);
 		panel.add(buttonNext);
-		//line3 40
 		panel.add(nameLableTop);
-		//line4 20
 		for(String [] s : criterion){
 			cr.add(new IHMCreator(panel, s[1], s[2]));
 		}
-		
 		return panel;
 	}
 	/**
@@ -189,7 +187,9 @@ public class IHM extends JFrame{
 	public JButton getButtonPrevious() {
 		return buttonPrevious;
 	}
-	
+	public ArrayList<String []> getCriterions(){
+		return criterion;
+	}
 	public JButton getButtonNext() {
 		return buttonNext;
 	}
@@ -211,11 +211,16 @@ public class IHM extends JFrame{
 	public JMenuItem getListItem() {
 		return list;
 	}
+	public List<String []> getData(){
+		return data;
+	}
 
 	public JMenuItem getQuit() {
 		return quit;
 	}
-
+	public void setIndice(int i){
+		indice=i;
+	}
 	public int getIndice(){
 		return indice;
 	}
