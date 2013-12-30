@@ -178,7 +178,7 @@ public class IHM extends JFrame{
 		}
 	}
 	public void setReport(){
-		String [] r= TxtExploreur.getReport(reportPath, nameLableTop.getText());
+		ArrayList<String> r= (ArrayList<String>) TxtExploreur.getReport(reportPath, nameLableTop.getText());
 		if (r!=null){
 			//TODO set radiogroup
 
