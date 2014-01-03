@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="DM_Checker" default="compile" basedir=".">
+	<description>Escape-IG by Bourgain and Gimeno</description>
+
+	<property name="src.dir" value="src" />
+	<property name="lib.dir" value="lib" />
+
+	<property name="bin.dir" value="classes" />
+	<property name="doc.dir" value="docs/doc" />
+	<property name="projet.version" value="0.2.1" />
+	<property name="projet.nom" value="DmChecker" />
+
+	<property name="jar.file" value="Bourgain_Gimeno_DmChecker.jar" />
+	
+
+	<property name="version" value="0.1" />
+
+	<path id="classpath">
+		<pathelement location="${lib.dir}/JSAP-2.1.jar" />
+	</path>
+
+	<target name="init">
+		<mkdir dir="${bin.dir}" />
+		<mkdir dir="${doc.dir}" />
+	</target>
+
+	<target name="compile" depends="init">
+		<javac srcdir="${src.dir}" destdir="${bin.dir}" debug="on" optimize="off" deprecation="on">
+			<classpath refid="classpath" />
+		</javac>
+	</target>
+
+	<target name="javadoc" depends="init">
+		<javadoc sourcepath="${src.dir}" destdir="${doc.dir}">
+			<fileset dir="src" defaultexcludes="yes">
+				<include name="**" />
+			</fileset>
+		</javadoc>
+	</target>
+
+	<target name="jar" depends="compile">
+		<jar jarfile="${jar.file}" basedir="${bin.dir}">
+			<manifest>
+				<attribute name="Main-Class" value="fr.umlv.main" />
+			</manifest>
+
+			<restrict>
+				<name name="**/*.class" />
+				<archives>
+					<zips>
+						<fileset dir="${lib.dir}" includes="JSAP-2.1.jar" />
+					</zips>
+				</archives>
+			</restrict>
+		</jar>
+	</target>
+
+	<target name="clean">
+		<delete dir="${bin.dir}" />
+		<delete dir="${doc.dir}" />
+		<delete file="${jar.file}" />
+	</target>
+</project>
