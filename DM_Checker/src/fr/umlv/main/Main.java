@@ -3,10 +3,11 @@ package fr.umlv.main;
 import com.martiansoftware.jsap.JSAPException;
 
 import fr.umlv.util.Options;
+
 /**
  * Programme entry
  * 
- * @author Gimeno & Bourgain
+ * @author Gimeno and Bourgain
  * 
  */
 public class Main {

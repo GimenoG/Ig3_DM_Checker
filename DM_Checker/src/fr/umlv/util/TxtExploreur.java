@@ -17,7 +17,7 @@ import fr.umlv.IHM.IHM;
  * 
  * @see IHM
  * 
- * @author Gimeno & Bourgain
+ * @author Gimeno and Bourgain
  * 
  */
 public class TxtExploreur {
@@ -25,7 +25,7 @@ public class TxtExploreur {
 	}
 
 	/**
-	 * parsh the txt of the crit�rion
+	 * parsh the txt of the criterion
 	 * 
 	 * @param pathFile
 	 * @return

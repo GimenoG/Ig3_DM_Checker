@@ -14,7 +14,7 @@ import com.martiansoftware.jsap.UnflaggedOption;
  * use the JSAP librairy, more information on
  * http://www.martiansoftware.com/jsap/
  * 
- * @author Gimeno & Bourgain
+ * @author Gimeno and Bourgain
  * 
  */
 public class Options {

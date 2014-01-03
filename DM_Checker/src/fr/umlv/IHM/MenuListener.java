@@ -9,7 +9,7 @@ import javax.swing.JMenuItem;
 /**
  * this class extends AbstractAction. She manage the menu of the windows
  * 
- * @author Gimeno & Bourgain
+ * @author Gimeno and Bourgain
  * 
  */
 public class MenuListener extends AbstractAction {

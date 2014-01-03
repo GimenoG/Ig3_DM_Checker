@@ -11,7 +11,7 @@ import fr.umlv.util.Log;
 /**
  * This class allows you to execute JUnit and save the result in a file
  * 
- * @author Gimeno & Bourgain
+ * @author Gimeno and Bourgain
  * 
  */
 public class Junit {

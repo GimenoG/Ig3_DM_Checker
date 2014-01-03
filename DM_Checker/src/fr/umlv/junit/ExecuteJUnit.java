@@ -10,7 +10,7 @@ import fr.umlv.util.Log;
 /**
  * This class overrides the class RunListener
  * 
- * @author Gimeno & Bourgain
+ * @author Gimeno and Bourgain
  * 
  */
 public class ExecuteJUnit extends RunListener {

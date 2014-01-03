@@ -18,7 +18,7 @@ import fr.umlv.util.Regex;
  * This class implements the interface ArchiveOptionChecker. It implements
  * methods for the zip format. Default verbose mode is false.
  * 
- * @author Gimeno & Bourgain
+ * @author Gimeno and Bourgain
  */
 public class ZipFileFormat implements ArchiveOptionChecker {
 

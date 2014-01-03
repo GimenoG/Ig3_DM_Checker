@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * This interface is for archive.
  * 
- * @author Gimeno & Bourgain
+ * @author Gimeno and Bourgain
  * 
  */
 
@@ -40,7 +40,7 @@ public interface ArchiveOptionChecker {
 	 * 
 	 * @param src
 	 *            path
-	 * @param ends
+	 * @param begin
 	 *            prefix
 	 * @return true is there is a file or directory that ends with ends
 	 *         otherwise false

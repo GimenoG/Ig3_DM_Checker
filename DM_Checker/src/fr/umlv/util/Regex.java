@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 /**
  * This class is used to process strings
  * 
- * @author Gimeno & Bourgain
+ * @author Gimeno and Bourgain
  * 
  */
 public class Regex {

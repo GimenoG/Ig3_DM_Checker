@@ -16,7 +16,7 @@ import javax.swing.JTextArea;
  * This class is in charge of manage the items of the swing clooection wich look
  * with the criterion of DM Checker.
  * 
- * @author Gimeno & Bourgain
+ * @author Gimeno and Bourgain
  * 
  */
 
@@ -78,7 +78,6 @@ public class IHMCreator {
 	 * The constructor need - the panel in which he will add the items - the
 	 * creterion to add to the label - the title of the criterion
 	 * 
-	 * @see swing
 	 * 
 	 * @param panel
 	 * @param title

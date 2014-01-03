@@ -6,7 +6,7 @@ import java.io.IOException;
 /**
  * This class is used to write to a text file
  * 
- * @author Gimeno & Bourgain
+ * @author Gimeno and Bourgain
  * 
  */
 public class Log {

@@ -26,7 +26,7 @@ import fr.umlv.util.TxtExploreur;
  * This class is the interface human/ machine of the project DM Checker (option
  * -4). She use swing.
  * 
- * @author Gimeno & Bourgain
+ * @author Gimeno and Bourgain
  * 
  */
 
@@ -183,7 +183,6 @@ public class IHM extends JFrame {
 	/**
 	 * save the report in the file nots.
 	 * 
-	 * @see TxtExploreur, IHMCreator
 	 */
 	public void saveReport() {
 		StringBuilder sb = new StringBuilder();
@@ -198,9 +197,8 @@ public class IHM extends JFrame {
 	}
 
 	/**
-	 * Set a report with the good criterion if he exsit
+	 * Set a report with the good criterion if he exist
 	 * 
-	 * @see TxtExploreur, IHMCreator
 	 */
 	public void setReport() {
 		ArrayList<String> r = (ArrayList<String>) TxtExploreur.getReport(

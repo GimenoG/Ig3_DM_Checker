@@ -7,7 +7,7 @@ import javax.swing.AbstractAction;
 /**
  * this class extends AbstractAction. She manage the button of the windows
  * 
- * @author Gimeno & Bourgain
+ * @author Gimeno and Bourgain
  * 
  */
 
