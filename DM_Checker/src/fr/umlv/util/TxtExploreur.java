@@ -100,7 +100,6 @@ public class TxtExploreur {
 	 * @param id, path
 	 * @return
 	 */
-	//TODO test on work
 	public static List<String> getReport(String id, String pathNots){
 		ArrayList<String> report = new ArrayList<>();
 		//System.out.println("report, id "+id+", path "+pathNots);
