@@ -3,7 +3,12 @@ package fr.umlv.main;
 import com.martiansoftware.jsap.JSAPException;
 
 import fr.umlv.util.Options;
-
+/**
+ * Programme entry
+ * 
+ * @author Gimeno & Bourgain
+ * 
+ */
 public class Main {
 
 	public static void main(String[] args) throws JSAPException {

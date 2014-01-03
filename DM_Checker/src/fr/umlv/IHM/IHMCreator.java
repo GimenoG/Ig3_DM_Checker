@@ -5,13 +5,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ButtonGroup;
-import javax.swing.ButtonModel;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
+
+/**
+ * This class is in charge of manage the items of the swing clooection wich look with the criterion of DM Checker.
+ * 
+ * @author Gimeno & Bourgain
+ * 
+ */
 
 public class IHMCreator {
 	
@@ -43,7 +49,10 @@ public class IHMCreator {
 			}
 		}
 	}
-	
+	/**
+	 * unset all the swing item of the criterions
+	 * 
+	 */
 	public void clean(){
 		textZone.setText("");
 	}
@@ -59,7 +68,18 @@ public class IHMCreator {
 		return m;
 		
 	}
-	
+	/**
+	 * The constructor need
+	 * - the panel in which he will add the items
+	 * - the creterion to add to the label
+	 * - the title of the criterion
+	 * 
+	 * @see swing
+	 * 
+	 * @param panel
+	 * @param title
+	 * @param criterions
+	 */
 	public IHMCreator(JPanel panel, String title, String criterions){
 		allButtons=new ArrayList<>();
 		titleLabel = new JLabel(title);

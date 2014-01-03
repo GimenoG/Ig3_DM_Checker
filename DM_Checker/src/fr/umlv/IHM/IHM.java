@@ -15,6 +15,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is the interface human/ machine of the project DM Checker (option -4).
+ * She use swing.
+ * 
+ * @author Gimeno & Bourgain
+ * 
+ */
+
 public class IHM extends JFrame{
 	
 	private JLabel nameLableTop;
@@ -44,6 +52,14 @@ public class IHM extends JFrame{
 	private ArrayList<IHMCreator> cr;
 	private ArrayList<String> existingReport;
 	
+	/**
+	 * The constructor need the param give with the option. 
+	 * First is the exe name
+	 * Second is the path of the report
+	 * Third is the data of the student
+	 * 
+	 * @param param String[3]
+	 */
 	public IHM(String [] param){
 		super("DMChecker");
 		//pour savoir ou en est l'utilisateur
@@ -140,20 +156,25 @@ public class IHM extends JFrame{
 	}
 	/**
 	 * 
-	 * Edit the message at the top of the window
+	 * Edit the message at the top of the window with the name of the student curentlly set
 	 * 
-	 * @param texte
 	 */
 	public void editNameLabelTop(){
 		nameLableTop.setText(data.get(indice)[2]);
 	}
+	/**
+	 * Edit the message at the top of the window with a specific text
+	 * 
+	 * @param texte String
+	 */
 	public void editNameLabelTop(String texte){
-		String message = "<html><body>"+texte+"</body></html>";
-		nameLableTop.setText(message);
+		nameLableTop.setText(texte);
 	}
 
 	
-	
+	/**
+	 * unset all the criterions (nots and comments) of the project
+	 */
 	
 	public void cleanSheet(){
 		editNameLabelTop(Regex.idName(getCurrentName()));
@@ -162,7 +183,9 @@ public class IHM extends JFrame{
 		}
 	}
 	/**
-	 * save the report
+	 * save the report in the file nots.
+	 * 
+	 * @see TxtExploreur, IHMCreator
 	 */
 	public void saveReport(){
 		StringBuilder sb = new StringBuilder();
@@ -173,10 +196,14 @@ public class IHM extends JFrame{
 		}
 		TxtExploreur.saveReport(reportPath+File.separator+"nots.txt", sb.toString().substring(0,sb.toString().length()-2), data.get(indice)[0]);
 	}
+	/**
+	 * Set a report with the good criterion if he exsit
+	 * 
+	 * @see TxtExploreur, IHMCreator
+	 */
 	public void setReport(){
 		ArrayList<String> r = (ArrayList<String>) TxtExploreur.getReport(data.get(indice)[0], reportPath+File.separator+"nots.txt");
 		if (r!=null){
-			//TODO set radiogroup
 			int i=0;
 			//on update tout les champs les un après les autre
 			for(IHMCreator c : cr){
@@ -188,6 +215,12 @@ public class IHM extends JFrame{
 
 		}
 	}
+	/**
+	 * return the button
+	 * 
+	 * @see JButton
+	 * @return JButton
+	 */ 
 	public JButton getButtonPrevious() {
 		return buttonPrevious;
 	}
@@ -231,11 +264,17 @@ public class IHM extends JFrame{
 	public String getCurrentName(){
 		return data.get(indice)[2];
 	}
+	/**
+	 * update the current student
+	 */
 	public void incrementIndice(){
 		if(indice<data.size()){
 			indice++;
 		}
 	}
+	/**
+	 * update the current student
+	 */
 	public void decrementIndice(){
 		if(indice>0){
 			indice--;
@@ -252,14 +291,19 @@ public class IHM extends JFrame{
 			System.err.println("Impossible de lancer le programme "+exec+"\n");
 		}
 	}
+	/**
+	 * destroy the exe with is currently run
+	 */
 	public void stopExe(){
 		if(execlaunch){
 			proc.destroy();
 			execlaunch=false;
 		}
 	}
+	/**
+	 * set the exe of a student
+	 */
 	public void setExe(){
-		//System.out.println(exec=reportPath+File.separator+data.get(indice)[1]+File.separator+exename+".jar");
 		exec=reportPath+File.separator+data.get(indice)[1]+File.separator+exename+".jar";
 	}
 }

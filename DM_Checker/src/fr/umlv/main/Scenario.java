@@ -15,12 +15,10 @@ import fr.umlv.junit.Junit;
 import fr.umlv.util.Messages;
 import fr.umlv.util.Options;
 /**
+ * this class launch the good test chose by the user.
  * 
+ * @author Gimeno & Bourgain
  * 
- * 
- * 
- * @author Meriadoc
- *
  */
 public class Scenario {
 	
@@ -43,12 +41,9 @@ public class Scenario {
 		private void optionRefused(String option, String param){
 			System.out.println(Messages.getOutputString(option, param));
 		}
-	
-	
-	//On ne dezip pas sur l'option -1
 	/**
-	 * Check les options sur une archive return booleen pour savoir si on dezip
-	 * methode privé on ne fait pas de javadoc
+	 * Check all the option on an archive. It's return a boolean to know if the rar can be extract.
+	 * need the path of the rar
 	 * 
 	 * @param path
 	 */
@@ -118,7 +113,11 @@ public class Scenario {
 		}
 		return true;
 	}
-	
+	/**
+	 * check all the archive in the path and extract there if they are OK
+	 * Need the path of the rar of rar
+	 * @param path
+	 */
 	public void checkArchiveSerial(String path){
 		//init : extrait l'archive d'archive
 		ArrayList<String> paths;
@@ -144,7 +143,11 @@ public class Scenario {
 			}
 		}
 	}
-	
+	/**
+	 * init the parameter which are need to the HMI
+	 *
+	 * @return List of the param needed
+	 */
 	public ArrayList<String> initIHM(){
 		String path=options.getSource();
 		ArrayList<String> p = optCheck.getPathArchive(path);
@@ -160,22 +163,24 @@ public class Scenario {
 			return null;
 		}
 	}
-	
+	/**
+	 * for the option  -3 of DM Checker
+	 */
 	public void jUnitTesting(){
 		
 		//on lance les jUnits
 		try {
 			junit.execute(options.getJUnitPath(), options.getSource(), options.getResultatPath() , true);
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
-	
+	/**
+	 * for the option -4 of DM Checker
+	 */
 	private boolean ihmMode(){
 		
 		//String[] param = options.getParam();
@@ -204,7 +209,8 @@ public class Scenario {
 		return true;
 	}
 	/**
-	 * suprimmer les zip a la fin !!
+	 * Entry point of the class
+	 * launch the good process give with the option
 	 */
 	public void start(){
 		optCheck.setVerbose(options.isVerbose());

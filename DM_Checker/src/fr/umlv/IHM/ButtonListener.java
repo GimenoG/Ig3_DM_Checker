@@ -4,6 +4,13 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 
+/**
+ * this class extends AbstractAction. She manage the button of the windows
+ * 
+ * @author Gimeno & Bourgain
+ * 
+ */
+
 public class ButtonListener extends AbstractAction {
 
 	private IHM ihm;

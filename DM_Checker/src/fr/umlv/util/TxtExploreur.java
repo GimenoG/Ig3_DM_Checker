@@ -9,8 +9,14 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-//TODO test unitaire
-
+/**
+ * This class is able to manage the reading and writting in the text files for the HMI.
+ * 
+ * @see IHM
+ * 
+ * @author Gimeno & Bourgain
+ *
+ */
 public class TxtExploreur {
 	private TxtExploreur(){}
 	/**
@@ -89,7 +95,7 @@ public class TxtExploreur {
 	}
 	/**
 	 * 
-	 * Take an id and return the report if he existe, else it's return null
+	 * Take an id and return the report if he exist, else it's return null
 	 * 
 	 * @param id, path
 	 * @return

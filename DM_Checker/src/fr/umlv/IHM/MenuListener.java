@@ -5,7 +5,12 @@ import java.util.ArrayList;
 
 import javax.swing.AbstractAction;
 import javax.swing.JMenuItem;
-
+/**
+ * this class extends AbstractAction. She manage the menu of the windows
+ * 
+ * @author Gimeno & Bourgain
+ * 
+ */
 public class MenuListener extends AbstractAction{
 	
 	private IHM ihm;

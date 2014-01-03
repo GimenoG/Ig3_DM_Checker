@@ -1,4 +1,4 @@
-	package fr.umlv.util;
+package fr.umlv.util;
 
 import java.util.Iterator;
 
@@ -13,11 +13,9 @@ import com.martiansoftware.jsap.UnflaggedOption;
  * This class is able to manage the option which are antry by the user.
  * Options use the JSAP librairy, more information on http://www.martiansoftware.com/jsap/
  * 
- * @author Meriadoc
+ * @author Gimeno & Bourgain
  *
  */
-
-
 public class Options {
 	private static JSAP jsap;
 	private static JSAPResult config;
@@ -44,7 +42,7 @@ public class Options {
 	
 	/**
 	 * Create the software options able to be use in the programme.
-	 * It's a static m�thode whiche can be use evrywhere in the code.
+	 * It's a static methode whiche can be use evrywhere in the code.
 	 * 
 	 * Only must be use � the initiation of the soft.
 	 * 
@@ -72,7 +70,12 @@ public class Options {
 			return 3;
 		return 4;
 	}
-	
+	/**
+	 * Create all the option needed for the project DM Checker
+	 * 
+	 * 
+	 * @throws JSAPException
+	 */
 	
 	public void createOptions() throws JSAPException{
 		
