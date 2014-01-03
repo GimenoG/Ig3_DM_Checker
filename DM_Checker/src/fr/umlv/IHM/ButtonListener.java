@@ -22,7 +22,7 @@ public class ButtonListener extends AbstractAction {
 			ihm.incrementIndice();
 			ihm.editNameLabelTop();
 			ihm.cleanSheet();
-			//ihm.setReport();
+			ihm.setReport();
 			//arret du precessus
 			ihm.stopExe();
 			ihm.getButtonRun().setText("Run");
@@ -32,7 +32,7 @@ public class ButtonListener extends AbstractAction {
 			ihm.decrementIndice();
 			ihm.editNameLabelTop();
 			ihm.cleanSheet();
-			//ihm.setReport();
+			ihm.setReport();
 			ihm.stopExe();
 			//arret du processus
 			ihm.setExe();

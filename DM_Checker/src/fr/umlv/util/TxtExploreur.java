@@ -65,16 +65,19 @@ public class TxtExploreur {
 	 * return all the student number which are stored in the output path in parameter
 	 */
 	public static List<String> getReportStored(String reportPath){
+		//TODO leve une exeption mais retourne la bonne liste -> a instruire non bloquant
 		ArrayList<String> numberStudents= new ArrayList<>();
 		try{
 			InputStream ips=new FileInputStream(reportPath); 
 			InputStreamReader ipsr=new InputStreamReader(ips);
 			BufferedReader br=new BufferedReader(ipsr);
 			String [] ligne;
-			int i=0;
 			while ((ligne=br.readLine().split(":"))!=null){
+				if(ligne[0].compareTo("")==0){
+				}
+				else{
 				 numberStudents.add(ligne[0]);
-				 i++;
+				}
 				
 			}
 			br.close(); 
@@ -94,6 +97,7 @@ public class TxtExploreur {
 	//TODO test on work
 	public static List<String> getReport(String id, String pathNots){
 		ArrayList<String> report = new ArrayList<>();
+		System.out.println("report");
 		try{
 			InputStream ips=new FileInputStream(pathNots); 
 			InputStreamReader ipsr=new InputStreamReader(ips);
@@ -101,6 +105,7 @@ public class TxtExploreur {
 			String [] ligne;
 			while ((ligne=br.readLine().split(":"))!=null){
 				//split la ligne poiur recup l'id
+				System.out.println(ligne[0]);
 				if(ligne[0].compareTo(id)==0){
 					//recup le report
 					for(int i=2;i<ligne.length;i++){
@@ -117,29 +122,56 @@ public class TxtExploreur {
 		}
 		return null;
 	}
-	
-	public void saveReport(String path, String msg, String id){
-		//TODO check msg
+	/**
+	 * Save a report if he is new
+	 * Else update the report
+	 * 
+	 * @param path
+	 * @param msg
+	 * @param id
+	 */
+	public static void saveReport(String path, String msg, String id){
+		//On creer un fichier temporaire qu'on edite au fur et a mesure et qu'on renome à la fin
+		String tmpPath=path.substring(0, path.length()-7);
+		tmpPath=tmpPath+"tmpnots.txt";
+		//System.out.println(tmpPath);
 		try {
 			InputStream ips=new FileInputStream(path); 
 			InputStreamReader ipsr=new InputStreamReader(ips);
 			BufferedReader br=new BufferedReader(ipsr);
 			String line;
-			int i=0;
+			boolean writeline=false;
 			while ((line=br.readLine())!=null){
 				//Si la ligne existe deja on la remplace par elle meme sinon on recopie la ligne
+				//System.out.println("Test sur "+line.split(":")[0]+" sur la ligne et "+id+" de l'ihm");
 				if(line.split(":")[0].compareTo(id)==0){
-					Log.writeText(path	,  msg);
-					return;
+					System.out.println("remplace par "+msg);
+					writeline=true;
+					Log.writeText(tmpPath	,  msg);
 				}
 				else{
-					Log.writeText(path, line);
+					if(line.split(":")[0].compareTo("")==0){
+					}
+					else{
+						Log.writeText(tmpPath, line);
+					}
 				}
-				
+					
+			}
+			//si la ligne n'est pa reecrite on doit l'ajouter
+			if (!writeline){
+				Log.writeText(tmpPath	,  msg);
 			}
 			br.close(); 
 		} catch (IOException e) {
 			System.err.println("Ecriture impossible dans "+path+File.separator+"nots.txt");
 		}
+		File nots = new File(path);
+	    File tmpnots = new File(tmpPath);
+	    //effece le fichier tmp pour qu'il ne reste que le fichier modifier
+	    if(nots.delete()){
+	    	tmpnots.renameTo(new File(path));
+	    	
+	    }
 	}
 }

@@ -58,11 +58,10 @@ public class IHM extends JFrame{
 		//recup les donnée eleves
 		data=(ArrayList<String[]>) TxtExploreur.getDataFile(reportPath+File.separator+param[2]);
 		//recupére les critére
-		//TODO bug : recupere que le premier
+		//TODO d'affichage bug : on ne voi que le premier (titre) -> non bloquant
 		criterion=(ArrayList<String[]>) TxtExploreur.getCriterions(reportPath+File.separator+param[3]);
 		//Creation du receptable a block d'evaluation
 		cr = new ArrayList<>();
-		//TODO bug mauvaise recupération des argument existant dans TxtExploreur.getReportStored
 		if((existingReport=(ArrayList<String>) TxtExploreur.getReportStored(reportPath+File.separator+"nots.txt")).isEmpty()){
 			try {
 				//creation du fichier de nots
@@ -171,14 +170,16 @@ public class IHM extends JFrame{
 		for(IHMCreator c : cr){
 			sb.append(c.getNote()+":"+c.getComment()+":");
 		}
-		try {
+		/*try {
+			
 			Log.writeText(reportPath+File.separator+"nots.txt"	,  sb.toString().substring(0,sb.toString().length()-2));
 		} catch (IOException e) {
 			System.err.println("Ecriture impossible dans "+reportPath+File.separator+"nots.txt");
-		}
+		}*/
+		TxtExploreur.saveReport(reportPath+File.separator+"nots.txt", sb.toString().substring(0,sb.toString().length()-2), data.get(indice)[0]);
 	}
 	public void setReport(){
-		ArrayList<String> r= (ArrayList<String>) TxtExploreur.getReport(reportPath, nameLableTop.getText());
+		ArrayList<String> r = (ArrayList<String>) TxtExploreur.getReport(reportPath+File.separator+"nots.txt", nameLableTop.getText());
 		if (r!=null){
 			//TODO set radiogroup
 

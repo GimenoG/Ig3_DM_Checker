@@ -42,6 +42,7 @@ public class MenuListener extends AbstractAction{
 					ihm.cleanSheet();
 					ihm.getButtonRun().setText("Run");
 					ihm.setExe();
+					ihm.setReport();
 					return; //TODO c'est moche non ?
 				}
 					
