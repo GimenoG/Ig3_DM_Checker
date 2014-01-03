@@ -83,7 +83,7 @@ public class TxtExploreur {
 			br.close(); 
 		}		
 		catch (Exception e){
-			System.err.println("Error on the file "+reportPath+" in the fonction getReportStored");
+			//System.err.println("Error on the file "+reportPath+" in the fonction getReportStored");
 		}
 		return numberStudents;
 	}
@@ -91,13 +91,13 @@ public class TxtExploreur {
 	 * 
 	 * Take an id and return the report if he existe, else it's return null
 	 * 
-	 * @param id
+	 * @param id, path
 	 * @return
 	 */
 	//TODO test on work
 	public static List<String> getReport(String id, String pathNots){
 		ArrayList<String> report = new ArrayList<>();
-		System.out.println("report");
+		//System.out.println("report, id "+id+", path "+pathNots);
 		try{
 			InputStream ips=new FileInputStream(pathNots); 
 			InputStreamReader ipsr=new InputStreamReader(ips);
@@ -105,10 +105,11 @@ public class TxtExploreur {
 			String [] ligne;
 			while ((ligne=br.readLine().split(":"))!=null){
 				//split la ligne poiur recup l'id
-				System.out.println(ligne[0]);
+				//System.out.println(ligne[0]+" = "+id);
 				if(ligne[0].compareTo(id)==0){
 					//recup le report
 					for(int i=2;i<ligne.length;i++){
+						//System.out.println(ligne[i]);
 						report.add(ligne[i]);
 					}
 					br.close();
@@ -143,11 +144,12 @@ public class TxtExploreur {
 			boolean writeline=false;
 			while ((line=br.readLine())!=null){
 				//Si la ligne existe deja on la remplace par elle meme sinon on recopie la ligne
-				//System.out.println("Test sur "+line.split(":")[0]+" sur la ligne et "+id+" de l'ihm");
+				//TODO sans les syso le code bug -> mineur
+				System.out.println("Test sur "+line.split(":")[0]+" sur la ligne et "+id+" de l'ihm");
 				if(line.split(":")[0].compareTo(id)==0){
 					System.out.println("remplace par "+msg);
 					writeline=true;
-					Log.writeText(tmpPath	,  msg);
+					Log.writeText(tmpPath, msg);
 				}
 				else{
 					if(line.split(":")[0].compareTo("")==0){

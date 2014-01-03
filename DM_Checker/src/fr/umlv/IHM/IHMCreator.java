@@ -1,6 +1,7 @@
 package fr.umlv.IHM;
 
 import java.awt.Dimension;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ButtonGroup;
@@ -17,21 +18,16 @@ public class IHMCreator {
 	private JLabel titleLabel;
 	private JLabel criterionsLabel;
 	private ButtonGroup noteGroup;
-	private JRadioButton radioButton0;
-	private JRadioButton radioButton1;
-	private JRadioButton radioButton2;
-	private JRadioButton radioButton3;
-	private JRadioButton radioButton4;
-	private JRadioButton radioButton5;
-	private JRadioButton radioButton6;
-	private JRadioButton radioButton7;
-	private JRadioButton radioButton8;
-	private JRadioButton radioButton9;
-	private JRadioButton radioButton10;
+	private ArrayList<JRadioButton> allButtons;
 	private JTextArea textZone;
 	
-	public int getNote(){
-		return noteGroup.getButtonCount();
+	public String getNote(){
+		for (JRadioButton jrb : allButtons){
+			if (jrb.getMnemonic() == noteGroup.getSelection().getMnemonic()){
+				return Integer.toString(jrb.getMnemonic());
+			}
+		}
+		return "";
 	}
 	
 	public String getComment(){
@@ -39,6 +35,13 @@ public class IHMCreator {
 	}
 	public void setComment(String c){
 		textZone.setText(c);
+	}
+	public void setNot(String not){
+		for (JRadioButton jrb : allButtons){
+			if (jrb.getMnemonic() == Integer.parseInt(not)){
+				noteGroup.setSelected(jrb.getModel(), true);
+			}
+		}
 	}
 	
 	public void clean(){
@@ -58,6 +61,7 @@ public class IHMCreator {
 	}
 	
 	public IHMCreator(JPanel panel, String title, String criterions){
+		allButtons=new ArrayList<>();
 		titleLabel = new JLabel(title);
 		titleLabel.setHorizontalAlignment(JLabel.CENTER);
 		titleLabel.setPreferredSize(new Dimension(585, 20));
@@ -67,43 +71,21 @@ public class IHMCreator {
 		textZone = new JTextArea(3, 52);
 		
 		noteGroup = new ButtonGroup();
-		radioButton0 = new JRadioButton("0");
-		radioButton1 = new JRadioButton("1");
-		radioButton2 = new JRadioButton("2");
-		radioButton3 = new JRadioButton("3");
-		radioButton4 = new JRadioButton("4");
-		radioButton5 = new JRadioButton("5");
-		radioButton6 = new JRadioButton("6");
-		radioButton7 = new JRadioButton("7");
-		radioButton8 = new JRadioButton("8");
-		radioButton9 = new JRadioButton("9");
-		radioButton10 = new JRadioButton("10");
-		noteGroup.add(radioButton0);
-		noteGroup.add(radioButton1);
-		noteGroup.add(radioButton2);
-		noteGroup.add(radioButton3);
-		noteGroup.add(radioButton4);
-		noteGroup.add(radioButton5);
-		noteGroup.add(radioButton6);
-		noteGroup.add(radioButton7);
-		noteGroup.add(radioButton8);
-		noteGroup.add(radioButton9);
-		noteGroup.add(radioButton10);
-		
+		//creation de tout les bouton
+		for(int i = 0; i<10; i++){
+			allButtons.add(new JRadioButton(Integer.toString(i)));
+		}
+		int j = 0;
+		for(JRadioButton jrb : allButtons){
+			jrb.setMnemonic(j);
+			j++;
+		}
+		//creation des lien avec le boutton groupe et le panel
+		for(JRadioButton jrb : allButtons){
+			noteGroup.add(jrb);
+			panel.add(jrb);
+		}
 		panel.add(titleLabel);
-		
-		panel.add(radioButton0);
-		panel.add(radioButton1);
-		panel.add(radioButton2);
-		panel.add(radioButton3);
-		panel.add(radioButton4);
-		panel.add(radioButton5);
-		panel.add(radioButton6);
-		panel.add(radioButton7);
-		panel.add(radioButton8);
-		panel.add(radioButton9);
-		panel.add(radioButton10);
-		
 		panel.add(criterionsLabel);
 		
 		panel.add(textZone);

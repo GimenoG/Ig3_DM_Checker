@@ -79,6 +79,7 @@ public class IHM extends JFrame{
 		editNameLabelTop(Regex.idName(data.get(indice)[2]));
 		//Mise en place de l'exuctatble dans le dossier de l'etudiant actuelle
 		setExe();
+		setReport();
 	}
 	private void buildWindow(){
 			WindowListener wl = new WindowAdapter() {
@@ -100,7 +101,7 @@ public class IHM extends JFrame{
 		
 		//Labels create zone
 		nameLableTop = new JLabel("<html><body>name forname<br>name forname</body></html>");
-		nameLableTop.setPreferredSize(new Dimension(550, 40));
+		nameLableTop.setPreferredSize(new Dimension(560, 40));
 		
 		//Buttons create zone
 		buttonPrevious = new JButton(new ButtonListener(this, "<"));
@@ -161,7 +162,7 @@ public class IHM extends JFrame{
 		}
 	}
 	/**
-	 * save the rapport
+	 * save the report
 	 */
 	public void saveReport(){
 		StringBuilder sb = new StringBuilder();
@@ -170,18 +171,20 @@ public class IHM extends JFrame{
 		for(IHMCreator c : cr){
 			sb.append(c.getNote()+":"+c.getComment()+":");
 		}
-		/*try {
-			
-			Log.writeText(reportPath+File.separator+"nots.txt"	,  sb.toString().substring(0,sb.toString().length()-2));
-		} catch (IOException e) {
-			System.err.println("Ecriture impossible dans "+reportPath+File.separator+"nots.txt");
-		}*/
 		TxtExploreur.saveReport(reportPath+File.separator+"nots.txt", sb.toString().substring(0,sb.toString().length()-2), data.get(indice)[0]);
 	}
 	public void setReport(){
-		ArrayList<String> r = (ArrayList<String>) TxtExploreur.getReport(reportPath+File.separator+"nots.txt", nameLableTop.getText());
+		ArrayList<String> r = (ArrayList<String>) TxtExploreur.getReport(data.get(indice)[0], reportPath+File.separator+"nots.txt");
 		if (r!=null){
 			//TODO set radiogroup
+			int i=0;
+			//on update tout les champs les un après les autre
+			for(IHMCreator c : cr){
+				c.setNot(r.get(i));
+				i++;
+				c.setComment(r.get(i));
+				i++;
+			}
 
 		}
 	}
