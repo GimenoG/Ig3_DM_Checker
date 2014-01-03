@@ -128,7 +128,6 @@ public class Options {
 				.setListSeparator(',')
 				.setHelp("Check the lack of the file named <param> in the repository. The head directory isn't concern by is option.\nUse : -I <regex name> or --interdit <regex name>"));
 
-		// Option force : pas de long flag !
 		FlaggedOption optForceI = (FlaggedOption) new FlaggedOption("optForceI")
 				.setList(true)
 				.setShortFlag('I')
